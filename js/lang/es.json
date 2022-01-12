@@ -1,0 +1,102 @@
+{
+  "hero": {
+    "prompt": "Ingresa tu nombre, valiente.",
+    "tooLong": "Tu nombre es demasiado largo, prueba con uno más corto.",
+    "class": ""
+  },
+  "store": {
+    "title": "Tienda",
+    "buildingsTitle": "Edificios",
+    "upgradesTitle": "Mejoras",
+    "buildings": [
+      {
+        "id": 1,
+        "name": "Posada",
+        "description": "Un lugar donde vivir.",
+        "benefits": [
+          {
+            "description": "Produce +0.5 de oro por segundo."
+          }
+        ],
+        "quote": "Hogar, dulce hogar."
+      },
+      {
+        "id": 2,
+        "name": "Taberna",
+        "description": "Tomar antes de salir.",
+        "benefits": [
+          {
+            "description": "Produce +1 de oro por segundo."
+          },
+          {
+            "description": "Recompensa +1 de oro por quest."
+          }
+        ],
+        "quote": "Hip!"
+      },
+      {
+        "id": 3,
+        "name": "Campamento Maderero",
+        "description": "Producción madera.",
+        "benefits": [
+          {
+            "description": "Produce +5 de oro por segundo."
+          }
+        ],
+        "quote": "Cuenta la leyenda..."
+      },
+      {
+        "id": 4,
+        "name": "Minas Oscuras",
+        "description": "Un lugar muy oscuro...",
+        "benefits": [
+          {
+            "description": "Produce +10 de oro por segundo."
+          },
+          {
+            "description": "Bonoficación +0.05% de recompensa por quest."
+          }
+        ],
+        "quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      }
+    ]
+  },
+  "benefits": "Beneficios",
+  "quantity": "Cantidad",
+  "coins": "oro",
+  "chest": {
+    "title": "Tesoro",
+    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center>Haz clic para obtener tu recompenza</center></i>"
+  },
+  "formatUnit": {
+    "units": [
+      " mil",
+      " millones",
+      " billones",
+      " trillones",
+      " cuadrillones",
+      " quintillones",
+      " sextillones",
+      " septillones",
+      " octillones",
+      " nonillones"
+    ],
+    "prefixes": ["", "un", "duo", "tre", "cuatro", "quin", "sex", "septen", "octo", "novem"],
+    "suffixes": [
+      "decillones",
+      "vigintillones",
+      "trigintillones",
+      "cuadragintillones",
+      "quincuagintillones",
+      "sexagintillones",
+      "septuagintillones",
+      "octogintillones",
+      "nonagintillones"
+    ]
+  },
+  "footer": {
+    "twitter": "Visita mi Twitter",
+    "youtube": "Mi canal de YouTube, donde subo gameplays de variedad de juegos, especialmente de terror.<br />Nada que ver con Donjon Quest Clicker.",
+    "github": "Mi GitHub personal. Podrás encontrar todos mis proyectos públicos, incluso el código de Donjon Quest Clicker."
+  }
+}

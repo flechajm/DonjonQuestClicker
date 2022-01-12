@@ -1,0 +1,82 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Donjon Quest Clicker</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Merriweather:900&amp;subset=latin,latin-ext"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/game/libs/helper.js"></script>
+    <script src="js/game/libs/math.js"></script>
+    <script src="js/game/libs/tooltip.js "></script>
+    <script src="js/game/libs/language_manager.js"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="tooltip">
+        <div class="header-wrapper">
+          <div class="icon"></div>
+          <div class="container">
+            <div class="title"><span></span></div>
+            <div class="subtitle"><span></span></div>
+          </div>
+          <div class="cost">
+            <div class="value"></div>
+            <div class="hidden-value"></div>
+          </div>
+        </div>
+        <div class="content"></div>
+      </div>
+      <div id="game">
+        <div class="background"></div>
+        <div id="donjon">
+          <div id="donjon-heroname" class="band"><p></p></div>
+          <div id="donjon-stats" class="band">
+            <div id="coins"></div>
+          </div>
+          <div id="donjon-stats-persec" class="band">
+            <div id="coins" class="per-sec">0</div>
+          </div>
+          <div id="chest-reward"></div>
+          <div id="chest-button"></div>
+          <div id="light" class="rotate"></div>
+          <div id="log">
+            <div class="text"></div>
+          </div>
+        </div>
+        <div id="divider-buildings" class="divider"></div>
+        <div id="store">
+          <div class="title big"><span></span></div>
+          <div id="store-wrap">
+            <div id="buildings" class="store-section"></div>
+          </div>
+        </div>
+        <div class="divider"></div>
+      </div>
+    </div>
+    <footer>
+      <div class="by">
+        Donjon Quest Clicker © 2022 by <a href="https://flechajm.github.io" target="_blank">John Arrow Games</a>
+      </div>
+      <div class="social twitter"><a href="https://twitter.com/JohnArrowGames" target="_blank">Twitter</a></div>
+      <div class="social youtube"><a href="https://youtube.com/JohnArrowGames" target="_blank">YouTube</a></div>
+      <div class="social github"><a href="https://github.com/flechajm" target="_blank">GitHub</a></div>
+      <div class="credits">Credits</div>
+    </footer>
+  </body>
+  <script src="js/game/core/game_info.js"></script>
+  <script src="js/game/core/game_config.js"></script>
+  <script src="js/game/core/game_loop.js"></script>
+  <script src="js/game/core/game_buildings.js"></script>
+  <script src="js/game/core/game_state_manager.js"></script>
+  <script src="js/game/core/game_manager.js "></script>
+  <script src="js/game/core/game_log.js"></script>
+  <script src="js/game/main.js"></script>
+</html>
