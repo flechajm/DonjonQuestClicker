@@ -12,7 +12,7 @@
   --unavailable: crimson;
   --building-section: rgba(0, 0, 0, 40%);
   --bright-high: 130%;
-  --bright-low: 80%;
+  --bright-low: 60%;
 }
 
 * {
@@ -439,7 +439,7 @@ body {
   filter: brightness(var(--bright-low));
   -webkit-filter: brightness(var(--bright-low));
 }
-#wrapper #game #store #store-wrap .building-button.disabled :nth-child(2) {
+#wrapper #game #store #store-wrap .building-button.disabled :nth-child(2):nth-child(2) {
   color: var(--unavailable);
 }
 #wrapper #game #store #store-wrap .building-button:not(.disabled):not(.locked):hover {
@@ -447,9 +447,12 @@ body {
 }
 #wrapper #game #store #store-wrap .building-button:not(.disabled):not(.locked):hover:active {
   background: url("/img/building_button.png") 0 -80px;
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
 }
 #wrapper #game #store #store-wrap .building-button:not(.disabled):not(.locked):hover:active div {
-  transform: scale(0.99);
+  transform: scale(0.97);
 }
 #wrapper #game #store #store-wrap .building-button .building-image {
   background-position: center;
