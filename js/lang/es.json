@@ -36,7 +36,7 @@
       },
       {
         "id": 3,
-        "name": "Campamento Maderero",
+        "name": "Carpintería",
         "description": "Producción madera.",
         "benefits": [
           {
@@ -94,6 +94,10 @@
       "nonagintillones"
     ]
   },
+  "welcome": "¡Bienvenido a <span style='color: var(--gold);'><b>Donjon Quest Clicker</b></span>!",
+  "version": "Versión:",
+  "lastUpdate": "Actualizado:",
+  "saveProgress": "Progreso guardado",
   "footer": {
     "twitter": "Visita mi Twitter",
     "youtube": "Mi canal de YouTube, donde subo gameplays de variedad de juegos, especialmente de terror.<br />Nada que ver con Donjon Quest Clicker.",
