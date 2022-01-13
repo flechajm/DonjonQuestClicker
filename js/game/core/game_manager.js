@@ -118,11 +118,11 @@ class GameManager {
 
       if (building.cost > gameManager.coins) {
         button.addClass("disabled");
-        button.unbind("mouseup");
+        button.unbind("click");
       } else {
         Tooltip.updateCost(gameManager.coins);
         button.removeClass("disabled");
-        button.unbind("mouseup").mouseup(function (e) {
+        button.unbind("click").click(function (e) {
           gameManager.buyBuilding(building.id, 1);
           gameManager.bindTooltipFunctionToBuildingButton(e, building);
           gameManager.checkBuildingsAvailable();
@@ -216,7 +216,7 @@ class GameManager {
     let building = GameBuildings.getById(id);
     building.cost = this.getBuildingCostUpdated(building, quantity);
 
-    let cost = $(`#building-${id} > div.building-cost`);
+    let cost = $(`#building-${id} > div.building-header > div.building-cost`);
     cost.html(building.cost.prettyNumber());
   }
 
@@ -305,7 +305,7 @@ class GameManager {
 
   #setEvents() {
     $("#chest-button")
-      .mouseup(function () {
+      .click(function () {
         $(this).removeClass("pressed");
         gameManager.openChest();
         Tooltip.hide();
@@ -335,7 +335,7 @@ class GameManager {
         }
       });
 
-    $("#donjon-heroname").mouseup(function () {
+    $("#donjon-heroname").click(function () {
       let name = window.prompt(LanguageManager.getData().hero.prompt, gameManager.getHeroName());
       if (name != null) {
         if (name.length > 30) {
