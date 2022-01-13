@@ -7,9 +7,16 @@ $(function () {
   gameManager.loadConfig().then(() => {
     GameBuildings.create();
     gameManager.start();
-    Log.newLine(5);
-    Log.write('Bienvenido a <span style="color: var(--gold);"><b>Donjon Quest Clicker</b></span>');
-    Log.write(`Versión ${GameInfo.version}`, 'grey');
+    GameLog.newLine(5);
+    GameLog.write(LanguageManager.getData().welcome);
+    GameLog.write(
+      `${LanguageManager.getData().version} ${GameInfo.version} | ${LanguageManager.getData().lastUpdate} ${
+        GameInfo.lastUpdate
+      }`,
+      "grey"
+    );
+    GameLog.write(`+ ${GameInfo.briefChanges}`, "lightslategrey");
+    GameLog.newLine(1);
   });
 });
 
