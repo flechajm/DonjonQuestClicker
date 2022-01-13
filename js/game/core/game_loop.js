@@ -25,6 +25,11 @@ class GameLoop {
      * Período de ciclo, expresado en milisegundos. Indica cada cuanto se realiza un ciclo.
      */
     this.loopPeriod = 100;
+
+    /**
+     * Período en segundos para el guardado del progreso.
+     */
+    this.savePeriod = 60;
   }
 
   gameLoop() {
@@ -83,16 +88,9 @@ class GameLoop {
   }
 
   saveLoop() {
-    // GameStateManager.save();
-    // Tooltip.setTooltip({
-    //   id: "save",
-    //   title: "Progreso guardado",
-    // });
-    // Tooltip.show();
-
-    // setTimeout(() => {
-    //   Tooltip.hide();
-    //   this.saveLoop();
-    // }, 3000);
+    setInterval(() => {
+      GameStateManager.save();
+      GameLog.writeSaveProgress();
+    }, 1000 * this.savePeriod);
   }
 }
