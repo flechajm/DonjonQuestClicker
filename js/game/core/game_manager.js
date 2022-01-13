@@ -74,16 +74,16 @@ class GameManager {
     if (!isLoading) this.coins += quantity;
 
     $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);
-    $("#coins.per-sec").html(this.coinsGain);
+    $("#coins.per-sec").html(Number.pretty(this.coinsGain));
   }
 
   #substractCoins(quantity) {
     this.coins -= quantity;
-    $("#coins").html(`${this.getCoinsFormatted()} <span>${LanguageManager.getData().coins}</span>`);
+    $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);
   }
 
   getCoinsFormatted(returnPrettyNumber) {
-    return returnPrettyNumber ? this.coins.prettyNumber() : String(this.coins).commafy();
+    return returnPrettyNumber ? Number.pretty(this.coins) : String(this.coins).commafy();
   }
 
   setHeroName(name) {
@@ -189,8 +189,8 @@ class GameManager {
   #configure() {
     this.buildingsOwned.sort((a, b) => a.id - b.id);
     this.setHeroName(this.heroName);
-    this.#welcomeBack();
     this.#addUnits();
+    this.#welcomeBack();
     this.#setUpBuildings();
   }
 
@@ -217,7 +217,7 @@ class GameManager {
     building.cost = this.getBuildingCostUpdated(building, quantity);
 
     let cost = $(`#building-${id} > div.building-header > div.building-cost`);
-    cost.html(building.cost.prettyNumber());
+    cost.html(Number.pretty(building.cost));
   }
 
   #addBuildingBenefits(buildingId, buildingQuantity) {
@@ -269,7 +269,7 @@ class GameManager {
       GameBuildings.unlockBuilding({
         id: building.id,
         name: building.name,
-        cost: building.cost.prettyNumber(),
+        cost: Number.pretty(building.cost),
         countOwned: previousBuildingOwned.quantity,
         canBuy: this.coins >= building.cost,
       });
@@ -292,13 +292,17 @@ class GameManager {
   }
 
   #welcomeBack() {
+    let coinsEarned = 0;
     if (this.getSaveDate() != null) {
       let timeElapsed = Math.floor((new Date().getTime() - this.config.saveDate) / 1000);
       console.log(
         `coinsGain: ${this.coinsGain}  coinsGainMultiplier: ${this.coinsGainMultiplier} timeElapsed: ${timeElapsed}`
       );
-      this.coins += Math.ceil(this.coinsGain * this.coinsGainMultiplier * timeElapsed);
+      coinsEarned = Math.ceil(this.coinsGain * this.coinsGainMultiplier * timeElapsed);
+      this.coins += coinsEarned;
     }
+
+    GameLog.write(String.format(LanguageManager.getData().welcomeBack, Number.pretty(coinsEarned)));
 
     this.addCoins(this.coins, true);
   }

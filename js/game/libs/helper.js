@@ -31,13 +31,30 @@ String.prototype.decrypt = function () {
 };
 
 /**
+ * Concatena cadenas con varios parámetros. El primer parámetro es una cadena de string. Los demás parámetros son variables de cualquier tipo.
+ * @returns
+ */
+String.format = function () {
+  let string = arguments[0];
+  for (var i = 0; i < arguments.length - 1; i++) {
+    var reg = new RegExp("\\{" + i + "\\}", "g");
+    // La expresión "g" al final de la declaración RegExp significa que la sustitución debería ocurrir más de una vez.
+    string = string.replace(reg, arguments[i + 1]);
+  }
+
+  return string;
+};
+
+/**
  * Embellece los números largos para que queden cortos y más descriptibles con su escala numérica.
  * @returns {String} Número corto con escala numérica.
  */
-Number.prototype.prettyNumber = function () {
-  let prettyNumber = this.toString();
+Number.pretty = function (number) {
+  if (number == null) return;
 
-  if (prettyNumber.length < 7) return this.commafy();
+  let prettyNumber = Math.ceil(number)?.toString();
+
+  if (prettyNumber.length < 7) return number.commafy();
 
   let visualLeng = 6;
   let maxLeng = 4;
@@ -47,111 +64,6 @@ Number.prototype.prettyNumber = function () {
   let unitIndex = 0;
   let units = gameManager.getUnits();
 
-  // let units2 = [
-  //   " Thousand",
-  //   " Million",
-  //   " Billion",
-  //   " Trillion",
-  //   " Quadrillion",
-  //   " Quintillion",
-  //   " Sextillion",
-  //   " Septillion",
-  //   " Octillion",
-  //   " Nonillion",
-  //   " Decillion",
-  //   " Undecillion",
-  //   " Duodecillion",
-  //   " Tredecillion",
-  //   " Quatuordecillion",
-  //   " Quindecillion",
-  //   " Sexdecillion",
-  //   " Septendecillion",
-  //   " Octodecillion",
-  //   " Novemdecillion",
-  //   " Vigintillion",
-  //   " Unvigintillion",
-  //   " Duovigintillion",
-  //   " Tresvigintillion",
-  //   " Quatuorvigintillion",
-  //   " Quinquavigintillion",
-  //   " Sesvigintillion",
-  //   " Septemvigintillion",
-  //   " Octovigintillion",
-  //   " Novemvigintillion",
-  //   " Trigintillion",
-  //   " Untrigintillion",
-  //   " Duotrigintillion",
-  //   " Trestrigintillion",
-  //   " Quatuortrigintillion",
-  //   " Quinquatrigintillion",
-  //   " Sestrigintillion",
-  //   " Septentrigintillion",
-  //   " Octotrigintillion",
-  //   " Novemtrigintillion",
-  //   " Quadragintillion",
-  //   " Unquadragintillion",
-  //   " Duoquadragintillion",
-  //   " Tresquadragintillion",
-  //   " Quatuorquadragintillion",
-  //   " Quinquaquadragintillion",
-  //   " Sesquadragintillion",
-  //   " Septemquadragintillion",
-  //   " Octoquadragintillion",
-  //   " Novemquadragintillion",
-  //   " Quinquagintillion",
-  //   " Unquinquagintillion",
-  //   " Duoquinquagintillion",
-  //   " Tresquinquagintillion",
-  //   " Quatuorquinquagintillion",
-  //   " Quinquaquinquagintillion",
-  //   " Sesquinquagintillion",
-  //   " Septenquinquagintillion",
-  //   " Octoquinquagintillion",
-  //   " Novemquinquagintillion",
-  //   " Sexagintillion",
-  //   " Unsexagintillion",
-  //   " Duosexagintillion",
-  //   " Tressexagintillion",
-  //   " Quatuorsexagintillion",
-  //   " Quinquasexagintillion",
-  //   " Sexasexagintillion",
-  //   " Septemsexagintillion",
-  //   " Octosexagintillion",
-  //   " Novemsexagintillion",
-  //   " Septuagintillion",
-  //   " Unseptuagintillion",
-  //   " Duoseptuagintillion",
-  //   " Tresseptuagintillion",
-  //   " Quatuorseptuagintillion",
-  //   " Quinquaseptuagintillion",
-  //   " Sexaseptuagintillion",
-  //   " Septenseptuagintillion",
-  //   " Octoseptuagintillion",
-  //   " Novemseptuagintillion",
-  //   " Octogintillion",
-  //   " Unoctogintillion",
-  //   " Duooctogintillion",
-  //   " Tresoctogintillion",
-  //   " Quatuoroctogintillion",
-  //   " Quinquaoctogintillion",
-  //   " Sesoctogintillion",
-  //   " Septemoctogintillion",
-  //   " Octooctogintillion",
-  //   " Novemoctogintillion",
-  //   " Nonagintillion",
-  //   " Unnonagintillion",
-  //   " Duononagintillion",
-  //   " Tresnonagintillion",
-  //   " Quatuornonagintillion",
-  //   " Quinquanonagintillion",
-  //   " Sesnonagintillion",
-  //   " Septemnonagintillion",
-  //   " Octononagintillion",
-  //   " Novemnonagintillion",
-  //   " Centillion",
-  //   " Uncentillion",
-  // ];
-
   for (var g = 0; g < prettyNumber.length; g++) {
     if (prettyNumber.length <= visualLeng) {
       if (leng < maxLeng) {
@@ -160,11 +72,11 @@ Number.prototype.prettyNumber = function () {
 
       if (prettyNumber.length === leng) {
         if (sliceMin > 2) {
-          prettyNumber = String(this.toString().slice(0, sliceMin)).commafy() + units[unitIndex];
+          prettyNumber = String(number.toString().slice(0, sliceMin)).commafy() + units[unitIndex];
           break;
         } else {
           prettyNumber =
-            this.toString().slice(0, sliceMin) + "." + this.toString().slice(sliceMin, sliceMax) + units[unitIndex];
+            number.toString().slice(0, sliceMin) + "." + number.toString().slice(sliceMin, sliceMax) + units[unitIndex];
           break;
         }
       } else {
