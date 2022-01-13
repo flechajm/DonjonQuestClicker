@@ -5,8 +5,6 @@ $(function () {
   setFooterTooltips();
   gameManager = GameStateManager.load() ?? new GameManager({});
   gameManager.loadConfig().then(() => {
-    GameBuildings.create();
-    gameManager.start();
     GameLog.newLine(5);
     GameLog.write(LanguageManager.getData().welcome);
     GameLog.write(
@@ -17,6 +15,9 @@ $(function () {
     );
     GameLog.write(`+ ${GameInfo.briefChanges}`, "lightslategrey");
     GameLog.newLine(1);
+
+    GameBuildings.create();
+    gameManager.start();
   });
 });
 
