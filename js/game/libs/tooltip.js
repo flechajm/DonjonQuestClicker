@@ -71,11 +71,10 @@ class Tooltip {
       display: icon ? "block" : "none",
     });
 
-
     this.#headerContainer.find("div.title").html(title ?? "");
     this.#headerContainer.find("div.subtitle").html(subtitle ?? "");
     this.#cost.find("div.hidden-value").html(cost ?? "");
-    this.#cost.find("div.value").html(cost?.prettyNumber() ?? "");
+    this.#cost.find("div.value").html(Number.pretty(cost) ?? "");
     this.#cost.find("div.value").toggleClass("unavailable", !canBuy);
     this.#content.html(description?.replaceAll("@separator@", separator));
     this.#content.toggleClass("no-margin", title == null);
@@ -175,6 +174,6 @@ class Tooltip {
    * Oculta el tooltip.
    */
   static hide() {
-    this.#tooltip.hide();
+    if (this.#tooltip.length == 1) this.#tooltip.hide();
   }
 }
