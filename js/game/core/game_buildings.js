@@ -48,6 +48,7 @@ class GameBuildings {
       new Building({
         id: 4,
         baseCost: 15000,
+        isDungeon: true,
         benefits: [
           new Benefit({
             coinsGain: 10,
@@ -171,7 +172,7 @@ class Building {
    * @param {Number}  baseCost    Costo base del edificio o mejora. Es el costo incial.
    * @param {Number}  cost        Costo actual del edificio o mejora. Es el costo que crece exponencialmente.
    * @param {Benefit} benefits    Beneficios del edificio o mejora.
-   * @param {Boolean} isDungeon   Indica si es un Dungeon o no..
+   * @param {Boolean} isDungeon   Indica si es un Dungeon o no.
    * @param {String}  quote       Cita.
    */
   constructor({ id, name, description, baseCost, cost, benefits, isDungeon = false, quote }) {

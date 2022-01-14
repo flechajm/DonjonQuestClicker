@@ -125,7 +125,6 @@ body {
   font-family: Tahoma, Arial, sans-serif;
 }
 #tooltip .value {
-  margin-top: -15px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
@@ -467,6 +466,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  margin-top: -5px;
 }
 #wrapper #game #store #store-wrap .building-button .building-header .building-name {
   font-family: "MorrisRoman";

@@ -138,7 +138,7 @@ body {
     }
 
     .value {
-        margin-top: -15px;
+        // margin-top: -15px;
         height: fit-content;
         min-width: max-content;
         color: var(--available);
@@ -534,6 +534,7 @@ body {
                         display: flex;
                         flex-direction: column;
                         justify-content: space-evenly;
+                        margin-top: -5px;
 
                         .building-name {
                             font-family: 'MorrisRoman';

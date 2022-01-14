@@ -91,9 +91,7 @@
       "sexagintillones",
       "septuagintillones",
       "octogintillones",
-      "nonagintillones",
-      "centillón",
-      "uncentillón"
+      "nonagintillones"
     ]
   },
   "welcome": "¡Bienvenido a <span style='color: var(--gold);'><b>Donjon Quest Clicker</b></span>!",
