@@ -32,3 +32,6 @@ class GameInfo {
    */
   static storageName = "DonjonQuestClickerGame";
 }
+
+
+export default GameInfo;

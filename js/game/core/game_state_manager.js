@@ -1,3 +1,7 @@
+import GameInfo from "./game_info.js";
+import GameManager from "./game_manager.js";
+import { gameManager } from "../main.js";
+
 /**
  * Clase encargada del manejo del estado del juego.
  */
@@ -14,3 +18,5 @@ class GameStateManager {
     }
   }
 }
+
+export default GameStateManager;

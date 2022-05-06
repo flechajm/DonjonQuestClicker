@@ -1,3 +1,8 @@
+import Building from "./building.js";
+import Benefit from "./benefit.js";
+
+import LanguageManager from "../../libs/language_manager.js";
+
 class GameBuildings {
   /**
    * Representa el elemento DOM '#store-wrap'.
@@ -19,8 +24,9 @@ class GameBuildings {
         id: 1,
         baseCost: 15,
         benefits: [
+          new Benefit({ description: 3 }),
           new Benefit({
-            coinsGain: 0.5,
+            coinsGain: 0.5
           }),
         ],
       }),
@@ -160,100 +166,4 @@ class GameBuildings {
   }
 }
 
-/**
- * Clase que representa un edificio o mejora.
- */
-class Building {
-  /**
-   * Crea la instancia de Building.
-   * @param {Number}  id          Id del edificio o mejora.
-   * @param {String}  name        Nombre del edificio o mejora.
-   * @param {String}  description Descripción del edificio o mejora.
-   * @param {Number}  baseCost    Costo base del edificio o mejora. Es el costo incial.
-   * @param {Number}  cost        Costo actual del edificio o mejora. Es el costo que crece exponencialmente.
-   * @param {Benefit} benefits    Beneficios del edificio o mejora.
-   * @param {Boolean} isDungeon   Indica si es un Dungeon o no.
-   * @param {String}  quote       Cita.
-   */
-  constructor({ id, name, description, baseCost, cost, benefits, isDungeon = false, quote }) {
-    /**
-     * Id del edificio o mejora.
-     */
-    this.id = id;
-
-    /**
-     * Nombre del edificio o mejora.
-     */
-    this.name = name;
-
-    /**
-     * Descripción del edificio o mejora.
-     */
-    this.description = description;
-
-    /**
-     * Costo base del edificio o mejora. Es el costo incial.
-     */
-    this.baseCost = baseCost;
-
-    /**
-     * Costo actual del edificio o mejora. Es el costo que crece exponencialmente.
-     */
-    this.cost = cost ?? baseCost;
-
-    /**
-     * Beneficios del edificio o mejora.
-     */
-    this.benefits = benefits;
-
-    /**
-     * Indica si es un Dungeon o no.
-     */
-    this.isDungeon = isDungeon;
-
-    /**
-     * Cita.
-     */
-    this.quote = quote;
-  }
-}
-
-/**
- * Clase que representa un Beneficio para un edificio o mejora.
- */
-class Benefit {
-  /**
-   * Crea una instancia de Benefit.
-   * @param {String} description              Descripción del beneficio.
-   * @param {Number} coinsGain                Ganancia de monedas por segundo.
-   * @param {Number} coinsGainMultiplier      Multiplicador de ganancia de monedas por segundo.
-   * @param {Number} coinsBonusPerQuest       Ganancia de monedas por quest.
-   * @param {Number} coinsMultiplierPerQuest  Multiplicador de ganancia de monedas por quest.
-   */
-  constructor({ description, coinsGain, coinsGainMultiplier, coinsBonusPerQuest, coinsMultiplierPerQuest }) {
-    /**
-     * Descripción del beneficio.
-     */
-    this.description = description;
-
-    /**
-     * Ganancia de monedas por segundo.
-     */
-    this.coinsGain = coinsGain ?? 0;
-
-    /**
-     * Multiplicador de ganancia de monedas por segundo.
-     */
-    this.coinsGainMultiplier = coinsGainMultiplier ?? 0;
-
-    /**
-     * Ganancia de monedas por quest.
-     */
-    this.coinsBonusPerQuest = coinsBonusPerQuest ?? 0;
-
-    /**
-     * Multiplicador de ganancia de monedas por quest.
-     */
-    this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? 0;
-  }
-}
+export default GameBuildings;

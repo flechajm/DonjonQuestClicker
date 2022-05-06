@@ -49,10 +49,10 @@ String.format = function () {
  * Embellece los números largos para que queden cortos y más descriptibles con su escala numérica.
  * @returns {String} Número corto con escala numérica.
  */
-Number.pretty = function (number) {
+Number.pretty = function (number, gameUnits) {
   if (number == null) return;
 
-  let prettyNumber = Math.ceil(number)?.toString();
+  let prettyNumber = number.toString();
 
   if (prettyNumber.length < 7) return number.commafy();
 
@@ -62,7 +62,7 @@ Number.pretty = function (number) {
   let sliceMin = 1;
   let sliceMax = 3;
   let unitIndex = 0;
-  let units = gameManager.getUnits();
+  let units = gameUnits;
 
   for (var g = 0; g < prettyNumber.length; g++) {
     if (prettyNumber.length <= visualLeng) {

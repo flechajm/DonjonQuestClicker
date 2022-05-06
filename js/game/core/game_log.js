@@ -1,3 +1,5 @@
+import LanguageManager from "../libs/language_manager.js";
+
 class GameLog {
   static logDOM = $("#log > div.text");
 
@@ -24,3 +26,5 @@ class GameLog {
     this.write(`${LanguageManager.getData().saveProgress} [${new Date().toLocaleString()}]`, "grey");
   }
 }
+
+export default GameLog;

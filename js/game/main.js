@@ -1,3 +1,12 @@
+import GameManager from "./core/game_manager.js";
+import GameStateManager from "./core/game_state_manager.js";
+import GameLog from "./core/game_log.js";
+import GameInfo from "./core/game_info.js";
+import GameBuildings from "./core/buildings/game_buildings.js";
+
+import LanguageManager from "./libs/language_manager.js"
+import Tooltip from "./libs/tooltip.js";
+
 var gameManager;
 
 $(function () {
@@ -8,8 +17,7 @@ $(function () {
     GameLog.newLine(5);
     GameLog.write(LanguageManager.getData().welcome);
     GameLog.write(
-      `${LanguageManager.getData().version} ${GameInfo.version} | ${LanguageManager.getData().lastUpdate} ${
-        GameInfo.lastUpdate
+      `${LanguageManager.getData().version} ${GameInfo.version} | ${LanguageManager.getData().lastUpdate} ${GameInfo.lastUpdate
       }`,
       "grey"
     );
@@ -72,3 +80,5 @@ function setFooterTooltips() {
       Tooltip.hide();
     });
 }
+
+export { gameManager };

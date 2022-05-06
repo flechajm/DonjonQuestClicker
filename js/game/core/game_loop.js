@@ -1,3 +1,7 @@
+import GameStateManager from "./game_state_manager.js";
+import GameLog from "./game_log.js";
+import { gameManager } from "../main.js";
+
 /**
  * Clase encargada del manejo de los ciclos en el juego.
  */
@@ -94,3 +98,5 @@ class GameLoop {
     }, 1000 * this.savePeriod);
   }
 }
+
+export default GameLoop;

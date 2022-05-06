@@ -23,3 +23,5 @@ class GameConfig {
     this.saveDate = config?.saveDate ?? null;
   }
 }
+
+export default GameConfig;

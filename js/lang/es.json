@@ -12,8 +12,11 @@
       {
         "id": 1,
         "name": "Posada",
-        "description": "Un lugar donde vivir.",
+        "description": "La posada es un lugar donde vivir. Constrúyelas para que tu población aumente y puedas asigar gente a diferentes edificios.",
         "benefits": [
+          {
+            "description": "Genera 3 de población."
+          },
           {
             "description": "Produce +0.5 de oro por segundo."
           }
@@ -81,7 +84,18 @@
       " octillones",
       " nonillones"
     ],
-    "prefixes": ["", "un", "duo", "tre", "cuatro", "quin", "sex", "septen", "octo", "novem"],
+    "prefixes": [
+      "",
+      "un",
+      "duo",
+      "tre",
+      "cuatro",
+      "quin",
+      "sex",
+      "septen",
+      "octo",
+      "novem"
+    ],
     "suffixes": [
       "decillones",
       "vigintillones",

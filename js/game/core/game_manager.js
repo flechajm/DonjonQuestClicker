@@ -1,3 +1,12 @@
+import GameConfig from "./game_config.js";
+import GameLoop from "./game_loop.js";
+import GameLog from "./game_log.js";
+import GameBuildings from "./buildings/game_buildings.js";
+import GameInfo from "./game_info.js";
+
+import LanguageManager from "../libs/language_manager.js";
+import Tooltip from "../libs/tooltip.js";
+
 class GameManager {
   #basePow;
   #units;
@@ -23,7 +32,6 @@ class GameManager {
     this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? 1;
     this.buildingsOwned = buildingsOwned ?? [];
     this.config = new GameConfig(config);
-    this.gameLoop = new GameLoop();
     this.#basePow = 1.12;
     this.#units = [];
     this.#showTooltipChest = true;
@@ -34,6 +42,8 @@ class GameManager {
   }
 
   start() {
+    const gameManager = this;
+    this.#intiGameLoop();
     this.#setEvents();
     this.#configure();
 
@@ -74,7 +84,7 @@ class GameManager {
     if (!isLoading) this.coins += quantity;
 
     $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);
-    $("#coins.per-sec").html(Number.pretty(this.coinsGain));
+    $("#coins.per-sec").html(this.#prettyNumber(this.coinsGain));
   }
 
   #substractCoins(quantity) {
@@ -83,7 +93,7 @@ class GameManager {
   }
 
   getCoinsFormatted(returnPrettyNumber) {
-    return returnPrettyNumber ? Number.pretty(this.coins) : String(this.coins).commafy();
+    return returnPrettyNumber ? this.#prettyNumber(this.coins) : String(this.coins).commafy();
   }
 
   setHeroName(name) {
@@ -98,9 +108,8 @@ class GameManager {
   updateTitle() {
     if (this.coins > 0) {
       let preposition = this.config.lang == "es" ? "de" : "";
-      document.title = `${this.getCoinsFormatted(true)} ${preposition} ${LanguageManager.getData().coins} - ${
-        GameInfo.title
-      }`;
+      document.title = `${this.getCoinsFormatted(true)} ${preposition} ${LanguageManager.getData().coins} - ${GameInfo.title
+        }`;
     }
   }
 
@@ -109,6 +118,7 @@ class GameManager {
   }
 
   checkBuildingsAvailable() {
+    const gameManager = this;
     let length = GameBuildings.getCount() + 1;
     for (let i = 1; i < length; i++) {
       const building = GameBuildings.getById(i);
@@ -168,6 +178,7 @@ class GameManager {
   }
 
   bindTooltipFunctionToBuildingButton(e, building) {
+    const gameManager = this;
     let quantity = gameManager.getBuildingOwnedById(building.id)?.quantity ?? 0;
     let benefits = building.benefits.map((benefit) => `<li>${benefit.description}</li>`).join("");
 
@@ -175,14 +186,14 @@ class GameManager {
       event: e,
       title: building.name,
       subtitle: `${LanguageManager.getData().quantity}: ${quantity}`,
-      description: `@separator@${building.description}<br /><br /><b><u>${
-        LanguageManager.getData().benefits
-      }:</u></b><br /><ul>${benefits}</ul>@separator@<span class='quote'>${building.quote}</span>`,
+      description: `@separator@${building.description}<br /><br /><b><u>${LanguageManager.getData().benefits
+        }:</u></b><br /><ul>${benefits}</ul>@separator@<span class='quote'>${building.quote}</span>`,
       icon: `/img/buildings/${building.id}.png`,
       cost: building.cost,
       canBuy: gameManager.coins >= building.cost,
       position: "left",
       paddingLock: $(document).width() - $("#divider-buildings").position().left,
+      gameUnits: this.getUnits(),
     });
   }
 
@@ -217,7 +228,7 @@ class GameManager {
     building.cost = this.getBuildingCostUpdated(building, quantity);
 
     let cost = $(`#building-${id} > div.building-header > div.building-cost`);
-    cost.html(Number.pretty(building.cost));
+    cost.html(this.#prettyNumber(building.cost));
   }
 
   #addBuildingBenefits(buildingId, buildingQuantity) {
@@ -269,7 +280,7 @@ class GameManager {
       GameBuildings.unlockBuilding({
         id: building.id,
         name: building.name,
-        cost: Number.pretty(building.cost),
+        cost: this.#prettyNumber(building.cost),
         countOwned: previousBuildingOwned.quantity,
         canBuy: this.coins >= building.cost,
       });
@@ -301,13 +312,19 @@ class GameManager {
       coinsEarned = Math.ceil(this.coinsGain * this.coinsGainMultiplier * timeElapsed);
       this.coins += coinsEarned;
     }
+    console.log(this.#prettyNumber(coinsEarned));
 
-    GameLog.write(String.format(LanguageManager.getData().welcomeBack, Number.pretty(coinsEarned)));
+    GameLog.write(String.format(LanguageManager.getData().welcomeBack, this.#prettyNumber(coinsEarned)));
 
     this.addCoins(this.coins, true);
   }
 
+  #intiGameLoop() {
+    this.gameLoop = new GameLoop({ gameManager: this });
+  }
+
   #setEvents() {
+    const gameManager = this;
     $("#chest-button")
       .click(function () {
         $(this).removeClass("pressed");
@@ -335,6 +352,7 @@ class GameManager {
             description: LanguageManager.getData().chest.description,
             icon: "/img/treasure_chest.png",
             position: "bottom",
+            gameUnits: gameManager.getUnits(),
           });
         }
       });
@@ -350,4 +368,10 @@ class GameManager {
       }
     });
   }
+
+  #prettyNumber(number) {
+    return Number.pretty(number, this.getUnits());
+  }
 }
+
+export default GameManager;

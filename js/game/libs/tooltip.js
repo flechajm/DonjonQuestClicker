@@ -40,6 +40,7 @@ class Tooltip {
    * @param {String}  position      Indica en qué posición se mostrará tomando en cuenta las coordenadas del mouse. Los valores posibles son: 'top', 'right', 'bottom', 'left'. Valor por defecto: 'top'.
    * @param {Boolean} canBuy        Indica si se puede comprar o no un edificio. Tiene sentido únicamente cuando el parámetro {cost} valor.
    * @param {Number}  extraPadding  Añade un margen extra (al ya predefinido) entre el mouse y el tooltip. [Opcional].
+   * @param {Arrays}  gameUnits     Unidades de números.
    */
   static setTooltip({
     event,
@@ -52,6 +53,7 @@ class Tooltip {
     canBuy = null,
     extraPadding = null,
     paddingLock = null,
+    gameUnits = null,
   }) {
     extraPadding = extraPadding ?? 20;
     let padding = 26;
@@ -61,6 +63,7 @@ class Tooltip {
     let separator = '<div class="separator"></div>';
 
     this.#tooltip = $("#tooltip");
+    this.#tooltip.width(cost ? 400 : 300);
     this.#headerWrapper = this.#tooltip.find("div.header-wrapper");
     this.#headerContainer = this.#headerWrapper.find("div.container");
     this.#cost = this.#headerWrapper.find("div.cost");
@@ -74,7 +77,7 @@ class Tooltip {
     this.#headerContainer.find("div.title").html(title ?? "");
     this.#headerContainer.find("div.subtitle").html(subtitle ?? "");
     this.#cost.find("div.hidden-value").html(cost ?? "");
-    this.#cost.find("div.value").html(Number.pretty(cost) ?? "");
+    this.#cost.find("div.value").html(Number.pretty(cost, gameUnits) ?? "");
     this.#cost.find("div.value").toggleClass("unavailable", !canBuy);
     this.#content.html(description?.replaceAll("@separator@", separator));
     this.#content.toggleClass("no-margin", title == null);
@@ -177,3 +180,5 @@ class Tooltip {
     if (this.#tooltip.length == 1) this.#tooltip.hide();
   }
 }
+
+export default Tooltip;
