@@ -33,7 +33,7 @@ class GameLoop {
     /**
      * Período en segundos para el guardado del progreso.
      */
-    this.savePeriod = 60;
+    this.savePeriod = 5;
   }
 
   gameLoop() {
@@ -93,6 +93,7 @@ class GameLoop {
 
   saveLoop() {
     setInterval(() => {
+      console.log(gameManager);
       GameStateManager.save();
       GameLog.writeSaveProgress();
     }, 1000 * this.savePeriod);

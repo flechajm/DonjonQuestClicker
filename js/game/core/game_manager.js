@@ -180,13 +180,18 @@ class GameManager {
   bindTooltipFunctionToBuildingButton(e, building) {
     const gameManager = this;
     let quantity = gameManager.getBuildingOwnedById(building.id)?.quantity ?? 0;
-    let benefits = building.benefits.map((benefit) => `<li>${benefit.description}</li>`).join("");
+    let benefits = building.benefits.map((benefit) => {
+      let totalValue = roundNumber(benefit.getValue() * quantity);
+      let finalDescription = String(benefit.description).replace('{t}', benefit.getFormattedValue(totalValue, "available"));
+
+      return `<li>${finalDescription}</li>`
+    }).join("");
 
     Tooltip.setTooltip({
       event: e,
       title: building.name,
       subtitle: `${LanguageManager.getData().quantity}: ${quantity}`,
-      description: `@separator@${building.description}<br /><br /><b><u>${LanguageManager.getData().benefits
+      description: `@separator@${building.description}<br /><br /><b><u>${LanguageManager.getData().benefits.title
         }:</u></b><br /><ul>${benefits}</ul>@separator@<span class='quote'>${building.quote}</span>`,
       icon: `/img/buildings/${building.id}.png`,
       cost: building.cost,
@@ -235,11 +240,14 @@ class GameManager {
     let building = GameBuildings.getById(buildingId);
 
     building.benefits.forEach((benefit) => {
-      this.coinsGain += benefit.coinsGain * buildingQuantity;
-      this.coinsGainMultiplier += benefit.coinsGainMultiplier * buildingQuantity;
-      this.coinsBonusPerQuest += benefit.coinsBonusPerQuest * buildingQuantity;
-      this.coinsMultiplierPerQuest += benefit.coinsMultiplierPerQuest * buildingQuantity;
+      this.coinsGain += (benefit.coinsGain ?? 0) * buildingQuantity;
+      this.coinsGainMultiplier += (benefit.coinsGainMultiplier ?? 0) * buildingQuantity;
+      this.coinsBonusPerQuest += (benefit.coinsBonusPerQuest ?? 0) * buildingQuantity;
+      this.coinsMultiplierPerQuest += (benefit.coinsMultiplierPerQuest ?? 0) * buildingQuantity;
     });
+
+    this.coinsGainMultiplier = roundNumber(this.coinsGainMultiplier);
+    this.coinsMultiplierPerQuest = roundNumber(this.coinsMultiplierPerQuest);
   }
 
   #setUpBuildings() {
@@ -312,8 +320,6 @@ class GameManager {
       coinsEarned = Math.ceil(this.coinsGain * this.coinsGainMultiplier * timeElapsed);
       this.coins += coinsEarned;
     }
-    console.log(this.#prettyNumber(coinsEarned));
-
     GameLog.write(String.format(LanguageManager.getData().welcomeBack, this.#prettyNumber(coinsEarned)));
 
     this.addCoins(this.coins, true);

@@ -24,7 +24,6 @@ class GameBuildings {
         id: 1,
         baseCost: 15,
         benefits: [
-          new Benefit({ description: 3 }),
           new Benefit({
             coinsGain: 0.5
           }),
@@ -76,9 +75,20 @@ class GameBuildings {
 
       for (let j = 0; j < building.benefits.length; j++) {
         const benefit = building.benefits[j];
-        const benefitInfo = buildingInfo.benefits[j];
+        const varColor = 'benefit';
+        const replaceValue = benefit.getFormattedValue(benefit.getValue(), varColor);
 
-        benefit.description = benefitInfo.description;
+        if (benefit.coinsGain > 0)
+          benefit.description = String(LanguageManager.getData().benefits.coinsGain).replace('{g}', replaceValue);
+
+        if (benefit.coinsGainMultiplier > 0)
+          benefit.description = String(LanguageManager.getData().benefits.coinsGainMultiplier).replace('{g}', replaceValue);
+
+        if (benefit.coinsBonusPerQuest > 0)
+          benefit.description = String(LanguageManager.getData().benefits.coinsBonusPerQuest).replace('{g}', replaceValue);
+
+        if (benefit.coinsMultiplierPerQuest > 0)
+          benefit.description = String(LanguageManager.getData().benefits.coinsMultiplierPerQuest).replace('{g}', replaceValue);
       }
     }
   }

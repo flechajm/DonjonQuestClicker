@@ -13,58 +13,36 @@
         "id": 1,
         "name": "Posada",
         "description": "La posada es un lugar donde vivir. Constrúyelas para que tu población aumente y puedas asigar gente a diferentes edificios.",
-        "benefits": [
-          {
-            "description": "Genera 3 de población."
-          },
-          {
-            "description": "Produce +0.5 de oro por segundo."
-          }
-        ],
         "quote": "Hogar, dulce hogar."
       },
       {
         "id": 2,
         "name": "Taberna",
         "description": "Tomar antes de salir.",
-        "benefits": [
-          {
-            "description": "Produce +1 de oro por segundo."
-          },
-          {
-            "description": "Recompensa +1 de oro por quest."
-          }
-        ],
         "quote": "Hip!"
       },
       {
         "id": 3,
         "name": "Carpintería",
         "description": "Producción madera.",
-        "benefits": [
-          {
-            "description": "Produce +5 de oro por segundo."
-          }
-        ],
         "quote": "Cuenta la leyenda..."
       },
       {
         "id": 4,
         "name": "Minas Oscuras",
         "description": "Un lugar muy oscuro...",
-        "benefits": [
-          {
-            "description": "Produce +10 de oro por segundo."
-          },
-          {
-            "description": "Bonoficación +0.05% de recompensa por quest."
-          }
-        ],
         "quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
       }
     ]
   },
-  "benefits": "Beneficios",
+  "benefits": {
+    "title": "Beneficios",
+    "coinsGain": "Produce {g} ({t}) de oro por segundo.",
+    "coinsGainMultiplier": "Muliplica en {g} la ganancia de monedas por segundo.",
+    "coinsBonusPerQuest": "Recompensa {g} ({t}) de oro por quest.",
+    "coinsMultiplierPerQuest": "Bonifica un {g} ({t}) la recompensa por quest.",
+    "total": "Actualmente: {t}"
+  },
   "quantity": "Cantidad",
   "coins": "oro",
   "chest": {

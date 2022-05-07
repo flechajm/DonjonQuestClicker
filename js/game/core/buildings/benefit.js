@@ -5,42 +5,45 @@ class Benefit {
     /**
      * Crea una instancia de Benefit.
      * @param {String} description              Descripción del beneficio.
-     * @param {Number} population               Población generada.
      * @param {Number} coinsGain                Ganancia de monedas por segundo.
      * @param {Number} coinsGainMultiplier      Multiplicador de ganancia de monedas por segundo.
      * @param {Number} coinsBonusPerQuest       Ganancia de monedas por quest.
      * @param {Number} coinsMultiplierPerQuest  Multiplicador de ganancia de monedas por quest.
      */
-    constructor({ description, population, coinsGain, coinsGainMultiplier, coinsBonusPerQuest, coinsMultiplierPerQuest }) {
+    constructor({ description, coinsGain, coinsGainMultiplier, coinsBonusPerQuest, coinsMultiplierPerQuest }) {
         /**
          * Descripción del beneficio.
          */
-        this.description = description;
-
-        /**
-         * Población generada.
-         */
-        this.population = population ?? 0;
+        this.description = description ?? null;
 
         /**
          * Ganancia de monedas por segundo.
          */
-        this.coinsGain = coinsGain ?? 0;
+        this.coinsGain = coinsGain ?? null;
 
         /**
          * Multiplicador de ganancia de monedas por segundo.
          */
-        this.coinsGainMultiplier = coinsGainMultiplier ?? 0;
+        this.coinsGainMultiplier = coinsGainMultiplier ?? null;
 
         /**
          * Ganancia de monedas por quest.
          */
-        this.coinsBonusPerQuest = coinsBonusPerQuest ?? 0;
+        this.coinsBonusPerQuest = coinsBonusPerQuest ?? null;
 
         /**
          * Multiplicador de ganancia de monedas por quest.
          */
-        this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? 0;
+        this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? null;
+    }
+
+    getValue() {
+        return this.coinsGain ?? this.coinsGainMultiplier ?? this.coinsBonusPerQuest ?? this.coinsMultiplierPerQuest;
+    }
+
+    getFormattedValue(value, color) {
+        let isPercent = this.coinsGainMultiplier > 0 || this.coinsMultiplierPerQuest > 0;
+        return `<span style='color: var(--${color});'><b>+${value}${isPercent ? '%' : ''}</b></span>`;
     }
 }
 
