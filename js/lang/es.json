@@ -8,6 +8,7 @@
     "title": "Tienda",
     "buildingsTitle": "Edificios",
     "upgradesTitle": "Mejoras",
+    "unavailable": "No disponibles",
     "buildings": [
       {
         "id": 1,
@@ -32,6 +33,14 @@
         "name": "Minas Oscuras",
         "description": "Un lugar muy oscuro...",
         "quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      }
+    ],
+    "upgrades": [
+      {
+        "id": 1,
+        "name": "Posada Upgrade",
+        "description": "Las posadas son el doble de eficientes",
+        "quote": "Hogar, dulce hogar."
       }
     ]
   },

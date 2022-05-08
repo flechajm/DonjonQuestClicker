@@ -299,6 +299,19 @@ html {
         }
       }
 
+      .coin-floating {
+        position: absolute;
+        pointer-events: none;
+        margin-left: -20px;
+        margin-top: -20px;
+        z-index: 10;
+
+        &.number {
+          color: var(--gold);
+          font-size: 1.5rem;
+        }
+      }
+
       #donjon-heroname {
         cursor: pointer;
         width: 40%;
@@ -460,6 +473,8 @@ html {
       }
 
       #store-wrap {
+        display: flex;
+        flex-direction: column;
         width: 100%;
         top: 70px;
         bottom: 0px;
@@ -474,20 +489,64 @@ html {
           background: transparent;
         }
 
-        .store-section {
+        .title-section {
+          height: 30px;
+          text-align: center;
           background: url("/img/top_bar.jpg");
           background-position: center;
           background-color: var(--building-section);
           background-blend-mode: difference;
           background-size: contain;
+        }
+
+        .store-section {
+          display: flex;
+          flex-direction: column;
           font-size: 1.3rem;
-          height: 30px;
+          font-family: "MorrisRoman";
+        }
+
+        .upgrades-section {
           display: flex;
           justify-content: center;
           align-items: center;
-          padding-bottom: 5px;
-          margin-bottom: 1px;
-          font-family: "MorrisRoman";
+          height: 64px;
+          color: burlywood;
+          font-size: 0.8rem;
+          background-image: url(/img/popup_bg.png);
+          background-size: auto;
+          background-color: darkgray;
+          background-blend-mode: multiply;
+
+          &.unavailable {
+            opacity: 0.5;
+          }
+        }
+
+        .upgrade-button {
+          cursor: pointer;
+          width: 64px;
+          height: 64px;
+          background: url("/img/popup_bg.png");
+          background-size: cover;
+          background-repeat: no-repeat;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          padding: 10px 0 10px 20px;
+          text-shadow: 2px 2px 4px #000, 0px 0px 7px var(--dark),
+            0px 0px 10px var(--dark);
+
+          .upgrade-image {
+            background-position: center;
+            background-size: cover;
+            height: 42px;
+            width: 42px;
+            margin: 0px 8px 0 -15px;
+            filter: drop-shadow(0px 0px 3px black) contrast(1.2);
+            -webkit-filter: drop-shadow(0px 0px 3px black) contrast(1.2);
+          }
         }
 
         .building-button {
@@ -588,6 +647,7 @@ html {
               margin-left: 25px;
               margin-top: -2px;
               font-size: small;
+              font-family: "Merriweather";
 
               &::before {
                 content: url("/img/coins.png");

@@ -11,9 +11,10 @@ class Building {
      * @param {Number}  cost        Costo actual del edificio o mejora. Es el costo que crece exponencialmente.
      * @param {Benefit} benefits    Beneficios del edificio o mejora.
      * @param {Boolean} isDungeon   Indica si es un Dungeon o no.
+     * @param {Boolean} isUpgrade   Indica si es un upgrade, de lo contrario es un edificio.
      * @param {String}  quote       Cita.
      */
-    constructor({ id, name, description, baseCost, cost, benefits, isDungeon = false, quote }) {
+    constructor({ id, name, description, baseCost, cost, benefits, isDungeon = false, isUpgrade = false, quote }) {
         /**
          * Id del edificio o mejora.
          */
@@ -48,6 +49,11 @@ class Building {
          * Indica si es un Dungeon o no.
          */
         this.isDungeon = isDungeon;
+
+        /**
+         * Indica si es un upgrade, de lo contrario es un edificio.
+         */
+        this.isUpgrade = isUpgrade;
 
         /**
          * Cita.

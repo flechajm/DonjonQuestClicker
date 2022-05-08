@@ -3,6 +3,7 @@ import GameLoop from "./game_loop.js";
 import GameLog from "./game_log.js";
 import GameBuildings from "./buildings/game_buildings.js";
 import GameInfo from "./game_info.js";
+import GameEffects from "./game_effects.js";
 
 import LanguageManager from "../libs/language_manager.js";
 import Tooltip from "../libs/tooltip.js";
@@ -21,6 +22,7 @@ class GameManager {
     coinsBonusPerQuest,
     coinsMultiplierPerQuest,
     buildingsOwned,
+    upgradesAvailable,
     config,
   }) {
     this.heroName = heroName ?? "John Arrow";
@@ -31,6 +33,7 @@ class GameManager {
     this.coinsBonusPerQuest = coinsBonusPerQuest ?? 0;
     this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? 1;
     this.buildingsOwned = buildingsOwned ?? [];
+    this.upgradesAvailable = upgradesAvailable ?? [];
     this.config = new GameConfig(config);
     this.#basePow = 1.12;
     this.#units = [];
@@ -75,8 +78,13 @@ class GameManager {
     return LanguageManager.getData().hero.class;
   }
 
-  openChest() {
-    let coinsEarned = Math.ceil((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
+  openChest(e) {
+    console.log((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
+    let coinsEarned = Math.round((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
+
+    GameEffects.spawnCoinsEarned(e, coinsEarned);
+    GameEffects.spawnIconCoin(e);
+
     this.addCoins(coinsEarned);
   }
 
@@ -121,7 +129,7 @@ class GameManager {
     const gameManager = this;
     let length = GameBuildings.getCount() + 1;
     for (let i = 1; i < length; i++) {
-      const building = GameBuildings.getById(i);
+      const building = GameBuildings.getBuildingById(i);
       const button = $(`#building-${building.id}`);
 
       if (!button) return;
@@ -154,6 +162,10 @@ class GameManager {
     return this.buildingsOwned.find((b) => b.id == id);
   }
 
+  getUpgradeAvailableById(id) {
+    return this.upgradesAvailable.find((u) => u.id == id);
+  }
+
   getBuildingCostUpdated(building, quantity) {
     return Math.ceil(building.baseCost * Math.pow(this.#basePow, quantity));
   }
@@ -169,7 +181,7 @@ class GameManager {
       building = this.getBuildingOwnedById(id);
     }
 
-    this.#substractCoins(GameBuildings.getById(id).cost);
+    this.#substractCoins(GameBuildings.getBuildingById(id).cost);
     this.#addBuildingBenefits(id, quantity);
     this.#updateBuildingCost(id, building.quantity);
     this.#unlockNextBuilding(building, -1);
@@ -229,7 +241,7 @@ class GameManager {
   }
 
   #updateBuildingCost(id, quantity) {
-    let building = GameBuildings.getById(id);
+    let building = GameBuildings.getBuildingById(id);
     building.cost = this.getBuildingCostUpdated(building, quantity);
 
     let cost = $(`#building-${id} > div.building-header > div.building-cost`);
@@ -237,7 +249,7 @@ class GameManager {
   }
 
   #addBuildingBenefits(buildingId, buildingQuantity) {
-    let building = GameBuildings.getById(buildingId);
+    let building = GameBuildings.getBuildingById(buildingId);
 
     building.benefits.forEach((benefit) => {
       this.coinsGain += (benefit.coinsGain ?? 0) * buildingQuantity;
@@ -251,12 +263,24 @@ class GameManager {
   }
 
   #setUpBuildings() {
-    $("#upgrades.store-section").html(LanguageManager.getData().store.upgradesTitle);
-    $("#buildings.store-section").html(LanguageManager.getData().store.buildingsTitle);
+    //$("#upgrades.store-section").after(`<div class="upgrades-section"></div>`);
+    $("#upgrades.store-section > div.title-section").html(LanguageManager.getData().store.upgradesTitle);
+    $("#buildings.store-section > div.title-section").html(LanguageManager.getData().store.buildingsTitle);
     $("#store > .title.big > span").html(LanguageManager.getData().store.title);
 
+    if (this.upgradesAvailable.length == 0) {
+      //$(".upgrades-section").addClass('unavailable').append(LanguageManager.getData().store.unavailable);
+      let startBuilding = GameBuildings.getUpgradeById(1);
+      GameBuildings.unlockUpgrade({
+        id: startBuilding.id,
+        canBuy: this.coins >= startBuilding.cost,
+      });
+    } else {
+
+    }
+
     if (this.buildingsOwned.length == 0) {
-      let startBuilding = GameBuildings.getById(1);
+      let startBuilding = GameBuildings.getBuildingById(1);
       GameBuildings.unlockBuilding({
         id: startBuilding.id,
         name: startBuilding.name,
@@ -277,11 +301,11 @@ class GameManager {
     let isUnlockedPreviousBuilding = GameBuildings.isUnlocked(previousBuildingOwned.id);
     let isUnlockedNextBuilding = GameBuildings.isUnlocked(nextId);
 
-    let nextBuilding = GameBuildings.getById(nextId);
+    let nextBuilding = GameBuildings.getBuildingById(nextId);
 
     // Populate Previous Building
     if (!isUnlockedPreviousBuilding) {
-      let building = GameBuildings.getById(previousBuildingOwned.id);
+      let building = GameBuildings.getBuildingById(previousBuildingOwned.id);
 
       building.cost = this.getBuildingCostUpdated(building, previousBuildingOwned.quantity);
 
@@ -332,9 +356,9 @@ class GameManager {
   #setEvents() {
     const gameManager = this;
     $("#chest-button")
-      .click(function () {
+      .click(function (e) {
         $(this).removeClass("pressed");
-        gameManager.openChest();
+        gameManager.openChest(e);
         Tooltip.hide();
         gameManager.setTooltipChest(false);
       })

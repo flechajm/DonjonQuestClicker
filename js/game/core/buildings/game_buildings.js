@@ -5,9 +5,14 @@ import LanguageManager from "../../libs/language_manager.js";
 
 class GameBuildings {
   /**
-   * Representa el elemento DOM '#store-wrap'.
+   * Representa el elemento DOM '#buildings'.
    */
-  static #store;
+  static #buildingsDOM;
+
+  /**
+ * Representa el elemento DOM '#upgrades'.
+ */
+  static #upgradesDOM;
 
   /**
    * Lista de edificios disponibles en el juego.
@@ -15,10 +20,17 @@ class GameBuildings {
   static #buildings = [];
 
   /**
+   * Lista de mejoras disponibles en el juego.
+   */
+  static #upgrades = [];
+
+  /**
    * Instancia todos los edificios y mejoras.
    */
   static create() {
-    this.#store = $("#store-wrap");
+    this.#buildingsDOM = $("#store-wrap").find('#buildings > div.container');
+    this.#upgradesDOM = $("#store-wrap").find('#upgrades > div.container');
+
     this.#buildings.push(
       new Building({
         id: 1,
@@ -62,11 +74,32 @@ class GameBuildings {
             coinsMultiplierPerQuest: 0.05,
           }),
         ],
-      })
+      }),
     );
 
+    this.#upgrades.push(
+      new Building({
+        id: 1,
+        baseCost: 15,
+        isUpgrade: true,
+        benefits: [
+          new Benefit({
+            coinsGain: 0.5
+          }),
+        ],
+      }),
+    )
+
+    this.#populateBuildings();
+    this.#populateUpgrades();
+  }
+
+  /**
+   * Prepara los edificios con todos los datos disponibles.
+   */
+  static #populateBuildings() {
     for (let i = 1; i < this.#buildings.length + 1; i++) {
-      const building = this.getById(i);
+      const building = this.getBuildingById(i);
       const buildingInfo = LanguageManager.getData().store.buildings.find((b) => b.id == building.id);
 
       building.name = buildingInfo.name;
@@ -75,6 +108,38 @@ class GameBuildings {
 
       for (let j = 0; j < building.benefits.length; j++) {
         const benefit = building.benefits[j];
+        const varColor = 'benefit';
+        const replaceValue = benefit.getFormattedValue(benefit.getValue(), varColor);
+
+        if (benefit.coinsGain > 0)
+          benefit.description = String(LanguageManager.getData().benefits.coinsGain).replace('{g}', replaceValue);
+
+        if (benefit.coinsGainMultiplier > 0)
+          benefit.description = String(LanguageManager.getData().benefits.coinsGainMultiplier).replace('{g}', replaceValue);
+
+        if (benefit.coinsBonusPerQuest > 0)
+          benefit.description = String(LanguageManager.getData().benefits.coinsBonusPerQuest).replace('{g}', replaceValue);
+
+        if (benefit.coinsMultiplierPerQuest > 0)
+          benefit.description = String(LanguageManager.getData().benefits.coinsMultiplierPerQuest).replace('{g}', replaceValue);
+      }
+    }
+  }
+
+  /**
+   * Prepara las mejoras con todos los datos disponibles.
+   */
+  static #populateUpgrades() {
+    for (let i = 1; i < this.#upgrades.length + 1; i++) {
+      const upgrade = this.getUpgradeById(i);
+      const upgradeInfo = LanguageManager.getData().store.upgrades.find((b) => b.id == upgrade.id);
+
+      upgrade.name = upgradeInfo.name;
+      upgrade.description = upgradeInfo.description;
+      upgrade.quote = upgradeInfo.quote;
+
+      for (let j = 0; j < upgrade.benefits.length; j++) {
+        const benefit = upgrade.benefits[j];
         const varColor = 'benefit';
         const replaceValue = benefit.getFormattedValue(benefit.getValue(), varColor);
 
@@ -103,7 +168,7 @@ class GameBuildings {
    * @param {Boolean} canBuy      Indica si el edificio se puede comprar o no.
    * @returns {String} Código HTML.
    */
-  static #getButtonTemplate(id, name, cost, countOwned, canBuy) {
+  static #getButtonBuildingTemplate(id, name, cost, countOwned, canBuy) {
     return `<div id="building-${id}" class="building-button ${canBuy ? "" : "disabled"}">
               <div class="building-image"></div>
               <div class="building-header">
@@ -111,6 +176,12 @@ class GameBuildings {
                 <div class="building-cost">${cost}</div>
               </div>
               <div class="building-count-owned">${countOwned ?? ""}</div>
+            </div>`;
+  }
+
+  static #getButtonUpgradeTemplate(id, canBuy) {
+    return `<div id="upgrade-${id}" class="upgrade-button ${canBuy ? "" : "disabled"}">
+              <div class="upgrade-image"></div>
             </div>`;
   }
 
@@ -125,11 +196,20 @@ class GameBuildings {
    * @returns {String} Código HTML.
    */
   static unlockBuilding({ id, name, cost, countOwned, canBuy }) {
-    this.#store.append(this.#getButtonTemplate(id, name, cost, countOwned, canBuy));
-    this.#store.find(`#building-${id} > div.building-image`).css("background-image", `url('/img/buildings/${id}.png')`);
+    this.#buildingsDOM.append(this.#getButtonBuildingTemplate(id, name, cost, countOwned, canBuy));
+    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('/img/buildings/${id}.png')`);
     this.resizeToFit(id);
   }
 
+  static unlockUpgrade({ id, canBuy }) {
+    this.#upgradesDOM.append(this.#getButtonUpgradeTemplate(id, canBuy));
+    this.#upgradesDOM.find(`#upgrade-${id} > div.upgrade-image`).css("background-image", `url('/img/buildings/${id}.png')`);
+  }
+
+  /**
+   * Ajusta el nombre del edificio para que quepa en el ancho del botón.
+   * @param {Number} id Id del edificio.
+   */
   static resizeToFit(id) {
     let building = $(`#building-${id}`);
     let buildingName = building.find("div.building-name");
@@ -146,7 +226,7 @@ class GameBuildings {
    * Agrega un edificio bloqueado.
    */
   static insertLockedBuilding() {
-    this.#store.append(`<div id="building-locked" class="building-button locked"></div>`);
+    this.#buildingsDOM.append(`<div id="building-locked" class="building-button locked"></div>`);
   }
 
   /**
@@ -171,8 +251,17 @@ class GameBuildings {
    * @param {Number} id Id del edificio.
    * @returns {Building} Edificio.
    */
-  static getById(id) {
+  static getBuildingById(id) {
     return this.#buildings.find((b) => b.id == id);
+  }
+
+  /**
+ * Obtiene una mejora mediante su Id.
+ * @param {Number} id Id de la mejora.
+ * @returns {Building} Mejora.
+ */
+  static getUpgradeById(id) {
+    return this.#upgrades.find((b) => b.id == id);
   }
 }
 
