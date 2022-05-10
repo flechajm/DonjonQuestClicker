@@ -481,7 +481,9 @@ html {
         overflow-y: scroll;
         padding-bottom: 48px;
         position: absolute;
-        background-color: rgba(0, 0, 0, 80%);
+        background-image: url(../img/popup_bg.png);
+        background-color: #333;
+        background-blend-mode: multiply;
 
         &::-webkit-scrollbar {
           -webkit-appearance: none;
@@ -504,48 +506,161 @@ html {
           flex-direction: column;
           font-size: 1.3rem;
           font-family: "MorrisRoman";
+
+          .container.upgrades {
+            display: flex;
+            flex-wrap: wrap;
+            padding-bottom: 6px;
+            max-height: 124px; //183px;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+              -webkit-appearance: none;
+              width: 3px;
+              background: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              background: #ccc;
+              border-radius: 16px;
+            }
+          }
         }
 
-        .upgrades-section {
+        .upgrades-unavailable {
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 64px;
+          height: 59px;
+          width: 100%;
           color: burlywood;
-          font-size: 0.8rem;
-          background-image: url(/img/popup_bg.png);
-          background-size: auto;
-          background-color: darkgray;
-          background-blend-mode: multiply;
-
-          &.unavailable {
-            opacity: 0.5;
-          }
+          font-family: "Merriweather";
+          font-size: 0.7rem;
+          padding-top: 6px;
+          opacity: 0.3;
         }
 
         .upgrade-button {
           cursor: pointer;
-          width: 64px;
-          height: 64px;
-          background: url("/img/popup_bg.png");
-          background-size: cover;
-          background-repeat: no-repeat;
+          width: 53px;
+          height: 53px;
           display: flex;
           flex-direction: row;
           justify-content: center;
           align-items: center;
-          padding: 10px 0 10px 20px;
+          margin: 6px 1px 0px 5px;
+          border-radius: 5px;
           text-shadow: 2px 2px 4px #000, 0px 0px 7px var(--dark),
             0px 0px 10px var(--dark);
 
           .upgrade-image {
             background-position: center;
             background-size: cover;
-            height: 42px;
-            width: 42px;
-            margin: 0px 8px 0 -15px;
+            height: 40px;
+            width: 40px;
             filter: drop-shadow(0px 0px 3px black) contrast(1.2);
             -webkit-filter: drop-shadow(0px 0px 3px black) contrast(1.2);
+          }
+
+          &.tier {
+            background: url(/img/popup_bg.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-blend-mode: hard-light;
+            border-width: 2px;
+            border-style: ridge;
+
+            &.one {
+              background-color: aliceblue;
+              border-color: aliceblue;
+            }
+
+            &.two {
+              background-color: burlywood;
+              border-color: burlywood;
+            }
+
+            &.three {
+              background-color: rgb(23, 92, 221);
+              border-color: rgb(23, 92, 221);
+            }
+
+            &.four {
+              background-color: greenyellow;
+              border-color: greenyellow;
+            }
+
+            &.five {
+              background-color: orange;
+              border-color: orange;
+            }
+
+            &.six {
+              background-color: crimson;
+              border-color: crimson;
+            }
+
+            &.seven {
+              background-color: yellow;
+              border-color: yellow;
+            }
+
+            &.eight {
+              background-color: cyan;
+              border-color: cyan;
+            }
+
+            &.nine {
+              background-color: magenta;
+              border-color: magenta;
+            }
+
+            &.ten {
+              background-image: linear-gradient(
+                  140deg,
+                  rgba(255, 0, 0, 1) 0%,
+                  rgba(255, 154, 0, 1) 10%,
+                  rgba(208, 222, 33, 1) 20%,
+                  rgba(79, 220, 74, 1) 30%,
+                  rgba(63, 218, 216, 1) 40%,
+                  rgba(47, 201, 226, 1) 50%,
+                  rgba(28, 127, 238, 1) 60%,
+                  rgba(95, 21, 242, 1) 70%,
+                  rgba(186, 12, 248, 1) 80%,
+                  rgba(251, 7, 217, 1) 90%,
+                  rgba(255, 0, 0, 1) 100%
+                ),
+                url(../img/popup_bg.png);
+              background-blend-mode: soft-light;
+
+              border-image: linear-gradient(
+                to bottom right,
+                rgba(255, 0, 0, 1) 0%,
+                rgba(255, 154, 0, 1) 10%,
+                rgba(208, 222, 33, 1) 20%,
+                rgba(79, 220, 74, 1) 30%,
+                rgba(63, 218, 216, 1) 40%,
+                rgba(47, 201, 226, 1) 50%,
+                rgba(28, 127, 238, 1) 60%,
+                rgba(95, 21, 242, 1) 70%,
+                rgba(186, 12, 248, 1) 80%,
+                rgba(251, 7, 217, 1) 90%,
+                rgba(255, 0, 0, 1) 100%
+              );
+              border-image-slice: 1;
+            }
+
+            &:hover {
+              filter: brightness(var(--bright-high));
+              -webkit-filter: brightness(var(--bright-high));
+              transform: scale(1.05);
+            }
+
+            &:active {
+              filter: brightness(var(--bright-low));
+              -webkit-filter: brightness(var(--bright-low));
+              transform: scale(0.97);
+            }
           }
         }
 

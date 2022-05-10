@@ -2,6 +2,7 @@ import GameConfig from "./game_config.js";
 import GameLoop from "./game_loop.js";
 import GameLog from "./game_log.js";
 import GameBuildings from "./buildings/game_buildings.js";
+import GameUpgrades from "./buildings/game_upgrades.js";
 import GameInfo from "./game_info.js";
 import GameEffects from "./game_effects.js";
 
@@ -22,7 +23,7 @@ class GameManager {
     coinsBonusPerQuest,
     coinsMultiplierPerQuest,
     buildingsOwned,
-    upgradesAvailable,
+    availableUpgrades,
     config,
   }) {
     this.heroName = heroName ?? "John Arrow";
@@ -33,7 +34,7 @@ class GameManager {
     this.coinsBonusPerQuest = coinsBonusPerQuest ?? 0;
     this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? 1;
     this.buildingsOwned = buildingsOwned ?? [];
-    this.upgradesAvailable = upgradesAvailable ?? [];
+    this.availableUpgrades = availableUpgrades ?? [];
     this.config = new GameConfig(config);
     this.#basePow = 1.12;
     this.#units = [];
@@ -54,8 +55,8 @@ class GameManager {
       gameManager.updateTitle();
     }, 1000);
 
-    this.gameLoop.saveLoop();
     this.gameLoop.gameLoop();
+    this.gameLoop.saveLoop();
   }
 
   setSaveDate(date) {
@@ -79,7 +80,6 @@ class GameManager {
   }
 
   openChest(e) {
-    console.log((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
     let coinsEarned = Math.round((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
 
     GameEffects.spawnCoinsEarned(e, coinsEarned);
@@ -163,7 +163,7 @@ class GameManager {
   }
 
   getUpgradeAvailableById(id) {
-    return this.upgradesAvailable.find((u) => u.id == id);
+    return this.availableUpgrades.find((u) => u.id == id);
   }
 
   getBuildingCostUpdated(building, quantity) {
@@ -185,6 +185,97 @@ class GameManager {
     this.#addBuildingBenefits(id, quantity);
     this.#updateBuildingCost(id, building.quantity);
     this.#unlockNextBuilding(building, -1);
+
+    if (building.quantity > 0) {
+      $('.upgrades-unavailable').remove();
+
+      let tierNumber;
+
+      switch (building.quantity) {
+        // case 1:
+        //   tierNumber = 1;
+        //   break;
+        // case 50:
+        //   tierNumber = 2;
+        //   break;
+        // case 100:
+        //   tierNumber = 3;
+        //   break;
+        // case 150:
+        //   tierNumber = 4;
+        //   break;
+        // case 200:
+        //   tierNumber = 5;
+        //   break;
+        // case 250:
+        //   tierNumber = 6;
+        //   break;
+        // case 300:
+        //   tierNumber = 7;
+        //   break;
+        // case 350:
+        //   tierNumber = 8;
+        //   break;
+        // case 400:
+        //   tierNumber = 9;
+        //   break;
+        // case 500:
+        //   tierNumber = 10;
+        //   break;
+
+        // default:
+        //   tierNumber = -1;
+        //   break;
+
+
+        case 1:
+          tierNumber = 1;
+          break;
+        case 2:
+          tierNumber = 2;
+          break;
+        case 3:
+          tierNumber = 3;
+          break;
+        case 4:
+          tierNumber = 4;
+          break;
+        case 5:
+          tierNumber = 5;
+          break;
+        case 6:
+          tierNumber = 6;
+          break;
+        case 7:
+          tierNumber = 7;
+          break;
+        case 8:
+          tierNumber = 8;
+          break;
+        case 9:
+          tierNumber = 9;
+          break;
+        case 10:
+          tierNumber = 10;
+          break;
+
+        default:
+          tierNumber = -1;
+          break;
+      }
+
+      if (tierNumber != -1) {
+        let upgrade = GameUpgrades.getUpgradeById(id);
+        GameUpgrades.unlockUpgrade({
+          id: upgrade.id,
+          canBuy: this.coins >= upgrade.cost,
+          tier: tierNumber,
+        });
+        this.availableUpgrades.push({ id: id, tier: tierNumber });
+      }
+
+      this.#updateUpgradesTitle();
+    }
 
     owned.html(building.quantity);
   }
@@ -262,21 +353,27 @@ class GameManager {
     this.coinsMultiplierPerQuest = roundNumber(this.coinsMultiplierPerQuest);
   }
 
+  #updateUpgradesTitle() {
+    let upgradesTitle = this.availableUpgrades.length > 0 ? `${LanguageManager.getData().store.upgradesTitle} (${this.availableUpgrades.length})` : LanguageManager.getData().store.upgradesTitle;
+    $("#upgrades.store-section > div.title-section").html(upgradesTitle);
+  }
+
   #setUpBuildings() {
-    //$("#upgrades.store-section").after(`<div class="upgrades-section"></div>`);
-    $("#upgrades.store-section > div.title-section").html(LanguageManager.getData().store.upgradesTitle);
+    this.#updateUpgradesTitle();
     $("#buildings.store-section > div.title-section").html(LanguageManager.getData().store.buildingsTitle);
     $("#store > .title.big > span").html(LanguageManager.getData().store.title);
 
-    if (this.upgradesAvailable.length == 0) {
-      //$(".upgrades-section").addClass('unavailable').append(LanguageManager.getData().store.unavailable);
-      let startBuilding = GameBuildings.getUpgradeById(1);
-      GameBuildings.unlockUpgrade({
-        id: startBuilding.id,
-        canBuy: this.coins >= startBuilding.cost,
-      });
+    if (this.availableUpgrades.length == 0) {
+      $(".container.upgrades").append(`<div class='upgrades-unavailable'>${LanguageManager.getData().store.unavailable}</div>`);
     } else {
-
+      for (let i = 0; i < this.availableUpgrades.length; i++) {
+        let upgrade = GameUpgrades.getUpgradeById(this.availableUpgrades[i].id);
+        GameUpgrades.unlockUpgrade({
+          id: upgrade.id,
+          canBuy: this.coins >= upgrade.cost,
+          tier: this.availableUpgrades[i].tier,
+        });
+      }
     }
 
     if (this.buildingsOwned.length == 0) {
@@ -342,15 +439,18 @@ class GameManager {
         `coinsGain: ${this.coinsGain}  coinsGainMultiplier: ${this.coinsGainMultiplier} timeElapsed: ${timeElapsed}`
       );
       coinsEarned = Math.ceil(this.coinsGain * this.coinsGainMultiplier * timeElapsed);
-      this.coins += coinsEarned;
+
+      if (coinsEarned) {
+        this.coins += coinsEarned;
+        GameLog.write(String.format(LanguageManager.getData().welcomeBack, this.#prettyNumber(coinsEarned)));
+      }
     }
-    GameLog.write(String.format(LanguageManager.getData().welcomeBack, this.#prettyNumber(coinsEarned)));
 
     this.addCoins(this.coins, true);
   }
 
   #intiGameLoop() {
-    this.gameLoop = new GameLoop({ gameManager: this });
+    this.gameLoop = new GameLoop();
   }
 
   #setEvents() {

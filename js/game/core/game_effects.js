@@ -9,7 +9,7 @@ class GameEffects {
      * @param {Number}  coinsEarned     Monedas obtenidas a mostrar.
      */
     static spawnCoinsEarned(e, coinsEarned) {
-        if (this.#checkQuantityNumbersFloating() > 20) return;
+        //if (this.#checkQuantityNumbersFloating() > 40) return;
 
         const distnaceBetween = 30;
         let posX = randomBetween(e.pageX - distnaceBetween, e.pageX + distnaceBetween);
@@ -31,7 +31,8 @@ class GameEffects {
      * @param {Event}   e   Evento.
      */
     static spawnIconCoin(e) {
-        if (this.#checkQuantityIconsFloating() > 20) return;
+        // if (this.#checkQuantityIconsFloating() > 20) return;
+        return;
 
         const coin = $('<div class="coin-floating"><img width="32" height="32" src="/img/coins.png"></img></div>');
         coin.css({
@@ -80,7 +81,7 @@ class GameEffects {
      * @returns {Number} Cantidad de íconos flotando en el cofre.
      */
     static #checkQuantityIconsFloating() {
-        return $('.coin-floating').length;
+        return $('.coin-floating > img').length;
     }
 }
 

@@ -41,6 +41,12 @@
         "name": "Posada Upgrade",
         "description": "Las posadas son el doble de eficientes",
         "quote": "Hogar, dulce hogar."
+      },
+      {
+        "id": 2,
+        "name": "Posada x2",
+        "description": "Las posadas son el doble de eficientes",
+        "quote": "Hogar, dulce hogar."
       }
     ]
   },

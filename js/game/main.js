@@ -3,6 +3,7 @@ import GameStateManager from "./core/game_state_manager.js";
 import GameLog from "./core/game_log.js";
 import GameInfo from "./core/game_info.js";
 import GameBuildings from "./core/buildings/game_buildings.js";
+import GameUpgrades from "./core/buildings/game_upgrades.js";
 
 import LanguageManager from "./libs/language_manager.js"
 import Tooltip from "./libs/tooltip.js";
@@ -25,6 +26,7 @@ $(function () {
     GameLog.newLine(1);
 
     GameBuildings.create();
+    GameUpgrades.create();
     gameManager.start();
   });
 });

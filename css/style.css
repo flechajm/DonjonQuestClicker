@@ -515,7 +515,9 @@ html {
   overflow-y: scroll;
   padding-bottom: 48px;
   position: absolute;
-  background-color: black;
+  background-image: url(../img/popup_bg.png);
+  background-color: #333;
+  background-blend-mode: multiply;
 }
 
 #wrapper #game #store #store-wrap::-webkit-scrollbar {
@@ -546,7 +548,29 @@ html {
   font-family: "MorrisRoman";
 }
 
-#wrapper #game #store #store-wrap .upgrades-section {
+#wrapper #game #store #store-wrap .store-section .container.upgrades {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding-bottom: 6px;
+  max-height: 124px;
+  overflow-y: auto;
+}
+
+#wrapper #game #store #store-wrap .store-section .container.upgrades::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 3px;
+  background: transparent;
+}
+
+#wrapper #game #store #store-wrap .store-section .container.upgrades::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 16px;
+}
+
+#wrapper #game #store #store-wrap .upgrades-unavailable {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -556,26 +580,19 @@ html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 64px;
+  height: 59px;
+  width: 100%;
   color: burlywood;
-  font-size: 0.8rem;
-  background-image: url(/img/popup_bg.png);
-  background-size: auto;
-  background-color: darkgray;
-  background-blend-mode: multiply;
-}
-
-#wrapper #game #store #store-wrap .upgrades-section.unavailable {
-  opacity: 0.5;
+  font-family: "Merriweather";
+  font-size: 0.7rem;
+  padding-top: 6px;
+  opacity: 0.3;
 }
 
 #wrapper #game #store #store-wrap .upgrade-button {
   cursor: pointer;
-  width: 64px;
-  height: 64px;
-  background: url("/img/popup_bg.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+  width: 53px;
+  height: 53px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -589,18 +606,95 @@ html {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 10px 0 10px 20px;
+  margin: 6px 1px 0px 5px;
+  border-radius: 5px;
   text-shadow: 2px 2px 4px #000, 0px 0px 7px var(--dark), 0px 0px 10px var(--dark);
 }
 
 #wrapper #game #store #store-wrap .upgrade-button .upgrade-image {
   background-position: center;
   background-size: cover;
-  height: 42px;
-  width: 42px;
-  margin: 0px 8px 0 -15px;
+  height: 40px;
+  width: 40px;
   filter: drop-shadow(0px 0px 3px black) contrast(1.2);
   -webkit-filter: drop-shadow(0px 0px 3px black) contrast(1.2);
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier {
+  background: url(/img/popup_bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-blend-mode: hard-light;
+  border-width: 2px;
+  border-style: ridge;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.one {
+  background-color: aliceblue;
+  border-color: aliceblue;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.two {
+  background-color: burlywood;
+  border-color: burlywood;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.three {
+  background-color: #175cdd;
+  border-color: #175cdd;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.four {
+  background-color: greenyellow;
+  border-color: greenyellow;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.five {
+  background-color: orange;
+  border-color: orange;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.six {
+  background-color: crimson;
+  border-color: crimson;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.seven {
+  background-color: yellow;
+  border-color: yellow;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.eight {
+  background-color: cyan;
+  border-color: cyan;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.nine {
+  background-color: magenta;
+  border-color: magenta;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier.ten {
+  background-image: linear-gradient(140deg, red 0%, #ff9a00 10%, #d0de21 20%, #4fdc4a 30%, #3fdad8 40%, #2fc9e2 50%, #1c7fee 60%, #5f15f2 70%, #ba0cf8 80%, #fb07d9 90%, red 100%), url(../img/popup_bg.png);
+  background-blend-mode: soft-light;
+  -o-border-image: linear-gradient(to bottom right, red 0%, #ff9a00 10%, #d0de21 20%, #4fdc4a 30%, #3fdad8 40%, #2fc9e2 50%, #1c7fee 60%, #5f15f2 70%, #ba0cf8 80%, #fb07d9 90%, red 100%);
+     border-image: -webkit-gradient(linear, left top, right bottom, from(red), color-stop(10%, #ff9a00), color-stop(20%, #d0de21), color-stop(30%, #4fdc4a), color-stop(40%, #3fdad8), color-stop(50%, #2fc9e2), color-stop(60%, #1c7fee), color-stop(70%, #5f15f2), color-stop(80%, #ba0cf8), color-stop(90%, #fb07d9), to(red));
+     border-image: linear-gradient(to bottom right, red 0%, #ff9a00 10%, #d0de21 20%, #4fdc4a 30%, #3fdad8 40%, #2fc9e2 50%, #1c7fee 60%, #5f15f2 70%, #ba0cf8 80%, #fb07d9 90%, red 100%);
+  border-image-slice: 1;
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier:hover {
+  filter: brightness(var(--bright-high));
+  -webkit-filter: brightness(var(--bright-high));
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+#wrapper #game #store #store-wrap .upgrade-button.tier:active {
+  filter: brightness(var(--bright-low));
+  -webkit-filter: brightness(var(--bright-low));
+  -webkit-transform: scale(0.97);
+          transform: scale(0.97);
 }
 
 #wrapper #game #store #store-wrap .building-button {

@@ -177,7 +177,7 @@ class Tooltip {
    * Oculta el tooltip.
    */
   static hide() {
-    if (this.#tooltip.length == 1) this.#tooltip.hide();
+    if (this.#tooltip != null && this.#tooltip.length == 1) this.#tooltip.hide();
   }
 }
 
