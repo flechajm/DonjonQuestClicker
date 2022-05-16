@@ -2,3 +2,22 @@
 - Favicon: https://www.flaticon.com/authors/justicon
 - Social: https://www.flaticon.com/authors/pixel-perfect
 - Backgrounds: https://www.artstation.com/silvertm
+
+
+  // "tiers": {
+  //   "handmade": "Handmade",
+  //   "poor": "Poor",
+  //   "veryCommon": "Very common",
+  //   "common": "Common",
+  //   "frequent": "Frequent",
+  //   "uncommon": "Uncommon",
+  //   "rare": "Rare",
+  //   "veryRare": "Very rare",
+  //   "extremelyRare": "Extremely rare",
+  //   "epic": "Epic",
+  //   "legendary": "Legendary",
+  //   "mythic": "Mythic",
+  //   "marvelous": "Marvelous",
+  //   "superb": "Superb",
+  //   "outstanding": "Outstanding"
+  // },

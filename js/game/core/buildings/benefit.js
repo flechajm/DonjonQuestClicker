@@ -5,36 +5,42 @@ class Benefit {
     /**
      * Crea una instancia de Benefit.
      * @param {String} description              Descripción del beneficio.
-     * @param {Number} coinsGain                Ganancia de monedas por segundo.
-     * @param {Number} coinsGainMultiplier      Multiplicador de ganancia de monedas por segundo.
-     * @param {Number} coinsBonusPerQuest       Ganancia de monedas por quest.
-     * @param {Number} coinsMultiplierPerQuest  Multiplicador de ganancia de monedas por quest.
+     * @param {Number} coinsGain                Ganancia de monedas por segundo. Si afecta a otro edificio se considera un porcentaje.
+     * @param {Number} coinsGainMultiplier      Multiplicador de ganancia de monedas por segundo. Si afecta a otro edificio se considera un porcentaje.
+     * @param {Number} coinsBonusPerQuest       Ganancia de monedas por quest. Si afecta a otro edificio se considera un porcentaje.
+     * @param {Number} coinsMultiplierPerQuest  Multiplicador de ganancia de monedas por quest. Si afecta a otro edificio se considera un porcentaje.
+     * @param {Number} targetBuilding           Especifica si el beneficio aplica a otro edificio.
      */
-    constructor({ description, coinsGain, coinsGainMultiplier, coinsBonusPerQuest, coinsMultiplierPerQuest }) {
+    constructor({ description, coinsGain, coinsGainMultiplier, coinsBonusPerQuest, coinsMultiplierPerQuest, targetBuilding }) {
         /**
          * Descripción del beneficio.
          */
         this.description = description ?? null;
 
         /**
-         * Ganancia de monedas por segundo.
+         * Ganancia de monedas por segundo. Si afecta a otro edificio se considera un porcentaje.
          */
         this.coinsGain = coinsGain ?? null;
 
         /**
-         * Multiplicador de ganancia de monedas por segundo.
+         * Multiplicador de ganancia de monedas por segundo. Si afecta a otro edificio se considera un porcentaje.
          */
         this.coinsGainMultiplier = coinsGainMultiplier ?? null;
 
         /**
-         * Ganancia de monedas por quest.
+         * Ganancia de monedas por quest. Si afecta a otro edificio se considera un porcentaje.
          */
         this.coinsBonusPerQuest = coinsBonusPerQuest ?? null;
 
         /**
-         * Multiplicador de ganancia de monedas por quest.
+         * Multiplicador de ganancia de monedas por quest. Si afecta a otro edificio se considera un porcentaje.
          */
         this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? null;
+
+        /**
+         * Especifica si el beneficio aplica a otro edificio.
+         */
+        this.targetBuilding = targetBuilding ?? null;
     }
 
     getValue() {

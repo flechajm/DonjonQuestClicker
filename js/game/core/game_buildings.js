@@ -1,7 +1,7 @@
-import Building from "./building.js";
-import Benefit from "./benefit.js";
+import Building from "./buildings/building.js";
+import DbBuildings from "./buildings/db/database_buildings.js";
 
-import LanguageManager from "../../libs/language_manager.js";
+import LanguageManager from "../libs/language_manager.js";
 
 
 /**
@@ -23,59 +23,7 @@ class GameBuildings {
    */
   static create() {
     this.#buildingsDOM = $("#store-wrap").find('#buildings > div.container');
-    this.#buildings.push(
-      // Posada
-      new Building({
-        id: 1,
-        baseCost: 15,
-        benefits: [
-          new Benefit({
-            coinsGain: 0.5
-          }),
-        ],
-      }),
-
-      // Taberna
-      new Building({
-        id: 2,
-        baseCost: 100,
-        benefits: [
-          new Benefit({
-            coinsGain: 1,
-          }),
-          new Benefit({
-            coinsBonusPerQuest: 1,
-          }),
-        ],
-      }),
-
-      // Carpintería
-      new Building({
-        id: 3,
-        baseCost: 1500,
-        benefits: [
-          new Benefit({
-            coinsGain: 5,
-          }),
-        ],
-      }),
-
-      // Minas Oscuras
-      new Building({
-        id: 4,
-        baseCost: 15000,
-        isDungeon: true,
-        benefits: [
-          new Benefit({
-            coinsGain: 10,
-          }),
-          new Benefit({
-            coinsMultiplierPerQuest: 0.05,
-          }),
-        ],
-      }),
-    );
-
+    this.#buildings = new DbBuildings().getDB();
     this.#populateBuildings();
   }
 
@@ -83,9 +31,11 @@ class GameBuildings {
    * Prepara los edificios con todos los datos disponibles.
    */
   static #populateBuildings() {
+    const langData = LanguageManager.getData();
+
     for (let i = 1; i < this.#buildings.length + 1; i++) {
       const building = this.getBuildingById(i);
-      const buildingInfo = LanguageManager.getData().store.buildings.find((b) => b.id == building.id);
+      const buildingInfo = langData.store.buildings.find((b) => b.id == building.id);
 
       building.name = buildingInfo.name;
       building.description = buildingInfo.description;
@@ -97,16 +47,16 @@ class GameBuildings {
         const replaceValue = benefit.getFormattedValue(benefit.getValue(), varColor);
 
         if (benefit.coinsGain > 0)
-          benefit.description = String(LanguageManager.getData().benefits.coinsGain).replace('{g}', replaceValue);
+          benefit.description = String(langData.benefits.coinsGain).replace('{g}', replaceValue);
 
         if (benefit.coinsGainMultiplier > 0)
-          benefit.description = String(LanguageManager.getData().benefits.coinsGainMultiplier).replace('{g}', replaceValue);
+          benefit.description = String(langData.benefits.coinsGainMultiplier).replace('{g}', replaceValue);
 
         if (benefit.coinsBonusPerQuest > 0)
-          benefit.description = String(LanguageManager.getData().benefits.coinsBonusPerQuest).replace('{g}', replaceValue);
+          benefit.description = String(langData.benefits.coinsBonusPerQuest).replace('{g}', replaceValue);
 
         if (benefit.coinsMultiplierPerQuest > 0)
-          benefit.description = String(LanguageManager.getData().benefits.coinsMultiplierPerQuest).replace('{g}', replaceValue);
+          benefit.description = String(langData.benefits.coinsMultiplierPerQuest).replace('{g}', replaceValue);
       }
     }
   }
@@ -142,9 +92,9 @@ class GameBuildings {
    * @param {Boolean} canBuy      Indica si el edificio se puede comprar o no.
    * @returns {String} Código HTML.
    */
-  static unlockBuilding({ id, name, cost, countOwned, canBuy }) {
+  static unlockBuilding({ id, name, cost, countOwned, canBuy, icon }) {
     this.#buildingsDOM.append(this.#getButtonBuildingTemplate(id, name, cost, countOwned, canBuy));
-    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('/img/buildings/${id}.png')`);
+    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('/img/buildings/${icon}.png')`);
     this.resizeToFit(id);
   }
 

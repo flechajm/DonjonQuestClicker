@@ -9,21 +9,27 @@ class GameEffects {
      * @param {Number}  coinsEarned     Monedas obtenidas a mostrar.
      */
     static spawnCoinsEarned(e, coinsEarned) {
-        //if (this.#checkQuantityNumbersFloating() > 40) return;
+        const cantNumbers = this.#checkQuantityNumbersFloating();
+        if (cantNumbers > 100) {
+            const obj = $('.coin-floating.number').first();
+            obj.remove();
+        } else {
+            const distnaceBetween = 10;
+            let posX = randomBetween(e.pageX - distnaceBetween, e.pageX + distnaceBetween);
+            //let posY = randomBetween(0, 50);
+            let div = $('<div class="coin-floating number">')
+                .css({
+                    left: posX,
+                    top: e.pageY,
+                    opacity: 1
+                })
+                .append(`+${coinsEarned}`)
+                .appendTo('#donjon');
 
-        const distnaceBetween = 30;
-        let posX = randomBetween(e.pageX - distnaceBetween, e.pageX + distnaceBetween);
-        let div = $('<div class="coin-floating number">')
-            .css({
-                left: posX,
-                top: e.pageY + 'px',
-            })
-            .append(`+${coinsEarned}`)
-            .appendTo('#donjon');
-
-        div.animate({ top: 300, opacity: 0 }, 1500, "linear", function () {
-            $(this).remove();
-        });
+            div.animate({ top: e.pageY - 100, opacity: 0 }, 500, "linear", function () {
+                $(this).remove();
+            });
+        }
     }
 
     /**
@@ -31,7 +37,7 @@ class GameEffects {
      * @param {Event}   e   Evento.
      */
     static spawnIconCoin(e) {
-        // if (this.#checkQuantityIconsFloating() > 20) return;
+        //if (this.#checkQuantityIconsFloating() > 20) return;
         return;
 
         const coin = $('<div class="coin-floating"><img width="32" height="32" src="/img/coins.png"></img></div>');

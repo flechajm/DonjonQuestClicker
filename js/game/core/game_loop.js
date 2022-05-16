@@ -85,6 +85,7 @@ class GameLoop {
 
     // Chequeo de edificios y/o mejoras disponibles.
     gameManager.checkBuildingsAvailable();
+    gameManager.checkUpgradesAvailable();
 
     setTimeout(() => {
       this.gameLoop();

@@ -1,5 +1,5 @@
 /**
- * Clase que representa una mejora.
+ * Clase que representa una mejora
  */
 class Upgrade {
     /**
@@ -7,11 +7,12 @@ class Upgrade {
      * @param {Number}          id          Id de la mejora.
      * @param {String}          name        Nombre de la mejora.
      * @param {String}          description Descripción de la mejora.
-     * @param {Number}          cost        Costo de la mejora.
+     * @param {String}          icon        Nombre del archivo del ícono.
+     * @param {Number}          baseCost    Costo base de la mejora.
      * @param {Array<Tiers>}    tiers       Lista de tiers de la mejora.
      * @param {String}          quote       Cita.
      */
-    constructor({ id, name, description, cost, tiers, quote }) {
+    constructor({ id, name, description, icon, baseCost, tiers, quote }) {
         /**
          * Id de la mejora.
          */
@@ -28,9 +29,14 @@ class Upgrade {
         this.description = description;
 
         /**
-         * Costo de la mejora.
+         * Nombre del archivo del ícono.
          */
-        this.cost = cost;
+        this.icon = icon;
+
+        /**
+         * baseCosto de la mejora.
+         */
+        this.baseCost = baseCost;
 
         /**
          * Lista de tiers de la mejora.

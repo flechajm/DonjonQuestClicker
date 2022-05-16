@@ -17,6 +17,35 @@
 
   --bright-high: 130%;
   --bright-low: 60%;
+
+  --tier-handmade: grey;
+  --tier-poor: aliceblue;
+  --tier-very-common: #8eb6ff;
+  --tier-common: #3778f1;
+  --tier-frequent: lightgreen;
+  --tier-uncommon: #00ff00;
+  --tier-rare: #1437f8;
+  --tier-very-rare: #fc5677;
+  --tier-extremely-rare: crimson;
+  --tier-epic: #8344ff;
+  --tier-legendary: orangered;
+  --tier-mythic: yellow;
+  --tier-marvelous: cyan;
+  --tier-superb: magenta;
+  --tier-outstanding: linear-gradient(
+    140deg,
+    rgba(255, 0, 0, 1) 0%,
+    rgba(255, 154, 0, 1) 10%,
+    rgba(208, 222, 33, 1) 20%,
+    rgba(79, 220, 74, 1) 30%,
+    rgba(63, 218, 216, 1) 40%,
+    rgba(47, 201, 226, 1) 50%,
+    rgba(28, 127, 238, 1) 60%,
+    rgba(95, 21, 242, 1) 70%,
+    rgba(186, 12, 248, 1) 80%,
+    rgba(251, 7, 217, 1) 90%,
+    rgba(255, 0, 0, 1) 100%
+  );
 }
 
 * {
@@ -137,6 +166,7 @@ html {
       font-size: x-small;
       font-weight: normal;
       font-family: Tahoma, Arial, sans-serif;
+      margin-top: 2px;
     }
   }
 
@@ -205,6 +235,7 @@ html {
     color: grey;
     display: flex;
     justify-content: end;
+    text-align: right;
   }
 }
 
@@ -420,13 +451,13 @@ html {
           margin-top: 2px;
           opacity: 0.6;
 
-          &::before {
-            content: "(+";
-          }
+          // &::before {
+          //   content: "(+";
+          // }
 
-          &::after {
-            content: "/s)";
-          }
+          // &::after {
+          //   content: "/s)";
+          // }
         }
       }
     }
@@ -510,9 +541,10 @@ html {
           .container.upgrades {
             display: flex;
             flex-wrap: wrap;
-            padding-bottom: 6px;
-            max-height: 124px; //183px;
-            overflow-y: auto;
+            padding-bottom: 2px;
+            overflow-y: clip;
+            max-height: 62px;
+            transition: max-height 0.2s ease-in-out;
 
             &::-webkit-scrollbar {
               -webkit-appearance: none;
@@ -524,6 +556,11 @@ html {
               background: #ccc;
               border-radius: 16px;
             }
+
+            &:hover {
+              max-height: 100vh;
+              transition: max-height 0.3s ease-in-out;
+            }
           }
         }
 
@@ -531,7 +568,7 @@ html {
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 59px;
+          height: 60px;
           width: 100%;
           color: burlywood;
           font-family: "Merriweather";
@@ -542,14 +579,14 @@ html {
 
         .upgrade-button {
           cursor: pointer;
-          width: 53px;
-          height: 53px;
+          width: 58px;
+          height: 58px;
           display: flex;
           flex-direction: row;
           justify-content: center;
           align-items: center;
-          margin: 6px 1px 0px 5px;
-          border-radius: 5px;
+          margin: 2px 1px 0px 1px;
+          border-radius: 4px;
           text-shadow: 2px 2px 4px #000, 0px 0px 7px var(--dark),
             0px 0px 10px var(--dark);
 
@@ -567,99 +604,106 @@ html {
             background-size: cover;
             background-repeat: no-repeat;
             background-blend-mode: hard-light;
-            border-width: 2px;
             border-style: ridge;
 
-            &.one {
-              background-color: aliceblue;
-              border-color: aliceblue;
+            &.handmade {
+              background-color: var(--tier-handmade);
+              border-color: var(--tier-handmade);
             }
 
-            &.two {
-              background-color: burlywood;
-              border-color: burlywood;
+            &.poor {
+              background-color: var(--tier-poor);
+              border-color: var(--tier-poor);
             }
 
-            &.three {
-              background-color: rgb(23, 92, 221);
-              border-color: rgb(23, 92, 221);
+            &.very-common {
+              background-color: var(--tier-very-common);
+              border-color: var(--tier-very-common);
             }
 
-            &.four {
-              background-color: greenyellow;
-              border-color: greenyellow;
+            &.common {
+              background-color: var(--tier-common);
+              border-color: var(--tier-common);
             }
 
-            &.five {
-              background-color: orange;
-              border-color: orange;
+            &.frequent {
+              background-color: var(--tier-frequent);
+              border-color: var(--tier-frequent);
             }
 
-            &.six {
-              background-color: crimson;
-              border-color: crimson;
+            &.uncommon {
+              background-color: var(--tier-uncommon);
+              border-color: var(--tier-uncommon);
             }
 
-            &.seven {
-              background-color: yellow;
-              border-color: yellow;
+            &.rare {
+              background-color: var(--tier-rare);
+              border-color: var(--tier-rare);
             }
 
-            &.eight {
-              background-color: cyan;
-              border-color: cyan;
+            &.very-rare {
+              background-color: var(--tier-very-rare);
+              border-color: var(--tier-very-rare);
             }
 
-            &.nine {
-              background-color: magenta;
-              border-color: magenta;
+            &.extremely-rare {
+              background-color: var(--tier-extremely-rare);
+              border-color: var(--tier-extremely-rare);
             }
 
-            &.ten {
-              background-image: linear-gradient(
-                  140deg,
-                  rgba(255, 0, 0, 1) 0%,
-                  rgba(255, 154, 0, 1) 10%,
-                  rgba(208, 222, 33, 1) 20%,
-                  rgba(79, 220, 74, 1) 30%,
-                  rgba(63, 218, 216, 1) 40%,
-                  rgba(47, 201, 226, 1) 50%,
-                  rgba(28, 127, 238, 1) 60%,
-                  rgba(95, 21, 242, 1) 70%,
-                  rgba(186, 12, 248, 1) 80%,
-                  rgba(251, 7, 217, 1) 90%,
-                  rgba(255, 0, 0, 1) 100%
-                ),
+            &.epic {
+              background-color: var(--tier-epic);
+              border-color: var(--tier-epic);
+            }
+
+            &.legendary {
+              background-color: var(--tier-legendary);
+              border-color: var(--tier-legendary);
+            }
+
+            &.mythic {
+              background-color: var(--tier-mythic);
+              border-color: var(--tier-mythic);
+            }
+
+            &.marvelous {
+              background-color: var(--tier-marvelous);
+              border-color: var(--tier-marvelous);
+            }
+
+            &.superb {
+              background-color: var(--tier-superb);
+              border-color: var(--tier-superb);
+            }
+
+            &.outstanding {
+              background-image: var(--tier-outstanding),
                 url(../img/popup_bg.png);
               background-blend-mode: soft-light;
-
-              border-image: linear-gradient(
-                to bottom right,
-                rgba(255, 0, 0, 1) 0%,
-                rgba(255, 154, 0, 1) 10%,
-                rgba(208, 222, 33, 1) 20%,
-                rgba(79, 220, 74, 1) 30%,
-                rgba(63, 218, 216, 1) 40%,
-                rgba(47, 201, 226, 1) 50%,
-                rgba(28, 127, 238, 1) 60%,
-                rgba(95, 21, 242, 1) 70%,
-                rgba(186, 12, 248, 1) 80%,
-                rgba(251, 7, 217, 1) 90%,
-                rgba(255, 0, 0, 1) 100%
-              );
+              border-image: var(--tier-outstanding);
               border-image-slice: 1;
             }
 
-            &:hover {
+            &:not(.disabled-tara):hover {
               filter: brightness(var(--bright-high));
               -webkit-filter: brightness(var(--bright-high));
-              transform: scale(1.05);
+              transform: scale(1.04);
             }
 
-            &:active {
+            &:not(.disabled-tara):active {
               filter: brightness(var(--bright-low));
               -webkit-filter: brightness(var(--bright-low));
               transform: scale(0.97);
+            }
+
+            &.disabled-tara {
+              cursor: not-allowed;
+              filter: brightness(var(--bright-low));
+              -webkit-filter: brightness(var(--bright-low));
+
+              &:hover {
+                transform: scale(1.04);
+              }
             }
           }
         }
@@ -680,12 +724,12 @@ html {
             0px 0px 10px var(--dark);
 
           &.locked {
-            cursor: default;
+            cursor: help;
             background: url("/img/building_button.png") 0 0;
           }
 
           &.disabled {
-            cursor: default;
+            cursor: not-allowed;
             filter: brightness(var(--bright-low));
             -webkit-filter: brightness(var(--bright-low));
 

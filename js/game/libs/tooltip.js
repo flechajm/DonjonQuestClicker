@@ -53,7 +53,7 @@ class Tooltip {
     canBuy = null,
     extraPadding = null,
     paddingLock = null,
-    gameUnits = null,
+    gameUnits = null
   }) {
     extraPadding = extraPadding ?? 20;
     let padding = 26;
@@ -161,7 +161,7 @@ class Tooltip {
    */
   static updateCost(coins) {
     if (this.#headerWrapper) {
-      let cost = parseInt(this.#cost.find("div.hidden-value").html());
+      let cost = this.#cost.find("div.hidden-value").html();
       this.#cost.find("div.value").toggleClass("unavailable", cost > coins);
     }
   }

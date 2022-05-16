@@ -51,11 +51,10 @@ String.format = function () {
  */
 Number.pretty = function (number, gameUnits) {
   if (number == null) return;
+  if (number < 1000000) return number.toLocaleString('es-AR', { useGrouping: true, maximumFractionDigits: 2 });
 
-  let prettyNumber = number.toString();
-
-  if (prettyNumber.length < 7) return number.commafy();
-
+  const bigIntNumber = BigInt(Math.round(number));
+  let prettyNumber = bigIntNumber.toString();
   let visualLeng = 6;
   let maxLeng = 4;
   let leng = 4;
@@ -72,11 +71,12 @@ Number.pretty = function (number, gameUnits) {
 
       if (prettyNumber.length === leng) {
         if (sliceMin > 2) {
-          prettyNumber = String(number.toString().slice(0, sliceMin)).commafy() + units[unitIndex];
+          prettyNumber = String(bigIntNumber.toString().slice(0, sliceMin)).commafy() + units[unitIndex];
           break;
         } else {
           prettyNumber =
-            number.toString().slice(0, sliceMin) + "." + number.toString().slice(sliceMin, sliceMax) + units[unitIndex];
+            bigIntNumber.toString().slice(0, sliceMin) + "." + bigIntNumber.toString().slice(sliceMin, sliceMax) + units[unitIndex];
+          //prettyNumber = prettyNumber.replace('..', '.');
           break;
         }
       } else {
