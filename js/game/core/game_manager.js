@@ -96,7 +96,8 @@ class GameManager {
     if (!isLoading) this.coins += quantity;
 
     $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);
-    $("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s) (multiplicador: ${this.coinsGainMultiplier}%)`);
+    $("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s)`);
+    // $("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s) m: ${this.#prettyNumber(this.coinsGainMultiplier)}`);
   }
 
   getCoinsFormatted(returnPrettyNumber) {
@@ -377,10 +378,10 @@ class GameManager {
           const targetQuantity = this.buildingsOwned.find((b) => b.id == targetBuilding.id).quantity;
 
           targetBuilding.benefits.forEach((targetBenefit) => {
-            coins.gain += this.#sumPercent((targetBenefit.coinsGain ?? 0), benefit.coinsGain) * targetQuantity;
-            coins.gainMultiplier += this.#sumPercent((targetBenefit.coinsGainMultiplier ?? 0), benefit.coinsGainMultiplier) * targetQuantity;
-            coins.bonusPerQuest += this.#sumPercent((targetBenefit.coinsBonusPerQuest ?? 0), benefit.coinsBonusPerQuest) * targetQuantity;
-            coins.multiplierPerQuest += this.#sumPercent((targetBenefit.coinsMultiplierPerQuest ?? 0), benefit.coinsMultiplierPerQuest) * targetQuantity;
+            coins.gain += this.#sumPercent((targetBenefit.coinsGain ?? 0), (benefit.coinsGain * buildingOwned.quantity)) * targetQuantity;
+            coins.gainMultiplier += this.#sumPercent((targetBenefit.coinsGainMultiplier ?? 0), (benefit.coinsGainMultiplier * buildingOwned.quantity)) * targetQuantity;
+            coins.bonusPerQuest += this.#sumPercent((targetBenefit.coinsBonusPerQuest ?? 0), (benefit.coinsBonusPerQuest * buildingOwned.quantity)) * targetQuantity;
+            coins.multiplierPerQuest += this.#sumPercent((targetBenefit.coinsMultiplierPerQuest ?? 0), (benefit.coinsMultiplierPerQuest * buildingOwned.quantity)) * targetQuantity;
           });
 
           addedBuildings.push(benefit.targetBuilding);

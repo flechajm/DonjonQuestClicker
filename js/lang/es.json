@@ -83,13 +83,24 @@
     "superb": "Magnífico",
     "outstanding": "Excepcional"
   },
-
   "benefits": {
     "title": "Beneficios",
-    "coinsGain": "Produce {g} ({t}) de oro por segundo.",
-    "coinsGainMultiplier": "Multiplica en {g} ({t}) la ganancia de oro por segundo.",
-    "coinsBonusPerQuest": "Recompensa {g} ({t}) de oro por quest.",
-    "coinsMultiplierPerQuest": "Bonifica un {g} ({t}) la recompensa por quest."
+    "coinsGain": {
+      "self": "Produce {g} ({t}) de oro por segundo.",
+      "toBuilding": "Incrementa la producción de {b} un {g} ({t})."
+    },
+    "coinsGainMultiplier": {
+      "self": "Aumenta el multiplicador de oro por segundo un {g} ({t}).",
+      "toBuilding": "Incrementa el multiplicador de producción de {b} un {g} ({t})."
+    },
+    "coinsBonusPerQuest": {
+      "self": "Recompensa {g} ({t}) de oro por quest.",
+      "toBuilding": "Incrementa la recompensa de {b} un {g} ({t})."
+    },
+    "coinsMultiplierPerQuest": {
+      "self": "Aumenta el multiplicador de recompensa por quest un {g} ({t}).",
+      "toBuilding": "Incrementa el multiplicador por quest de {b} un {g} ({t})."
+    }
   },
   "quantity": "Cantidad",
   "coins": "oro",

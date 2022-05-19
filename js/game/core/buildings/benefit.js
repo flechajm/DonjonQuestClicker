@@ -48,8 +48,10 @@ class Benefit {
     }
 
     getFormattedValue(value, color) {
-        let isPercent = this.coinsGainMultiplier > 0 || this.coinsMultiplierPerQuest > 0;
-        return `<span style='color: var(--${color});'><b>+${value}${isPercent ? '%' : ''}</b></span>`;
+        let isMultiplier = this.coinsGainMultiplier > 0 || this.coinsMultiplierPerQuest > 0;
+        let isTargetBuilding = this.targetBuilding != null;
+        let sign = isMultiplier && !isTargetBuilding ? 'x' : isMultiplier && isTargetBuilding ? '+' : '+';
+        return `<span style='color: var(--${color});'><b>${sign}${value}${isTargetBuilding ? '%' : ''}</b></span>`;
     }
 }
 

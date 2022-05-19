@@ -63,7 +63,7 @@ class Tooltip {
     let separator = '<div class="separator"></div>';
 
     this.#tooltip = $("#tooltip");
-    this.#tooltip.width(cost ? 400 : 300);
+    this.#tooltip.width(cost ? 430 : 330);
     this.#headerWrapper = this.#tooltip.find("div.header-wrapper");
     this.#headerContainer = this.#headerWrapper.find("div.container");
     this.#cost = this.#headerWrapper.find("div.cost");

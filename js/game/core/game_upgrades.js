@@ -49,7 +49,7 @@ class GameUpgrades {
           const replaceValue = benefit.getFormattedValue(benefit.getValue(), varColor);
 
           if (benefit.coinsGain > 0)
-            benefit.description = String(langData.benefits.coinsGain).replace('{g}', replaceValue);
+            benefit.description = String(langData.benefits.coinsGain.self).replace('{g}', replaceValue);
 
           if (benefit.coinsGainMultiplier > 0)
             benefit.description = String(langData.benefits.coinsGainMultiplier).replace('{g}', replaceValue);

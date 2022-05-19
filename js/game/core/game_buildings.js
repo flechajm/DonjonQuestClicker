@@ -44,19 +44,60 @@ class GameBuildings {
       for (let j = 0; j < building.benefits.length; j++) {
         const benefit = building.benefits[j];
         const varColor = 'benefit';
-        const replaceValue = benefit.getFormattedValue(benefit.getValue(), varColor);
+        const value = benefit.getFormattedValue(benefit.getValue(), varColor);
 
-        if (benefit.coinsGain > 0)
-          benefit.description = String(langData.benefits.coinsGain).replace('{g}', replaceValue);
+        let targetBuilding;
+        let targetBuildingName;
 
-        if (benefit.coinsGainMultiplier > 0)
-          benefit.description = String(langData.benefits.coinsGainMultiplier).replace('{g}', replaceValue);
+        if (benefit.targetBuilding) {
+          targetBuilding = this.getBuildingById(benefit.targetBuilding);
+          targetBuildingName = this.getFormattedName(targetBuilding.name, 'gold');
+        }
 
-        if (benefit.coinsBonusPerQuest > 0)
-          benefit.description = String(langData.benefits.coinsBonusPerQuest).replace('{g}', replaceValue);
+        if (benefit.coinsGain > 0) {
+          if (targetBuilding) {
+            benefit.description = String(langData.benefits.coinsGain.toBuilding)
+              .replace('{g}', value)
+              .replace('{b}', targetBuildingName);
+          } else {
+            benefit.description = String(langData.benefits.coinsGain.self)
+              .replace('{g}', value);
+          }
+        }
 
-        if (benefit.coinsMultiplierPerQuest > 0)
-          benefit.description = String(langData.benefits.coinsMultiplierPerQuest).replace('{g}', replaceValue);
+        if (benefit.coinsGainMultiplier > 0) {
+          if (targetBuilding) {
+            benefit.description = String(langData.benefits.coinsGainMultiplier.toBuilding)
+              .replace('{g}', value)
+              .replace('{b}', targetBuildingName);
+          } else {
+            benefit.description = String(langData.benefits.coinsGainMultiplier.self)
+              .replace('{g}', value);
+          }
+        }
+
+        if (benefit.coinsBonusPerQuest > 0) {
+          if (targetBuilding) {
+            benefit.description = String(langData.benefits.coinsBonusPerQuest.toBuilding)
+              .replace('{g}', value)
+              .replace('{b}', targetBuildingName);
+          } else {
+            benefit.description = String(langData.benefits.coinsBonusPerQuest.self)
+              .replace('{g}', value);
+          }
+        }
+
+        if (benefit.coinsMultiplierPerQuest > 0) {
+          if (targetBuilding) {
+            benefit.description = String(langData.benefits.coinsMultiplierPerQuest.toBuilding)
+              .replace('{g}', value)
+              .replace('{b}', targetBuildingName);
+          } else {
+            benefit.description = String(langData.benefits.coinsMultiplierPerQuest.self)
+              .replace('{g}', value);
+          }
+
+        }
       }
     }
   }
@@ -145,6 +186,10 @@ class GameBuildings {
    */
   static getBuildingById(id) {
     return this.#buildings.find((b) => b.id == id);
+  }
+
+  static getFormattedName(name, color) {
+    return `<span style='color: var(--${color});'><b>${name}</b></span>`;
   }
 }
 
