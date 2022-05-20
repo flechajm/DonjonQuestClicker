@@ -11,47 +11,62 @@ class Benefit {
      * @param {Number} coinsMultiplierPerQuest  Multiplicador de ganancia de monedas por quest. Si afecta a otro edificio se considera un porcentaje.
      * @param {Number} targetBuilding           Especifica si el beneficio aplica a otro edificio.
      */
-    constructor({ description, coinsGain, coinsGainMultiplier, coinsBonusPerQuest, coinsMultiplierPerQuest, targetBuilding }) {
+    constructor({
+        description,
+        coinsGain,
+        coinsGainMultiplier,
+        coinsBonusPerQuest,
+        coinsMultiplierPerQuest,
+        targetBuilding,
+        calculateAsPercent,
+    }) {
         /**
          * Descripción del beneficio.
          */
         this.description = description ?? null;
 
         /**
-         * Ganancia de monedas por segundo. Si afecta a otro edificio se considera un porcentaje.
+         * Ganancia de monedas por segundo.
          */
-        this.coinsGain = coinsGain ?? null;
+        this.coinsGain = coinsGain ?? 0;
 
         /**
-         * Multiplicador de ganancia de monedas por segundo. Si afecta a otro edificio se considera un porcentaje.
+         * Multiplicador de ganancia de monedas por segundo.
          */
-        this.coinsGainMultiplier = coinsGainMultiplier ?? null;
+        this.coinsGainMultiplier = coinsGainMultiplier ?? 0;
 
         /**
-         * Ganancia de monedas por quest. Si afecta a otro edificio se considera un porcentaje.
+         * Ganancia de monedas por quest.
          */
-        this.coinsBonusPerQuest = coinsBonusPerQuest ?? null;
+        this.coinsBonusPerQuest = coinsBonusPerQuest ?? 0;
 
         /**
-         * Multiplicador de ganancia de monedas por quest. Si afecta a otro edificio se considera un porcentaje.
+         * Multiplicador de ganancia de monedas por quest.
          */
-        this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? null;
+        this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? 0;
 
         /**
          * Especifica si el beneficio aplica a otro edificio.
          */
         this.targetBuilding = targetBuilding ?? null;
+
+
+        /**
+         * Indica si los beneficios otorgados deben calcularse como un porcentaje, sino, sólo se suman.
+         */
+        this.calculateAsPercent = calculateAsPercent ?? false;
     }
 
     getValue() {
-        return this.coinsGain ?? this.coinsGainMultiplier ?? this.coinsBonusPerQuest ?? this.coinsMultiplierPerQuest;
+        if (this.coinsGain > 0) return this.coinsGain;
+        if (this.coinsGainMultiplier > 0) return this.coinsGainMultiplier;
+        if (this.coinsBonusPerQuest > 0) return this.coinsBonusPerQuest;
+        if (this.coinsMultiplierPerQuest > 0) return this.coinsMultiplierPerQuest;
     }
 
     getFormattedValue(value, color) {
-        let isMultiplier = this.coinsGainMultiplier > 0 || this.coinsMultiplierPerQuest > 0;
-        let isTargetBuilding = this.targetBuilding != null;
-        let sign = isMultiplier && !isTargetBuilding ? 'x' : isMultiplier && isTargetBuilding ? '+' : '+';
-        return `<span style='color: var(--${color});'><b>${sign}${value}${isTargetBuilding ? '%' : ''}</b></span>`;
+        //let isMultiplier = this.coinsGainMultiplier > 0 || this.coinsMultiplierPerQuest > 0;
+        return `<span style='color: var(--${color});'><b>+${value}${this.calculateAsPercent ? '%' : ''}</b></span>`;
     }
 }
 

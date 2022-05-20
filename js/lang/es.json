@@ -67,7 +67,7 @@
     ]
   },
   "tiers": {
-    "handmade": "Hecha a mano",
+    "handmade": "Hecho a mano",
     "poor": "Pobre",
     "veryCommon": "Muy común",
     "common": "Común",
@@ -86,20 +86,20 @@
   "benefits": {
     "title": "Beneficios",
     "coinsGain": {
-      "self": "Produce {g} ({t}) de oro por segundo.",
-      "toBuilding": "Incrementa la producción de {b} un {g} ({t})."
+      "self": "Produce ➡️ {g} ({t}) de oro por segundo.",
+      "toBuilding": "Incrementa la producción de {b} ➡️ {g} ({t})."
     },
     "coinsGainMultiplier": {
-      "self": "Aumenta el multiplicador de oro por segundo un {g} ({t}).",
-      "toBuilding": "Incrementa el multiplicador de producción de {b} un {g} ({t})."
+      "self": "Aumenta el multiplicador de oro por segundo ➡️ {g} ({t}).",
+      "toBuilding": "Incrementa el multiplicador de producción de {b} ➡️ {g} ({t})."
     },
     "coinsBonusPerQuest": {
-      "self": "Recompensa {g} ({t}) de oro por quest.",
-      "toBuilding": "Incrementa la recompensa de {b} un {g} ({t})."
+      "self": "Recompensa ➡️ {g} ({t}) de oro por quest.",
+      "toBuilding": "Incrementa la recompensa de {b} ➡️ {g} ({t})."
     },
     "coinsMultiplierPerQuest": {
-      "self": "Aumenta el multiplicador de recompensa por quest un {g} ({t}).",
-      "toBuilding": "Incrementa el multiplicador por quest de {b} un {g} ({t})."
+      "self": "Aumenta el multiplicador de recompensa por quest ➡️ {g} ({t}).",
+      "toBuilding": "Incrementa el multiplicador por quest de {b} ➡️ {g} ({t})."
     }
   },
   "quantity": "Cantidad",

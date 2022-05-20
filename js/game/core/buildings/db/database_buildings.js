@@ -25,7 +25,8 @@ class DbBuildings {
                 baseCost: 100,
                 benefits: [
                     new Benefit({
-                        coinsGainMultiplier: 0.05
+                        coinsGainMultiplier: 50,
+                        calculateAsPercent: true,
                     }),
                 ],
             }),
@@ -54,6 +55,7 @@ class DbBuildings {
                     new Benefit({
                         coinsGain: 50,
                         targetBuilding: 3,
+                        calculateAsPercent: true,
                     }),
                 ],
             }),
