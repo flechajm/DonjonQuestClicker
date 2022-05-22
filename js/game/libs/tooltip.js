@@ -153,6 +153,9 @@ class Tooltip {
     if (paddingLeft) {
       this.#tooltip.css("left", `${event.pageX + paddingLeft}px`);
     }
+
+    if (parseInt(this.#tooltip.css('top'), 10) < 0)
+      this.#tooltip.css("top", 0);
   }
 
   /**

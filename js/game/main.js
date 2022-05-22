@@ -4,6 +4,7 @@ import GameLog from "./core/game_log.js";
 import GameInfo from "./core/game_info.js";
 import GameBuildings from "./core/game_buildings.js";
 import GameUpgrades from "./core/game_upgrades.js";
+import GameAchievments from "./core/game_achievments.js";
 
 import LanguageManager from "./libs/language_manager.js"
 import Tooltip from "./libs/tooltip.js";
@@ -27,6 +28,7 @@ $(function () {
 
     GameBuildings.create();
     GameUpgrades.create();
+
     gameManager.start();
   });
 });

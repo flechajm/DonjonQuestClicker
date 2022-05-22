@@ -1,6 +1,6 @@
-import Upgrade from "../upgrade.js";
-import Tier from "../tier.js";
-import Benefit from "../benefit.js";
+import Upgrade from "../core/buildings/upgrade.js";
+import Tier from "../core/buildings/tier.js";
+import Benefit from "../core/buildings/benefit.js";
 
 class DbUpgrades {
     #db = [];

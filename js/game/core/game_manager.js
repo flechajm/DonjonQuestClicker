@@ -3,6 +3,7 @@ import GameLoop from "./game_loop.js";
 import GameLog from "./game_log.js";
 import GameBuildings from "./game_buildings.js";
 import GameUpgrades from "./game_upgrades.js";
+import GameAchievments from "./game_achievments.js";
 import GameInfo from "./game_info.js";
 import GameEffects from "./game_effects.js";
 
@@ -27,6 +28,7 @@ class GameManager {
     upgradesOwned,
     availableUpgrades,
     config,
+    achievments,
   }) {
     this.heroName = heroName ?? "John Arrow";
     this.coins = coins ?? 0;
@@ -39,6 +41,7 @@ class GameManager {
     this.upgradesOwned = upgradesOwned ?? [];
     this.availableUpgrades = availableUpgrades ?? [];
     this.config = new GameConfig(config);
+    this.achievments = new GameAchievments(achievments);
     this.#basePow = 1.17;
     this.#basePowUpgrades = 10;
     this.#units = [];
@@ -86,6 +89,9 @@ class GameManager {
   openChest(e) {
     let coinsEarned = Math.round((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
 
+    if (this.coins == 0)
+      this.achievments.unlock(1);
+
     GameEffects.spawnCoinsEarned(e, this.#prettyNumber(coinsEarned));
     GameEffects.spawnIconCoin(e);
 
@@ -97,7 +103,7 @@ class GameManager {
 
     $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);
     $("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s)`);
-    // $("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s) m: ${this.#prettyNumber(this.coinsGainMultiplier)}`);
+    $("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s) m: ${this.#prettyNumber(this.coinsGainMultiplier)}`);
   }
 
   getCoinsFormatted(returnPrettyNumber) {
@@ -225,24 +231,32 @@ class GameManager {
     return tier;
   }
 
-  buyBuilding(id, quantity) {
-    let building = this.getBuildingOwnedById(id);
-    let owned = $(`#building-${id} > div.building-count-owned`);
+  addAchievmentUnlocked(id) {
+    this.achievmentsUnlocked.push(id);
+  }
 
-    if (building) {
-      building.quantity += quantity;
+  buyBuilding(id, quantity) {
+    let buildingOwned = this.getBuildingOwnedById(id);
+    let buildingOwnedDOM = $(`#building-${id} > div.building-count-owned`);
+
+    if (buildingOwned) {
+      buildingOwned.quantity += quantity;
     } else {
       this.buildingsOwned.push({ id: id, quantity: quantity });
-      building = this.getBuildingOwnedById(id);
+      buildingOwned = this.getBuildingOwnedById(id);
     }
 
-    this.#substractCoins(GameBuildings.getBuildingById(id).cost);
-    this.#addBuildingBenefits();
-    this.#updateBuildingCost(id, building.quantity);
-    this.#unlockNextBuilding(building, -1);
-    this.#unlockUpgrade(building, id);
+    const building = GameBuildings.getBuildingById(id);
 
-    owned.html(building.quantity);
+    this.#substractCoins(building.cost);
+    this.#addBuildingBenefits();
+    this.#updateBuildingCost(id, buildingOwned.quantity);
+    this.#unlockNextBuilding(buildingOwned, -1);
+    this.#unlockUpgrade(buildingOwned, id);
+
+    this.achievments.unlock(building.unlockAchievment);
+
+    buildingOwnedDOM.html(buildingOwned.quantity);
   }
 
   buyUpgrarde(upgrade, tier) {
@@ -266,20 +280,33 @@ class GameManager {
     const gameManager = this;
 
     let quantity = gameManager.getBuildingOwnedById(building.id)?.quantity ?? 0;
+    let upgradesOwned = gameManager.getUpgradeOwnedFilteredById(building.id).sort((a, b) => a.tier - b.tier);
+
     let benefits = building.benefits.map((benefit) => {
       let value = benefit.getFormattedValue(benefit.getValue(), 'benefit');
-      let totalValue = benefit.getFormattedValue(roundNumber(benefit.getValue() * quantity), "available");
+      let totalValue = benefit.getFormattedValue(this.#prettyNumber(roundNumber(benefit.getValue() * quantity)), "available");
       let finalDescription = String(benefit.description).replace('{g}', value).replace('{t}', totalValue);
 
       return `<li>${finalDescription}</li>`
     }).join("");
+
+    let upgradeTiers = upgradesOwned.map((upgradeOwned) => {
+      let tierName = GameUpgrades.getTierName(upgradeOwned.tier);
+      let upgrade = GameUpgrades.getUpgradeById(upgradeOwned.id);
+      let upgradeBenefits = GameUpgrades.getTierByUpgrade(upgrade, upgradeOwned.tier).benefits;
+      let benefit = `<span style='margin-top: 5px;'>${String(upgradeBenefits[0].description)}</span>`;
+
+      return `<div class='tier-upgrades'><span>✔️ ${tierName} ${benefit}</span></div>`
+    }).join("");
+
+    let upgradesDescription = upgradesOwned.length > 0 ? `<b><u>${LanguageManager.getData().store.upgradesTitle}:</u></b><br /><ul>${upgradeTiers}</ul>` : '';
 
     Tooltip.setTooltip({
       event: e,
       title: building.name,
       subtitle: `${LanguageManager.getData().quantity}: ${quantity}`,
       description: `@separator@${building.description}<br /><br /><b><u>${LanguageManager.getData().benefits.title
-        }:</u></b><br /><ul>${benefits}</ul>@separator@<span class='quote'>${building.quote}</span>`,
+        }:</u></b><br /><ul>${benefits}</ul>${upgradesDescription}@separator@<span class='quote'>${building.quote}</span>`,
       icon: `/img/buildings/${building.icon}.png`,
       cost: building.cost,
       canBuy: gameManager.coins >= building.cost,
@@ -292,16 +319,13 @@ class GameManager {
   bindTooltipFunctionToUpgradeButton(e, upgrade, tier) {
     const gameManager = this;
     const benefits = tier.benefits.map((benefit) => {
-      const value = roundNumber(benefit.getValue());
-      const finalDescription = String(benefit.description).replace('{t}', benefit.getFormattedValue(value, "available"));
-
-      return `<li>${finalDescription}</li>`
+      return `<li>${benefit.description}</li>`
     }).join("");
 
     Tooltip.setTooltip({
       event: e,
       title: upgrade.name,
-      subtitle: GameUpgrades.getTierName(tier.number),
+      subtitle: `<span>${LanguageManager.getData().rarity}: ${GameUpgrades.getTierName(tier.number)}</span>`,
       description: `@separator@${upgrade.description}<br /><br /><b><u>${LanguageManager.getData().benefits.title
         }:</u></b><br /><ul>${benefits}</ul>`,
       icon: `/img/buildings/${upgrade.icon}.png`,
@@ -353,20 +377,6 @@ class GameManager {
     cost.html(this.#prettyNumber(building.cost));
   }
 
-  // #addBuildingBenefits(buildingId, buildingQuantity) {
-  //   let building = GameBuildings.getBuildingById(buildingId);
-
-  //   building.benefits.forEach((benefit) => {
-  //     this.coinsGain += (benefit.coinsGain ?? 0) * buildingQuantity;
-  //     this.coinsGainMultiplier += (benefit.coinsGainMultiplier ?? 0) * buildingQuantity;
-  //     this.coinsBonusPerQuest += (benefit.coinsBonusPerQuest ?? 0) * buildingQuantity;
-  //     this.coinsMultiplierPerQuest += (benefit.coinsMultiplierPerQuest ?? 0) * buildingQuantity;
-  //   });
-
-  //   this.coinsGainMultiplier = roundNumber(this.coinsGainMultiplier);
-  //   this.coinsMultiplierPerQuest = roundNumber(this.coinsMultiplierPerQuest);
-  // }
-
   #addUpgradeBenefits(upgradeOwned) {
     const upgrade = GameUpgrades.getUpgradeById(upgradeOwned.id);
     const tier = GameUpgrades.getTierByUpgrade(upgrade, upgradeOwned.tier);
@@ -409,32 +419,10 @@ class GameManager {
             coins.gainMultiplier += calculatedBenefit.gainMultiplier;
             coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
             coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
-
-
-
-            // coins.gain += this.#sumPercent(targetBenefit.coinsGain, (benefit.coinsGain * buildingOwned.quantity)) * targetQuantity;
-            // coins.gainMultiplier += this.#sumPercent(targetBenefit.coinsGainMultiplier, (benefit.coinsGainMultiplier * buildingOwned.quantity)) * targetQuantity;
-            // coins.bonusPerQuest += this.#sumPercent(targetBenefit.coinsBonusPerQuest, (benefit.coinsBonusPerQuest * buildingOwned.quantity)) * targetQuantity;
-            // coins.multiplierPerQuest += this.#sumPercent(targetBenefit.coinsMultiplierPerQuest, (benefit.coinsMultiplierPerQuest * buildingOwned.quantity)) * targetQuantity;
           });
 
           addedBuildings.push(benefit.targetBuilding);
         } else {
-          // const upgrade = GameUpgrades.getUpgradeById(building.id);
-          // const upgradeOwned = this.getUpgradeOwnedById(building.id);
-          //   //const upgradesOwned = this.getUpgradeOwnedFilteredById(building.id);
-
-          //   upgradesOwned.forEach((upgradeOwned) => {
-          //     const tierBenefits = GameUpgrades.getTierByUpgrade(upgrade, upgradeOwned.tier).benefits;
-
-          //     tierBenefits.forEach((tierBenefit) => {
-          //       newBenefit.coinsGain += tierBenefit.coinsGain;
-          //       newBenefit.coinsGainMultiplier += tierBenefit.coinsGainMultiplier;
-          //       newBenefit.coinsBonusPerQuest += tierBenefit.coinsBonusPerQuest;
-          //       newBenefit.coinsMultiplierPerQuest += tierBenefit.coinsMultiplierPerQuest;
-          //     });
-          //   });
-
           const calculatedBenefit = this.#calculateBenefit({ benefit: benefit, buildingQuantity: buildingOwned.quantity });
 
           coins.gain += calculatedBenefit.gain;
@@ -652,57 +640,6 @@ class GameManager {
         default:
           tierNumber = -1;
           break;
-
-
-        // case 1:
-        //   tierNumber = 1;
-        //   break;
-        // case 2:
-        //   tierNumber = 2;
-        //   break;
-        // case 3:
-        //   tierNumber = 3;
-        //   break;
-        // case 4:
-        //   tierNumber = 4;
-        //   break;
-        // case 5:
-        //   tierNumber = 5;
-        //   break;
-        // case 6:
-        //   tierNumber = 6;
-        //   break;
-        // case 7:
-        //   tierNumber = 7;
-        //   break;
-        // case 8:
-        //   tierNumber = 8;
-        //   break;
-        // case 9:
-        //   tierNumber = 9;
-        //   break;
-        // case 10:
-        //   tierNumber = 10;
-        //   break;
-        // case 11:
-        //   tierNumber = 11;
-        //   break;
-        // case 12:
-        //   tierNumber = 12;
-        //   break;
-        // case 13:
-        //   tierNumber = 13;
-        //   break;
-        // case 14:
-        //   tierNumber = 14;
-        //   break;
-        // case 15:
-        //   tierNumber = 15;
-        //   break;
-
-        // default:
-        //   tierNumber = -1;
-        //   break;
       }
 
       if (tierNumber != -1) {

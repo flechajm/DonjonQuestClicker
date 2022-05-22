@@ -4,13 +4,16 @@ class GameLog {
   static logDOM = $("#log > div.text");
 
   static #append(html) {
-    this.logDOM.append(html);
+    this.logDOM.append(html)
+      .children(':last')
+      .hide()
+      .fadeIn(500);
     this.logDOM.append("<br />");
     this.logDOM.animate(
       {
-        scrollTop: this.logDOM.offset().top,
+        scrollTop: this.logDOM[0].scrollHeight
       },
-      2000
+      100
     );
   }
 

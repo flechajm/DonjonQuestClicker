@@ -1,5 +1,5 @@
 import Building from "./buildings/building.js";
-import DbBuildings from "./buildings/db/database_buildings.js";
+import DbBuildings from "../db/database_buildings.js";
 
 import LanguageManager from "../libs/language_manager.js";
 

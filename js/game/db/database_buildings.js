@@ -1,5 +1,5 @@
-import Building from "../building.js";
-import Benefit from "../benefit.js";
+import Building from "../core/buildings/building.js";
+import Benefit from "../core/buildings/benefit.js";
 
 class DbBuildings {
     #db;
@@ -11,6 +11,7 @@ class DbBuildings {
                 id: 1,
                 icon: 'inn',
                 baseCost: 20,
+                unlockAchievment: 2,
                 benefits: [
                     new Benefit({
                         coinsGain: 0.5

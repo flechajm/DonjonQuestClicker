@@ -163,6 +163,8 @@ html {
     }
 
     .subtitle {
+      display: flex;
+      align-items: center;
       font-size: x-small;
       font-weight: normal;
       font-family: Tahoma, Arial, sans-serif;
@@ -236,6 +238,69 @@ html {
     display: flex;
     justify-content: end;
     text-align: right;
+  }
+
+  .tier-upgrades {
+    display: flex;
+    justify-content: start;
+    align-content: center;
+    align-items: center;
+    margin-bottom: 4px;
+    margin-left: -20px;
+  }
+}
+
+.achievment-unlocked {
+  color: darkgoldenrod;
+  font-style: italic;
+  margin-top: 10px;
+  margin-bottom: -10px;
+}
+
+.achievment {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  border: 3px solid transparent;
+  border-image: url("/img/tooltip_border.png") 3 round;
+  border-radius: 3px;
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
+    0px 0px 10px 2px rgba(0, 0, 0, 60%);
+  -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
+    0px 0px 10px 2px rgba(0, 0, 0, 60%);
+  -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
+    0px 0px 10px 2px rgba(0, 0, 0, 60%);
+  background: url("/img/popup_bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: lightskyblue;
+  background-blend-mode: multiply;
+  padding: 7px 10px 10px 10px;
+  width: 300px;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon {
+    padding-right: 10px;
+  }
+
+  .title {
+    font-family: "Roboto Slab";
+    font-weight: bold;
+  }
+
+  .subtitle {
+    display: flex;
+    align-items: center;
+    font-size: x-small;
+    font-weight: normal;
+    font-family: Tahoma, Arial, sans-serif;
+    margin-top: 2px;
   }
 }
 

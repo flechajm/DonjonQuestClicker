@@ -103,6 +103,7 @@
     }
   },
   "quantity": "Cantidad",
+  "rarity": "Rareza",
   "coins": "oro",
   "chest": {
     "title": "Tesoro",

@@ -1,5 +1,5 @@
 import Upgrade from "./buildings/upgrade.js";
-import DbUpgrades from "./buildings/db/database_upgrades.js";
+import DbUpgrades from "../db/database_upgrades.js";
 
 import LanguageManager from "../libs/language_manager.js";
 
@@ -49,16 +49,16 @@ class GameUpgrades {
           const replaceValue = benefit.getFormattedValue(benefit.getValue(), varColor);
 
           if (benefit.coinsGain > 0)
-            benefit.description = String(langData.benefits.coinsGain.self).replace('{g}', replaceValue);
+            benefit.description = String(langData.benefits.coinsGain.self).replace('{g}', replaceValue).replace(' ({t})', '');
 
           if (benefit.coinsGainMultiplier > 0)
-            benefit.description = String(langData.benefits.coinsGainMultiplier).replace('{g}', replaceValue);
+            benefit.description = String(langData.benefits.coinsGainMultiplier).replace('{g}', replaceValue).replace(' ({t})', '');
 
           if (benefit.coinsBonusPerQuest > 0)
-            benefit.description = String(langData.benefits.coinsBonusPerQuest).replace('{g}', replaceValue);
+            benefit.description = String(langData.benefits.coinsBonusPerQuest).replace('{g}', replaceValue).replace(' ({t})', '');
 
           if (benefit.coinsMultiplierPerQuest > 0)
-            benefit.description = String(langData.benefits.coinsMultiplierPerQuest).replace('{g}', replaceValue);
+            benefit.description = String(langData.benefits.coinsMultiplierPerQuest).replace('{g}', replaceValue).replace(' ({t})', '');
 
         }
 
@@ -158,9 +158,21 @@ class GameUpgrades {
   static #getTierFormatted(text, backgroundColor, textColor) {
     let background = backgroundColor == '--tier-outstanding' ? 'background-image' : 'background-color';
     let textShadow = backgroundColor == '--tier-outstanding' ? '0px 0px 1px black' : 'none';
-    return `<span style='border: 1px solid var(--building-section); text-shadow: ${textShadow}; border-radius: 3px; color: ${textColor}; ${background}: var(${backgroundColor}); padding: 0px 5px 2px 5px'>${text}</span>`;
+    return `<span style=' border: 1px solid var(--building-section);
+                          font-family: Arial, Helvetica, sans-serif;
+                          font-size: x-small;
+                          text-shadow: ${textShadow};
+                          border-radius: 3px;
+                          color: ${textColor};
+                          ${background}: var(${backgroundColor});
+                          padding: 2px 5px 2px 5px'>${text}</span>`;
   }
 
+  /**
+   * Obtiene la clase CSS de la tier del upgrade.
+   * @param {Number} tierNumber Número de tier.
+   * @returns Clase CSS.
+   */
   static getTierClass(tierNumber) {
     switch (tierNumber) {
       case 1:

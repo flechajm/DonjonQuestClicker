@@ -51,7 +51,7 @@ String.format = function () {
  */
 Number.pretty = function (number, gameUnits) {
   if (number == null) return;
-  if (number < 1000000) return number.toLocaleString('es-AR', { useGrouping: true, maximumFractionDigits: 2 });
+  if (number < 1000000) return number.toLocaleString('en-US', { useGrouping: true, maximumFractionDigits: 2 });
 
   const bigIntNumber = BigInt(Math.round(number));
   let prettyNumber = bigIntNumber.toString();
