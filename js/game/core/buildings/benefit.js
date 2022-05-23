@@ -65,7 +65,6 @@ class Benefit {
     }
 
     getFormattedValue(value, color) {
-        //let isMultiplier = this.coinsGainMultiplier > 0 || this.coinsMultiplierPerQuest > 0;
         return `<span style='color: var(--${color});'><b>+${value}${this.calculateAsPercent ? '%' : ''}</b></span>`;
     }
 }

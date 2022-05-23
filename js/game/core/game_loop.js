@@ -87,6 +87,10 @@ class GameLoop {
     gameManager.checkBuildingsAvailable();
     gameManager.checkUpgradesAvailable();
 
+    // Chequeo de achievments por oro obtenido.
+    this.checkCoinsAchievments();
+
+
     setTimeout(() => {
       this.gameLoop();
     }, this.loopPeriod);
@@ -99,6 +103,17 @@ class GameLoop {
         GameLog.writeSaveProgress();
       }
     }, 1000 * this.savePeriod);
+  }
+
+  checkCoinsAchievments() {
+    // if (gameManager.coins >= 100)
+    //   gameManager.achievments.unlock(3);
+
+    if (gameManager.coinsHistory >= 100)
+      gameManager.achievments.unlock(3);
+
+    if (gameManager.coinsHistory >= 10000)
+      gameManager.achievments.unlock(3);
   }
 }
 

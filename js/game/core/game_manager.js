@@ -24,6 +24,7 @@ class GameManager {
     coinsPerQuest,
     coinsBonusPerQuest,
     coinsMultiplierPerQuest,
+    coinsHistory,
     buildingsOwned,
     upgradesOwned,
     availableUpgrades,
@@ -37,6 +38,7 @@ class GameManager {
     this.coinsPerQuest = coinsPerQuest ?? 1;
     this.coinsBonusPerQuest = coinsBonusPerQuest ?? 0;
     this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? 1;
+    this.coinsHistory = coinsHistory ?? 0;
     this.buildingsOwned = buildingsOwned ?? [];
     this.upgradesOwned = upgradesOwned ?? [];
     this.availableUpgrades = availableUpgrades ?? [];
@@ -99,10 +101,13 @@ class GameManager {
   }
 
   addCoins(quantity, isLoading) {
-    if (!isLoading) this.coins += quantity;
+    if (!isLoading) {
+      this.coins += quantity;
+      this.coinsHistory += quantity;
+    }
 
     $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);
-    $("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s)`);
+    //$("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s)`);
     $("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s) m: ${this.#prettyNumber(this.coinsGainMultiplier)}`);
   }
 
@@ -283,7 +288,7 @@ class GameManager {
     let upgradesOwned = gameManager.getUpgradeOwnedFilteredById(building.id).sort((a, b) => a.tier - b.tier);
 
     let benefits = building.benefits.map((benefit) => {
-      let value = benefit.getFormattedValue(benefit.getValue(), 'benefit');
+      let value = benefit.getFormattedValue(this.#prettyNumber(benefit.getValue()), 'benefit');
       let totalValue = benefit.getFormattedValue(this.#prettyNumber(roundNumber(benefit.getValue() * quantity)), "available");
       let finalDescription = String(benefit.description).replace('{g}', value).replace('{t}', totalValue);
 
@@ -342,6 +347,7 @@ class GameManager {
   }
 
   #configure() {
+    this.achievments.setLocalization();
     this.buildingsOwned.sort((a, b) => a.id - b.id);
     this.availableUpgrades.sort((a, b) => a.cost - b.cost);
     this.setHeroName(this.heroName);
@@ -479,7 +485,7 @@ class GameManager {
       coins.gain = this.#sumPercent(benefit.coinsGain, (benefit.coinsGain * buildingQuantity));
       coins.gainMultiplier = this.#sumPercent(coins.gainMultiplier, (benefit.coinsGainMultiplier * buildingQuantity));
       coins.bonusPerQuest = this.#sumPercent(benefit.coinsBonusPerQuest, (benefit.coinsBonusPerQuest * buildingQuantity));
-      coins.multiplierPerQuest = this.#sumPercent(coins.gainMultiplier, (benefit.coinsMultiplierPerQuest * buildingQuantity));
+      coins.multiplierPerQuest = this.#sumPercent(coins.multiplierPerQuest, (benefit.coinsMultiplierPerQuest * buildingQuantity));
     } else {
       coins.gain = benefit.coinsGain * buildingQuantity;
       coins.gainMultiplier = benefit.coinsGainMultiplier * buildingQuantity;
@@ -679,6 +685,12 @@ class GameManager {
 
       if (coinsEarned) {
         this.coins += coinsEarned;
+        const achievmentsIdle = this.achievments.searchByReachType('idle');
+        achievmentsIdle.forEach((achievment) => {
+          if (coinsEarned >= achievment.reachValue) {
+            this.achievments.unlock(achievment.id);
+          }
+        });
         GameLog.write(String.format(LanguageManager.getData().welcomeBack, this.#prettyNumber(coinsEarned)));
       }
     }

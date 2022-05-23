@@ -41,20 +41,32 @@
       {
         "id": 5,
         "name": "Taberna",
-        "description": "Tomar antes de salir.",
+        "description": "Para ir en busca de una misión hay que tener coraje y valentía. La taberna le da a tus aventureros eso que necesitan.",
         "quote": "Hip!"
       },
       {
         "id": 6,
-        "name": "Minas Oscuras",
-        "description": "Un lugar muy oscuro...",
+        "name": "Explorador",
+        "description": "Unidad de exploración que permite inspeccionar calabozos o mazmorras y hacerse con una porción del botín.",
         "quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      },
+      {
+        "id": 7,
+        "name": "Escudero",
+        "description": "Guerreros fuertes y con mucha resistencia. Sin miedo a nada, son capaces de dejar su vida por derrotar criaturas en lo más oscuro de las mazmorras.",
+        "quote": "No tengo miedo de un ejército de leones dirigido por una oveja. Tengo miedo de un ejército de ovejas dirigido por un león."
+      },
+      {
+        "id": 8,
+        "name": "Herrería",
+        "description": "Dedicado a la mejora.",
+        "quote": "No tengo miedo de un ejército de leones dirigido por una oveja. Tengo miedo de un ejército de ovejas dirigido por un león."
       }
     ],
     "upgrades": [
       {
         "id": 1,
-        "name": "Posada Upgrade",
+        "name": "Posada",
         "description": "Las posadas son el doble de eficientes",
         "quote": "Hogar, dulce hogar."
       },
@@ -102,13 +114,18 @@
       "toBuilding": "Incrementa el multiplicador por quest de {b} ➡️ {g} ({t})."
     }
   },
-  "quantity": "Cantidad",
-  "rarity": "Rareza",
-  "coins": "oro",
-  "chest": {
-    "title": "Tesoro",
-    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center>Haz clic para obtener tu recompenza</center></i>"
-  },
+  "achievments": [
+    {
+      "id": 1,
+      "title": "Bienvenido",
+      "description": "¡Abre tu primer cofre!"
+    },
+    {
+      "id": 2,
+      "title": "Hogar, dulce hogar",
+      "description": "El comienzo de una aventura."
+    }
+  ],
   "formatUnit": {
     "units": [
       " mil",
@@ -151,6 +168,13 @@
   "version": "Versión:",
   "lastUpdate": "Actualizado:",
   "saveProgress": "Progreso guardado",
+  "quantity": "Cantidad",
+  "rarity": "Rareza",
+  "coins": "oro",
+  "chest": {
+    "title": "Tesoro",
+    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center>Haz clic para obtener tu recompenza</center></i>"
+  },
   "footer": {
     "twitter": "Visita mi Twitter",
     "youtube": "Mi canal de YouTube, donde subo gameplays de variedad de juegos, especialmente de terror.<br />Nada que ver con Donjon Quest Clicker.",

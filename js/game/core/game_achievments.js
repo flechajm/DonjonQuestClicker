@@ -1,12 +1,14 @@
 import DbAchievments from "../db/database_achievments.js";
 import GameLog from "./game_log.js";
 
+import LanguageManager from "../libs/language_manager.js";
+
 class GameAchievments {
     #achievments = [];
 
     constructor(achievments) {
         this.#achievments = new DbAchievments().getDB();
-        this.unlockeds = achievments?.unlockeds ?? [];
+        this.unlockeds = achievments?.unlockeds.sort((a, b) => a - b) ?? [];
     }
 
     unlock(id) {
@@ -24,6 +26,22 @@ class GameAchievments {
 
             this.unlockeds.push(achievment.id);
         }
+    }
+
+    setLocalization() {
+        const langData = LanguageManager.getData();
+
+        this.#achievments.forEach((achievment) => {
+            const achievmentInfo = langData.achievments.find((a) => a.id == achievment.id);
+            if (achievmentInfo) {
+                achievment.title = achievmentInfo.title;
+                achievment.description = achievmentInfo.description;
+            }
+        });
+    }
+
+    searchByReachType(type) {
+        return this.#achievments.filter((a) => a.reachType == type);
     }
 }
 

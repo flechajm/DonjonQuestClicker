@@ -160,6 +160,8 @@ html {
 
     .title {
       font-family: "Roboto Slab";
+      display: flex;
+      align-items: center;
     }
 
     .subtitle {
@@ -198,6 +200,7 @@ html {
   }
 
   .icon {
+    transform: scale(1.2);
     margin-right: 8px;
     width: 32px;
     min-width: 32px;

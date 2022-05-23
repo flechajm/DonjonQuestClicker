@@ -5,21 +5,52 @@ class DbAchievments {
 
     constructor() {
         this.#db = [
+            // Welcome
             new Achievment({
                 id: 1,
-                title: 'Bienvenido',
-                description: '¡Abre tu primer cofre!',
                 icon: 'treasure_chest',
                 reachValue: 1,
-                reachType: 'coin',
+                reachType: 'treasure',
             }),
+
+            // Inn
             new Achievment({
                 id: 2,
-                title: 'Hogar, dulce hogar',
-                description: 'El comienzo de una aventura.',
                 icon: 'buildings/inn',
                 reachValue: 1,
+                reachType: 'building',
+            }),
+
+            // Coins
+            new Achievment({
+                id: 3,
+                icon: 'coins',
+                reachValue: 10,
                 reachType: 'coin',
+            }),
+
+
+            // Coins
+            new Achievment({
+                id: 4,
+                icon: 'coins',
+                reachValue: 100,
+                reachType: 'idle',
+            }),
+
+            // Coins
+            new Achievment({
+                id: 5,
+                icon: 'coins',
+                reachValue: 200,
+                reachType: 'idle',
+            }),
+
+            new Achievment({
+                id: 6,
+                icon: 'coins',
+                reachValue: 300,
+                reachType: 'idle',
             }),
         ];
     }

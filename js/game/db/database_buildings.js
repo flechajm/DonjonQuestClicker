@@ -26,7 +26,7 @@ class DbBuildings {
                 baseCost: 100,
                 benefits: [
                     new Benefit({
-                        coinsGainMultiplier: 50,
+                        coinsGainMultiplier: 1,
                         calculateAsPercent: true,
                     }),
                 ],
@@ -54,7 +54,7 @@ class DbBuildings {
                         coinsGain: 5,
                     }),
                     new Benefit({
-                        coinsGain: 50,
+                        coinsGain: 20,
                         targetBuilding: 3,
                         calculateAsPercent: true,
                     }),
@@ -65,25 +65,76 @@ class DbBuildings {
             new Building({
                 id: 5,
                 icon: 'tavern',
-                baseCost: 15000,
+                baseCost: 25000,
                 benefits: [
                     new Benefit({
-                        coinsGain: 5,
+                        coinsGain: 20,
+                    }),
+                    new Benefit({
+                        coinsBonusPerQuest: 2,
+                    }),
+                    new Benefit({
+                        coinsGain: 10,
+                        targetBuilding: 1,
+                        calculateAsPercent: true,
                     }),
                 ],
             }),
 
-            // Minas Oscuras
+            // Scout
             new Building({
                 id: 6,
-                baseCost: 15000,
-                isDungeon: true,
+                icon: 'scout',
+                baseCost: 90000,
                 benefits: [
                     new Benefit({
-                        coinsGain: 10,
+                        coinsBonusPerQuest: 70,
+                    }),
+                ],
+            }),
+
+            // Shield Bearer
+            new Building({
+                id: 7,
+                icon: 'shield_bearer',
+                baseCost: 200000,
+                benefits: [
+                    new Benefit({
+                        coinsGain: 150,
                     }),
                     new Benefit({
-                        coinsMultiplierPerQuest: 0.05,
+                        coinsBonusPerQuest: 50,
+                    }),
+                    new Benefit({
+                        coinsMultiplierPerQuest: 15,
+                        calculateAsPercent: true,
+                    }),
+                ],
+            }),
+
+            // Forge
+            new Building({
+                id: 8,
+                icon: 'forge',
+                baseCost: 2500000,
+                benefits: [
+                    new Benefit({
+                        coinsGain: 150,
+                        targetBuilding: 7,
+                        calculateAsPercent: true,
+                    }),
+                    new Benefit({
+                        coinsBonusPerQuest: 50,
+                        calculateAsPercent: true,
+                        targetBuilding: 7,
+                    }),
+                    // new Benefit({
+                    //     coinsMultiplierPerQuest: 1,
+                    //     targetBuilding: 7,
+                    // }),
+                    new Benefit({
+                        coinsBonusPerQuest: 150,
+                        targetBuilding: 6,
                     }),
                 ],
             }),
