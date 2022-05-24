@@ -57,6 +57,10 @@ class Benefit {
         this.calculateAsPercent = calculateAsPercent ?? false;
     }
 
+    /**
+     * Obtiene el valor del beneficio.
+     * @returns {Number} Valor del beneficio.
+     */
     getValue() {
         if (this.coinsGain > 0) return this.coinsGain;
         if (this.coinsGainMultiplier > 0) return this.coinsGainMultiplier;
@@ -64,6 +68,12 @@ class Benefit {
         if (this.coinsMultiplierPerQuest > 0) return this.coinsMultiplierPerQuest;
     }
 
+    /**
+     * Formatea con estilo la descripción del valor del beneficio.
+     * @param {Number} value Valor del beneficio.
+     * @param {String} color Color para formatear.
+     * @returns 
+     */
     getFormattedValue(value, color) {
         return `<span style='color: var(--${color});'><b>+${value}${this.calculateAsPercent ? '%' : ''}</b></span>`;
     }

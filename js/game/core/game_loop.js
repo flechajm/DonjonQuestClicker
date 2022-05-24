@@ -36,6 +36,9 @@ class GameLoop {
     this.savePeriod = 10;
   }
 
+  /**
+   * Genera el ciclo básico del juego. Es el motor del manejo de las monedas.
+   */
   gameLoop() {
     let currentLoopTime = new Date().getTime();
 
@@ -96,6 +99,9 @@ class GameLoop {
     }, this.loopPeriod);
   }
 
+  /**
+   * Guarda el progreso del juego cada X período de tiempo.
+   */
   saveLoop() {
     setInterval(() => {
       if (gameManager.coins > 0) {
@@ -105,6 +111,9 @@ class GameLoop {
     }, 1000 * this.savePeriod);
   }
 
+  /**
+   * Verifica si hay logros que se puedan obtener de forma desatendida y, si hay, los desbloquea.
+   */
   checkCoinsAchievments() {
     // if (gameManager.coins >= 100)
     //   gameManager.achievments.unlock(3);

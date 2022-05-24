@@ -55,7 +55,7 @@ class DbBuildings {
                     }),
                     new Benefit({
                         coinsGain: 20,
-                        targetBuilding: 3,
+                        //targetBuilding: 3,
                         calculateAsPercent: true,
                     }),
                 ],
@@ -75,7 +75,7 @@ class DbBuildings {
                     }),
                     new Benefit({
                         coinsGain: 10,
-                        targetBuilding: 1,
+                        //targetBuilding: 1,
                         calculateAsPercent: true,
                     }),
                 ],
@@ -120,8 +120,8 @@ class DbBuildings {
                 benefits: [
                     new Benefit({
                         coinsGain: 150,
-                        targetBuilding: 7,
                         calculateAsPercent: true,
+                        //targetBuilding: 7,
                     }),
                     new Benefit({
                         coinsBonusPerQuest: 50,

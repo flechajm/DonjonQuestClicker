@@ -66,6 +66,13 @@ class GameUpgrades {
     }
   }
 
+  /**
+   * Obtiene el template del botón de la mejora.
+   * @param {Number}  id      Id de la mejora.
+   * @param {Boolean} canBuy  Valor booleano que indica si se puede comprar o no la mejora.
+   * @param {Number}  tier    Nivel de la mejora.
+   * @returns {HTMLElement} Elemento HTML que representa la mejora como botón.
+   */
   static #getButtonUpgradeTemplate(id, canBuy, tier) {
     let tierClass = this.getTierClass(tier);
     return `<div id="upgrade-${id}-${tier}" class="upgrade-button tier ${tierClass} ${canBuy ? "" : "disabled-tara"}">
@@ -155,6 +162,13 @@ class GameUpgrades {
     }
   }
 
+  /**
+   * Obtiene el nivel de la mejora con un estilo aplicado.
+   * @param {String}  text            Rareza.
+   * @param {String}  backgroundColor Color de fondo.
+   * @param {String}  textColor       Color de texto.
+   * @returns {HTMLElement} Elemento HTML con estilo aplicado.
+   */
   static #getTierFormatted(text, backgroundColor, textColor) {
     let background = backgroundColor == '--tier-outstanding' ? 'background-image' : 'background-color';
     let textShadow = backgroundColor == '--tier-outstanding' ? '0px 0px 1px black' : 'none';
