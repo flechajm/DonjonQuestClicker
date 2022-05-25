@@ -457,15 +457,17 @@ class GameManager {
   bindTooltipFunctionToUpgradeButton(e, upgrade, tier) {
     const gameManager = this;
     const benefits = tier.benefits.map((benefit) => {
-      return `<li>${benefit.description}</li>`
+      return benefit.description != '' ? `<li>${benefit.description}</li>` : ''
     }).join("");
+
+    const showDescription = upgrade.description.trim() != '';
 
     Tooltip.setTooltip({
       event: e,
       title: upgrade.name,
       subtitle: `<span>${LanguageManager.getData().rarity}: ${GameUpgrades.getTierName(tier.number)}</span>`,
-      description: `@separator@${upgrade.description}<br /><br /><b><u>${LanguageManager.getData().benefits.title
-        }:</u></b><br /><ul>${benefits}</ul>`,
+      description: `@separator@${showDescription ? `${upgrade.description}<br /><br />` : '<b><u>'}${LanguageManager.getData().benefits.title
+        }:</u></b><br /><ul>${benefits}</ul>@separator@<span class='quote'>${tier.quote}</span>`,
       icon: `/img/buildings/${upgrade.icon}.png`,
       cost: tier.cost,
       canBuy: gameManager.coins >= tier.cost,

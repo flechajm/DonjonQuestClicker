@@ -67,14 +67,136 @@
       {
         "id": 1,
         "name": "Posada",
-        "description": "Las posadas son el doble de eficientes",
-        "quote": "Hogar, dulce hogar."
+        "description": "",
+        "tiers": [
+          {
+            "id": 1,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 2,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 3,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 4,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 5,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 6,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 7,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 8,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 9,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 10,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 11,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 12,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 13,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 14,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 15,
+            "quote": "Un poco mejor"
+          }
+        ]
       },
       {
         "id": 2,
-        "name": "Posada x2",
-        "description": "Las posadas son el doble de eficientes",
-        "quote": "Hogar, dulce hogar."
+        "name": "Granja",
+        "description": "",
+        "tiers": [
+          {
+            "id": 1,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 2,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 3,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 4,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 5,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 6,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 7,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 8,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 9,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 10,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 11,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 12,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 13,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 14,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 15,
+            "quote": "Un poco mejor"
+          }
+        ]
       }
     ]
   },
@@ -173,7 +295,7 @@
   "coins": "oro",
   "chest": {
     "title": "Tesoro",
-    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center>Haz clic para obtener tu recompenza</center></i>"
+    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompenza</span></center></i>"
   },
   "footer": {
     "twitter": "Visita mi Twitter",

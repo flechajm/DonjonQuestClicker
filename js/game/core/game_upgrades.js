@@ -41,7 +41,10 @@ class GameUpgrades {
       upgrade.quote = upgradeInfo.quote;
 
       for (let j = 0; j < upgrade.tiers.length; j++) {
-        const benefits = upgrade.tiers[j].benefits;
+        const tier = upgrade.tiers[j];
+        const benefits = tier.benefits;
+
+        tier.quote = upgradeInfo.tiers.find((t) => t.id == tier.number).quote;
 
         for (let k = 0; k < benefits.length; k++) {
           const benefit = benefits[k];
