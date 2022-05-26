@@ -16,7 +16,7 @@ class DbAchievments {
             // Inn
             new Achievment({
                 id: 2,
-                icon: 'buildings/inn',
+                icon: 'buildings/inn_1',
                 reachValue: 1,
                 reachType: 'building',
             }),

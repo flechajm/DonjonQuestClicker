@@ -10,6 +10,8 @@
     "upgradesTitle": "Mejoras",
     "upgrade": "Mejora",
     "unavailable": "No disponibles",
+    "level": "Nivel",
+    "levelUp": "¡Sube el nivel de {b} a {l}!",
     "tiers": {
       "one": "Prueba."
     },

@@ -55,7 +55,7 @@ class DbBuildings {
                     }),
                     new Benefit({
                         coinsGain: 20,
-                        //targetBuilding: 3,
+                        targetBuilding: 3,
                         calculateAsPercent: true,
                     }),
                 ],
@@ -75,7 +75,7 @@ class DbBuildings {
                     }),
                     new Benefit({
                         coinsGain: 10,
-                        //targetBuilding: 1,
+                        targetBuilding: 1,
                         calculateAsPercent: true,
                     }),
                 ],

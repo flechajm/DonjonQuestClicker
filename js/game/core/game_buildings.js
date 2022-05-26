@@ -125,6 +125,7 @@ class GameBuildings {
    * @param {Number}  id          Representa el ID del edificio.
    * @param {String}  name        Nombre del edificio.
    * @param {Number}  cost        Costo del edificio.
+   * @param {Number}  level       Nivel del edificio.
    * @param {Number}  countOwned  Cantidad de edificios ya comprados.
    * @param {Boolean} canBuy      Indica si el edificio se puede comprar o no.
    * @returns {String} Código HTML.
@@ -133,6 +134,11 @@ class GameBuildings {
     this.#buildingsDOM.append(this.#getButtonBuildingTemplate(id, name, cost, countOwned, canBuy));
     this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('/img/buildings/${icon}.png')`);
     this.resizeToFit(id);
+  }
+
+  static updateImage(id) {
+    const building = this.getBuildingById(id);
+    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('/img/buildings/${building.icon}_${building.level}.png')`);
   }
 
   /**

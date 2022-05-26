@@ -23,6 +23,11 @@ class Tooltip {
   static #cost;
 
   /**
+   * Representa el elemento DOM 'div.level'.
+   */
+  static #level;
+
+  /**
    * Representa el elemento DOM 'div.content'.
    */
   static #content;
@@ -37,6 +42,7 @@ class Tooltip {
    * @param {String}  description   La descripción del tooltip puede ser texto plano o HTML.
    * @param {String}  icon          Ícono que se mostrará en la parte superior izquierda del tooltip. [Opcional].
    * @param {Number}  cost          Corresponde al valor de un edificio o mejora. [Opcional].
+   * @param {Number}  level         Nivel del edificio. [Opcional].
    * @param {String}  position      Indica en qué posición se mostrará tomando en cuenta las coordenadas del mouse. Los valores posibles son: 'top', 'right', 'bottom', 'left'. Valor por defecto: 'top'.
    * @param {Boolean} canBuy        Indica si se puede comprar o no un edificio. Tiene sentido únicamente cuando el parámetro {cost} valor.
    * @param {Number}  extraPadding  Añade un margen extra (al ya predefinido) entre el mouse y el tooltip. [Opcional].
@@ -49,6 +55,7 @@ class Tooltip {
     description = null,
     icon = null,
     cost = null,
+    level = null,
     position = "top",
     canBuy = null,
     extraPadding = null,
@@ -67,6 +74,7 @@ class Tooltip {
     this.#headerWrapper = this.#tooltip.find("div.header-wrapper");
     this.#headerContainer = this.#headerWrapper.find("div.container");
     this.#cost = this.#headerWrapper.find("div.cost");
+    this.#level = this.#headerWrapper.find("div.level");
     this.#content = this.#tooltip.find("div.content");
 
     this.#headerWrapper.find("div.icon").css({
@@ -79,6 +87,7 @@ class Tooltip {
     this.#cost.find("div.hidden-value").html(cost ?? "");
     this.#cost.find("div.value").html(Number.pretty(cost, gameUnits) ?? "");
     this.#cost.find("div.value").toggleClass("unavailable", !canBuy);
+    this.#level.find("div.subtitle").html(level ?? "");
     this.#content.html(description?.replaceAll("@separator@", separator));
     this.#content.toggleClass("no-margin", title == null);
 

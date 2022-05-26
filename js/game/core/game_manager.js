@@ -223,6 +223,9 @@ class GameManager {
 
       if (!button) return;
 
+      building.level = GameUpgrades.getMaxLevelByBuilding(building.id, this.upgradesOwned);
+      GameBuildings.updateImage(building.id);
+
       if (building.cost > gameManager.coins) {
         button.addClass("disabled");
         button.unbind("click");
@@ -264,7 +267,9 @@ class GameManager {
       const button = $(`#upgrade-${availableUpgrade.id}-${availableUpgrade.tier}`);
       if (!button) return;
 
-      if (tier.cost > gameManager.coins) {
+      const isUnbuyable = GameUpgrades.isUnbuyable(availableUpgrade, this.upgradesOwned);
+
+      if (isUnbuyable || (tier.cost > gameManager.coins)) {
         button.addClass("disabled-tara");
         button.unbind("click");
       } else {
@@ -389,7 +394,7 @@ class GameManager {
   buyUpgrarde(upgrade, tier) {
     let owned = $(`#upgrade-${upgrade.id}-${tier.number}`);
 
-    const upgradeOwned = { id: upgrade.id, tier: tier.number };
+    const upgradeOwned = { id: upgrade.id, tier: tier.number, levelUp: tier.levelUp };
     this.upgradesOwned.push(upgradeOwned);
 
     this.#substractCoins(tier.cost);
@@ -439,8 +444,9 @@ class GameManager {
       subtitle: `${LanguageManager.getData().quantity}: ${quantity}`,
       description: `@separator@${building.description}<br /><br /><b><u>${LanguageManager.getData().benefits.title
         }:</u></b><br /><ul>${benefits}</ul>${upgradesDescription}@separator@<span class='quote'>${building.quote}</span>`,
-      icon: `/img/buildings/${building.icon}.png`,
+      icon: `/img/buildings/${building.icon}_${building.level}.png`,
       cost: building.cost,
+      level: `${LanguageManager.getData().store.level}: ${'⭐'.repeat(building.level)}`,
       canBuy: gameManager.coins >= building.cost,
       position: "left",
       paddingLock: $(document).width() - $("#divider-buildings").position().left,
@@ -455,6 +461,7 @@ class GameManager {
    * @param {Tier}    tier    Nivel de la mejora.
    */
   bindTooltipFunctionToUpgradeButton(e, upgrade, tier) {
+    const langData = LanguageManager.getData();
     const gameManager = this;
     const benefits = tier.benefits.map((benefit) => {
       return benefit.description != '' ? `<li>${benefit.description}</li>` : ''
@@ -462,13 +469,18 @@ class GameManager {
 
     const showDescription = upgrade.description.trim() != '';
 
+    let unlockLevel = '';
+    if (tier.levelUp > 1) {
+      let buildingNameFormatted = langData.store.levelUp.replace("{b}", GameBuildings.getFormattedName(upgrade.name, 'gold'));
+      unlockLevel = `${buildingNameFormatted.replace('{l}', '⭐'.repeat(tier.levelUp))}<br /><br />`;
+    }
     Tooltip.setTooltip({
       event: e,
       title: upgrade.name,
-      subtitle: `<span>${LanguageManager.getData().rarity}: ${GameUpgrades.getTierName(tier.number)}</span>`,
-      description: `@separator@${showDescription ? `${upgrade.description}<br /><br />` : '<b><u>'}${LanguageManager.getData().benefits.title
+      subtitle: `<span>${langData.rarity}: ${GameUpgrades.getTierName(tier.number)}</span>`,
+      description: `@separator@${unlockLevel}${showDescription ? `${upgrade.description}<br /><br />` : '<b><u>'}${langData.benefits.title
         }:</u></b><br /><ul>${benefits}</ul>@separator@<span class='quote'>${tier.quote}</span>`,
-      icon: `/img/buildings/${upgrade.icon}.png`,
+      icon: `/img/buildings/${upgrade.icon}_${tier.levelUp}.png`,
       cost: tier.cost,
       canBuy: gameManager.coins >= tier.cost,
       position: "left",
@@ -570,6 +582,8 @@ class GameManager {
 
     for (let i = 0; i < reverseBuildings.length; i++) {
       const buildingOwned = this.buildingsOwned[i];
+      GameBuildings.updateImage(buildingOwned.id);
+
       if (addedBuildings.indexOf(buildingOwned.id) > -1) continue;
 
       const building = GameBuildings.getBuildingById(buildingOwned.id);
@@ -730,7 +744,7 @@ class GameManager {
           id: upgrade.id,
           canBuy: this.coins >= tier.cost,
           tier: tier.number,
-          icon: upgrade.icon,
+          icon: `${upgrade.icon}_${tier.levelUp}`,
         });
       }
     }
@@ -742,7 +756,7 @@ class GameManager {
         name: startBuilding.name,
         cost: startBuilding.cost.commafy(),
         canBuy: this.coins >= startBuilding.cost,
-        icon: startBuilding.icon,
+        icon: `${startBuilding.icon}_${startBuilding.level}`,
       });
       GameBuildings.insertLockedBuilding();
     } else {
@@ -772,8 +786,9 @@ class GameManager {
     // Populate Previous Building
     if (!isUnlockedPreviousBuilding) {
       let building = GameBuildings.getBuildingById(previousBuildingOwned.id);
-
       building.cost = this.getBuildingCostUpdated(building, previousBuildingOwned.quantity);
+
+      const buildingLevel = GameUpgrades.getMaxLevelByBuilding(building.id, this.upgradesOwned);
 
       GameBuildings.unlockBuilding({
         id: building.id,
@@ -781,7 +796,7 @@ class GameManager {
         cost: this.#prettyNumber(building.cost),
         countOwned: previousBuildingOwned.quantity,
         canBuy: this.coins >= building.cost,
-        icon: building.icon,
+        icon: `${building.icon}_${buildingLevel}`,
       });
     }
 
@@ -795,7 +810,7 @@ class GameManager {
           name: nextBuilding.name,
           cost: nextBuilding.cost.commafy(),
           canBuy: this.coins >= nextBuilding.cost,
-          icon: nextBuilding.icon,
+          icon: `${nextBuilding.icon}_${nextBuilding.level}`,
         });
         if (nextBuilding.id < GameBuildings.getCount()) GameBuildings.insertLockedBuilding();
       }
@@ -875,12 +890,15 @@ class GameManager {
 
           for (let i = 0; i < this.availableUpgrades.length; i++) {
             const availableUpgrade = this.availableUpgrades[i];
+            const auxUpgrade = GameUpgrades.getUpgradeById(availableUpgrade.id);
+            const tierLevel = GameUpgrades.getTierByUpgrade(auxUpgrade, availableUpgrade.tier).levelUp;
+            const isUnbuyable = GameUpgrades.isUnbuyable(availableUpgrade, this.upgradesOwned);
 
             GameUpgrades.unlockUpgrade({
               id: availableUpgrade.id,
-              canBuy: this.coins >= availableUpgrade.cost,
+              canBuy: isUnbuyable ^ this.coins >= availableUpgrade.cost,
               tier: availableUpgrade.tier,
-              icon: availableUpgrade.icon,
+              icon: `${availableUpgrade.icon}_${tierLevel}`,
             });
           }
         }

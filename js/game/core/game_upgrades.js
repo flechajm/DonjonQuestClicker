@@ -121,6 +121,17 @@ class GameUpgrades {
     return this.#upgrades.length;
   }
 
+  static isUnbuyable(availableUpgrade, upgradesOwned) {
+    const ugpradesFiltered = upgradesOwned.filter((u) => u.id == availableUpgrade.id);
+    const isUndefined = ugpradesFiltered?.find((t) => t.tier == availableUpgrade.tier - 1) === undefined;
+    return availableUpgrade.tier == 1 ? false : isUndefined;
+  }
+
+  static getMaxLevelByBuilding(buildingId, upgradesOwned) {
+    const ugpradesFiltered = upgradesOwned.filter((u) => u.id == buildingId);
+    return ugpradesFiltered?.sort((a, b) => b.tier - a.tier)[0]?.levelUp ?? 1;
+  }
+
   /**
    * Obtiene el nombre de la Tier de la mejora.
    * @param {Int} tierNumber Número de tier de la mejora.
