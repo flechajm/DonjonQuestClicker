@@ -138,7 +138,7 @@ class GameBuildings {
 
   static updateImage(id) {
     const building = this.getBuildingById(id);
-    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('/img/buildings/${building.icon}_${building.level}.png')`);
+    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('/img/buildings/${building.icon}_${3}.png')`);
   }
 
   /**

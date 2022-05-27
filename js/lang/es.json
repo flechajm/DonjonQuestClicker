@@ -63,6 +63,12 @@
         "name": "Herrería",
         "description": "Dedicado a la mejora.",
         "quote": "No tengo miedo de un ejército de leones dirigido por una oveja. Tengo miedo de un ejército de ovejas dirigido por un león."
+      },
+      {
+        "id": 9,
+        "name": "Wizard",
+        "description": "Dedicado a la mejora.",
+        "quote": "No tengo miedo de un ejército de leones dirigido por una oveja. Tengo miedo de un ejército de ovejas dirigido por un león."
       }
     ],
     "upgrades": [
@@ -297,7 +303,7 @@
   "coins": "oro",
   "chest": {
     "title": "Tesoro",
-    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompenza</span></center></i>"
+    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompensa</span></center></i>"
   },
   "footer": {
     "twitter": "Visita mi Twitter",

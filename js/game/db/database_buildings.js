@@ -138,6 +138,20 @@ class DbBuildings {
                     }),
                 ],
             }),
+
+            // Wizard
+            new Building({
+                id: 9,
+                icon: 'wizard',
+                baseCost: 2500000,
+                benefits: [
+                    new Benefit({
+                        coinsGain: 150,
+                        calculateAsPercent: true,
+                        //targetBuilding: 7,
+                    }),
+                ],
+            }),
         ];
     }
 
