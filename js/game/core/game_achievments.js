@@ -15,7 +15,7 @@ class GameAchievments {
         const achievment = this.#achievments.find((a) => a.id == id);
         const isUnlocked = this.unlockeds.some((a) => a == id);
         if (achievment && !isUnlocked) {
-            GameLog.write(`<div class='achievment-unlocked'>¡Logro desbloqueado🎉!</div>`)
+            GameLog.write(`${LanguageManager.getData().console.achievmentUnlocked}🏆`);
             GameLog.write(`<div class='achievment'>
                                 <div class='icon'><img src='/img/${achievment.icon}.png' /></div>
                                 <div>

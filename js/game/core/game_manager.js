@@ -381,6 +381,10 @@ class GameManager {
     this.#unlockNextBuilding(buildingOwned, -1);
     this.#unlockUpgrade(buildingOwned);
 
+    GameLog.write(`${LanguageManager.getData().console.buyBuilding
+      .replace('{b}', building.name)
+      .replace('{g}', this.#prettyNumber(building.cost))}`);
+
     this.achievments.unlock(building.unlockAchievment);
 
     buildingOwnedDOM.html(buildingOwned.quantity);
@@ -405,6 +409,18 @@ class GameManager {
     this.availableUpgrades.splice(indexOf, 1);
     this.#updateUpgradesTitle();
 
+    GameLog.write(`${LanguageManager.getData().console.buyUpgradeToBuilding
+      .replace('{tc}', GameUpgrades.getTierClass(tier.number))
+      .replace('{t}', GameUpgrades.getTierName(tier.number))
+      .replace('{b}', upgrade.name)
+      .replace('{g}', this.#prettyNumber(tier.cost))}`);
+
+    const previousLevelUp = this.upgradesOwned.find((u) => u.id == upgrade.id && u.tier == tier.number - 1)?.levelUp;
+    if (previousLevelUp < tier.levelUp) {
+      GameLog.write(`${LanguageManager.getData().console.buildingLevelUp
+        .replace('{b}', upgrade.name)
+        .replace('{l}', '⭐'.repeat(tier.levelUp))}`);
+    }
     owned.remove();
   }
 
@@ -428,7 +444,7 @@ class GameManager {
     }).join("");
 
     let upgradeTiers = upgradesOwned.map((upgradeOwned) => {
-      let tierName = GameUpgrades.getTierName(upgradeOwned.tier);
+      let tierName = GameUpgrades.getTierNameFormatted(upgradeOwned.tier);
       let upgrade = GameUpgrades.getUpgradeById(upgradeOwned.id);
       let upgradeBenefits = GameUpgrades.getTierByUpgrade(upgrade, upgradeOwned.tier).benefits;
       let benefit = `<span style='margin-top: 5px;'>${String(upgradeBenefits[0].description)}</span>`;
@@ -477,7 +493,7 @@ class GameManager {
     Tooltip.setTooltip({
       event: e,
       title: upgrade.name,
-      subtitle: `<span>${langData.rarity}: ${GameUpgrades.getTierName(tier.number)}</span>`,
+      subtitle: `<span>${langData.rarity}: ${GameUpgrades.getTierNameFormatted(tier.number)}</span>`,
       description: `@separator@${unlockLevel}${showDescription ? `${upgrade.description}<br /><br />` : '<b><u>'}${langData.benefits.title
         }:</u></b><br /><ul>${benefits}</ul>@separator@<span class='quote'>${tier.quote}</span>`,
       icon: `/img/buildings/${upgrade.icon}_${tier.levelUp}.png`,

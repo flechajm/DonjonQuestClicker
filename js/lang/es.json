@@ -305,6 +305,12 @@
     "title": "Tesoro",
     "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompensa</span></center></i>"
   },
+  "console": {
+    "achievmentUnlocked": "<span class='achievment-unlocked'>¡Logro desbloqueado!</span>",
+    "buyBuilding": "<span class='console buy-building'>Has comprado <span>{b}</span> por <span>{g} de oro</span>.</span>",
+    "buyUpgradeToBuilding": "<span class='console buy-upgrade'>Has comprado una mejora de tipo <span style='color: var(--tier-{tc})'>{t}</span> para <span>{b}</span> por <span>{g} de oro</span>.</span>",
+    "buildingLevelUp": "<span class='console levelUp'>🎉¡Felicitaciones! ¡Tu <span>{b}</span> ha subido de nivel, ahora está en nivel {l}!</span>"
+  },
   "footer": {
     "twitter": "Visita mi Twitter",
     "youtube": "Mi canal de YouTube, donde subo gameplays de variedad de juegos, especialmente de terror.<br />Nada que ver con Donjon Quest Clicker.",

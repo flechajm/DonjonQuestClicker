@@ -2,6 +2,8 @@ import LanguageManager from "../libs/language_manager.js";
 
 class GameLog {
   static logDOM = $("#log > div.text");
+  static MAX_MESSAGES = 200;
+  static countMessages = 0;
 
   static #append(html) {
     this.logDOM.append(html)
@@ -13,8 +15,14 @@ class GameLog {
       {
         scrollTop: this.logDOM[0].scrollHeight
       },
-      100
+      0
     );
+    if (this.countMessages >= this.MAX_MESSAGES) {
+      this.logDOM.html('');
+      this.countMessages = 0;
+    } else {
+      this.countMessages++;
+    }
   }
 
   static write(html, color) {

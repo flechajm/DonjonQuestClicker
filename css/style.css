@@ -293,8 +293,6 @@ html {
 .achievment-unlocked {
   color: darkgoldenrod;
   font-style: italic;
-  margin-top: 10px;
-  margin-bottom: -10px;
 }
 
 .achievment {
@@ -324,6 +322,7 @@ html {
   background-repeat: no-repeat;
   background-color: lightskyblue;
   background-blend-mode: multiply;
+  margin-top: 5px;
   padding: 7px 10px 10px 10px;
   width: 300px;
 }
@@ -353,6 +352,47 @@ html {
   font-weight: normal;
   font-family: Tahoma, Arial, sans-serif;
   margin-top: 2px;
+}
+
+.console.buy-building {
+  color: mediumspringgreen;
+}
+
+.console.buy-building span {
+  font-weight: 600;
+}
+
+.console.buy-building span:nth-of-type(1) {
+  color: var(--benefit);
+}
+
+.console.buy-building span:nth-of-type(2) {
+  color: var(--gold);
+}
+
+.console.buy-upgrade {
+  color: mediumpurple;
+}
+
+.console.buy-upgrade span {
+  font-weight: 600;
+}
+
+.console.buy-upgrade span:nth-of-type(2) {
+  color: var(--benefit);
+}
+
+.console.buy-upgrade span:nth-of-type(3) {
+  color: var(--gold);
+}
+
+.console.levelUp {
+  color: palegoldenrod;
+}
+
+.console.levelUp span {
+  font-weight: 600;
+  color: var(--gold);
 }
 
 #wrapper {
@@ -1008,7 +1048,7 @@ html {
   left: 0;
   right: 0;
   width: 100%;
-  height: 150px;
+  height: 170px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 6px 6px 0 0;
 }

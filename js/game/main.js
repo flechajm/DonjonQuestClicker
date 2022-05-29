@@ -16,7 +16,6 @@ $(function () {
   setFooterTooltips();
   gameManager = GameStateManager.load() ?? new GameManager({});
   gameManager.loadConfig().then(() => {
-    GameLog.newLine(5);
     GameLog.write(LanguageManager.getData().welcome);
     GameLog.write(
       `${LanguageManager.getData().version} ${GameInfo.version} | ${LanguageManager.getData().lastUpdate} ${GameInfo.lastUpdate

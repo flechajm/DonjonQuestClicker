@@ -133,57 +133,100 @@ class GameUpgrades {
   }
 
   /**
-   * Obtiene el nombre de la Tier de la mejora.
-   * @param {Int} tierNumber Número de tier de la mejora.
+   * Obtiene el nombre del nivel de la mejora.
+   * @param {String} tierNumber Nivel de la mejora.
    * @returns {String} Nombre de la mejora.
    */
   static getTierName(tierNumber) {
     const langData = LanguageManager.getData();
     switch (tierNumber) {
       case 1:
-        return this.#getTierFormatted(langData.tiers.handmade, '--tier-handmade', 'white');
+        return langData.tiers.handmade;
       case 2:
-        return this.#getTierFormatted(langData.tiers.poor, '--tier-poor', 'black');
+        return langData.tiers.poor;
       case 3:
-        return this.#getTierFormatted(langData.tiers.veryCommon, '--tier-very-common', 'black');
+        return langData.tiers.veryCommon;
       case 4:
-        return this.#getTierFormatted(langData.tiers.common, '--tier-common', 'white');
+        return langData.tiers.common;
       case 5:
-        return this.#getTierFormatted(langData.tiers.frequent, '--tier-frequent', 'black');
+        return langData.tiers.frequent;
       case 6:
-        return this.#getTierFormatted(langData.tiers.uncommon, '--tier-uncommon', 'black');
+        return langData.tiers.uncommon;
       case 7:
-        return this.#getTierFormatted(langData.tiers.rare, '--tier-rare', 'white');
+        return langData.tiers.rare;
       case 8:
-        return this.#getTierFormatted(langData.tiers.veryRare, '--tier-very-rare', 'white');
+        return langData.tiers.veryRare;
       case 9:
-        return this.#getTierFormatted(langData.tiers.extremelyRare, '--tier-extremely-rare', 'white');
+        return langData.tiers.extremelyRare;
       case 10:
-        return this.#getTierFormatted(langData.tiers.epic, '--tier-epic', 'white');
+        return langData.tiers.epic;
       case 11:
-        return this.#getTierFormatted(langData.tiers.legendary, '--tier-legendary', 'white');
+        return langData.tiers.legendary;
       case 12:
-        return this.#getTierFormatted(langData.tiers.mythic, '--tier-mythic', 'black');
+        return langData.tiers.mythic;
       case 13:
-        return this.#getTierFormatted(langData.tiers.marvelous, '--tier-marvelous', 'black');
+        return langData.tiers.marvelous;
       case 14:
-        return this.#getTierFormatted(langData.tiers.superb, '--tier-superb', 'white');
+        return langData.tiers.superb;
       case 15:
-        return this.#getTierFormatted(langData.tiers.outstanding, '--tier-outstanding', 'black');
+        return langData.tiers.outstanding;
 
       default:
-        return this.#getTierFormatted(langData.tiers.handmade, '--tier-handmade', 'white');
+        return langData.tiers.handmade;
     }
   }
 
   /**
-   * Obtiene el nivel de la mejora con un estilo aplicado.
+   * Obtiene el nombre del nivel de la mejora con un estilo aplicado.
+   * @param {String} tierNumber Nivel de la mejora.
+   * @returns {HTMLElement} Elemento HTML con estilo aplicado.
+   */
+  static getTierNameFormatted(tierNumber) {
+    switch (tierNumber) {
+      case 1:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-handmade', 'white');
+      case 2:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-poor', 'black');
+      case 3:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-very-common', 'black');
+      case 4:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-common', 'white');
+      case 5:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-frequent', 'black');
+      case 6:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-uncommon', 'black');
+      case 7:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-rare', 'white');
+      case 8:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-very-rare', 'white');
+      case 9:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-extremely-rare', 'white');
+      case 10:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-epic', 'white');
+      case 11:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-legendary', 'white');
+      case 12:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-mythic', 'black');
+      case 13:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-marvelous', 'black');
+      case 14:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-superb', 'white');
+      case 15:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-outstanding', 'black');
+
+      default:
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-handmade', 'white');
+    }
+  }
+
+  /**
+   * Obtiene un elemento HTML que representa la rareza de una tier.
    * @param {String}  text            Rareza.
    * @param {String}  backgroundColor Color de fondo.
    * @param {String}  textColor       Color de texto.
    * @returns {HTMLElement} Elemento HTML con estilo aplicado.
    */
-  static #getTierFormatted(text, backgroundColor, textColor) {
+  static #getTierHTML(text, backgroundColor, textColor) {
     let background = backgroundColor == '--tier-outstanding' ? 'background-image' : 'background-color';
     let textShadow = backgroundColor == '--tier-outstanding' ? '0px 0px 1px black' : 'none';
     return `<span style=' border: 1px solid var(--building-section);
@@ -191,6 +234,7 @@ class GameUpgrades {
                           font-size: x-small;
                           text-shadow: ${textShadow};
                           border-radius: 3px;
+                          font-weight: normal;
                           color: ${textColor};
                           ${background}: var(${backgroundColor});
                           padding: 2px 5px 2px 5px'>${text}</span>`;
