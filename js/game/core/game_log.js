@@ -34,7 +34,7 @@ class GameLog {
   }
 
   static writeSaveProgress() {
-    this.write(`${LanguageManager.getData().saveProgress} [${new Date().toLocaleString()}]`, "grey");
+    this.write(`> ${LanguageManager.getData().saveProgress} [${new Date().toLocaleString()}]`, "grey");
   }
 }
 

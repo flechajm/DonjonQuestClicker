@@ -15,6 +15,7 @@
   --building-section: rgba(0, 0, 0, 40%);
   --bright-high: 130%;
   --bright-low: 60%;
+  --bright-lowest: 40%;
   --tier-handmade: grey;
   --tier-poor: aliceblue;
   --tier-very-common: #8eb6ff;
@@ -143,7 +144,8 @@ html {
   font-size: medium;
   font-weight: bold;
   padding: 10px;
-  width: 350px;
+  max-width: 550px;
+  min-width: 300px;
 }
 
 #tooltip .header-wrapper {
@@ -262,7 +264,7 @@ html {
 
 #tooltip .quote {
   font-family: "MorrisRoman";
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-style: italic;
   color: grey;
   display: -webkit-box;
@@ -901,8 +903,8 @@ html {
 
 #wrapper #game #store #store-wrap .upgrade-button.tier.disabled-tara {
   cursor: not-allowed;
-  filter: brightness(var(--bright-low));
-  -webkit-filter: brightness(var(--bright-low));
+  filter: brightness(var(--bright-lowest));
+  -webkit-filter: brightness(var(--bright-lowest));
 }
 
 #wrapper #game #store #store-wrap .upgrade-button.tier.disabled-tara:hover {

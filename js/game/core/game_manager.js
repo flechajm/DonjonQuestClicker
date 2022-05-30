@@ -9,6 +9,7 @@ import GameEffects from "./game_effects.js";
 
 import LanguageManager from "../libs/language_manager.js";
 import Tooltip from "../libs/tooltip.js";
+import Benefit from "./buildings/benefit.js";
 
 /**
  * Clase encargada del manejo del juego.
@@ -436,18 +437,19 @@ class GameManager {
     let upgradesOwned = gameManager.getUpgradeOwnedFilteredById(building.id).sort((a, b) => a.tier - b.tier);
 
     let benefits = building.benefits.map((benefit) => {
-      let value = benefit.getFormattedValue(this.#prettyNumber(benefit.getValue()), 'benefit');
-      let totalValue = benefit.getFormattedValue(this.#prettyNumber(roundNumber(benefit.getValue() * quantity)), "available");
-      let finalDescription = String(benefit.description).replace('{g}', value).replace('{t}', totalValue);
-
-      return `<li>${finalDescription}</li>`
+      return `<li>${benefit.getFullDescription(quantity, this.getUnits())}</li>`
     }).join("");
 
     let upgradeTiers = upgradesOwned.map((upgradeOwned) => {
       let tierName = GameUpgrades.getTierNameFormatted(upgradeOwned.tier);
       let upgrade = GameUpgrades.getUpgradeById(upgradeOwned.id);
       let upgradeBenefits = GameUpgrades.getTierByUpgrade(upgrade, upgradeOwned.tier).benefits;
-      let benefit = `<span style='margin-top: 5px;'>${String(upgradeBenefits[0].description)}</span>`;
+      let benefit;
+      if (upgradeBenefits.length == 1) {
+        benefit = `<span style='margin-top: 5px;'>${upgradeBenefits[0].getFullDescription(quantity, this.getUnits())}</span>`;
+      } else {
+        benefit = `<div style='margin-top: 5px; margin-left: 50px;'>${upgradeBenefits.map((upgradeBenefit) => { return `<li>${upgradeBenefit.getFullDescription(quantity, this.getUnits())}</li>` }).join("")}</div>`;
+      }
 
       return `<div class='tier-upgrades'><span>✔️ ${tierName} ${benefit}</span></div>`
     }).join("");
@@ -480,7 +482,10 @@ class GameManager {
     const langData = LanguageManager.getData();
     const gameManager = this;
     const benefits = tier.benefits.map((benefit) => {
-      return benefit.description != '' ? `<li>${benefit.description}</li>` : ''
+      let value = benefit.getFormattedValue(this.#prettyNumber(benefit.getValue()), 'benefit');
+      let finalDescription = String(benefit.description).replace('{g}', value).replace(' ({t})', '');
+
+      return finalDescription != '' ? `<li>${finalDescription}</li>` : ''
     }).join("");
 
     const showDescription = upgrade.description.trim() != '';
@@ -574,12 +579,55 @@ class GameManager {
 
     tier.benefits.forEach((benefit) => {
       const targetBuilding = GameBuildings.getBuildingById(benefit.targetBuilding);
-      targetBuilding.benefits.forEach((targetBenefit) => {
-        targetBenefit.coinsGain += benefit.coinsGain;
-        targetBenefit.coinsGainMultiplier += benefit.coinsGainMultiplier;
-        targetBenefit.coinsBonusPerQuest += benefit.coinsBonusPerQuest;
-        targetBenefit.coinsMultiplierPerQuest += benefit.coinsMultiplierPerQuest;
+
+      const hasCoinGains = targetBuilding.benefits.some((targetBenefit) => {
+        return targetBenefit.coinsGain > 0 && targetBenefit.targetBuilding == null && benefit.coinsGain > 0;
       });
+      const hasCoinsGainMultiplier = targetBuilding.benefits.some((targetBenefit) => {
+        return targetBenefit.coinsGainMultiplier > 0 && targetBenefit.targetBuilding == null && benefit.coinsGainMultiplier > 0;
+      });
+      const hasCoinBonusPerQuest = targetBuilding.benefits.some((targetBenefit) => {
+        return targetBenefit.coinsBonusPerQuest > 0 && targetBenefit.targetBuilding == null && benefit.coinsBonusPerQuest > 0;
+      });
+      const hasCoinsMultiplierPerQuest = targetBuilding.benefits.some((targetBenefit) => {
+        return targetBenefit.coinsMultiplierPerQuest > 0 && targetBenefit.targetBuilding == null && benefit.coinsMultiplierPerQuest > 0;
+      });
+
+      if (hasCoinGains || hasCoinsGainMultiplier || hasCoinBonusPerQuest || hasCoinsMultiplierPerQuest) {
+        targetBuilding.benefits.forEach((targetBenefit) => {
+          if (targetBenefit.targetBuilding == null) {
+            targetBenefit.coinsGain += hasCoinGains && targetBenefit.coinsGain > 0 ? benefit.coinsGain : 0;
+            targetBenefit.coinsGainMultiplier += hasCoinsGainMultiplier && targetBenefit.coinsGainMultiplier > 0 ? benefit.coinsGainMultiplier : 0;
+            targetBenefit.coinsBonusPerQuest += hasCoinBonusPerQuest && targetBenefit.coinsBonusPerQuest > 0 ? benefit.coinsBonusPerQuest : 0;
+            targetBenefit.coinsMultiplierPerQuest += hasCoinsMultiplierPerQuest && targetBenefit.coinsMultiplierPerQuest > 0 ? benefit.coinsMultiplierPerQuest : 0;
+          }
+        });
+      }
+      else {
+        const langData = LanguageManager.getData();
+        let newDescription;
+
+        if (benefit.coinsGain > 0)
+          newDescription = langData.benefits.coinsGain.self;
+
+        if (benefit.coinsGainMultiplier > 0)
+          newDescription = langData.benefits.coinsGainMultiplier.self;
+
+        if (benefit.coinsBonusPerQuest > 0)
+          newDescription = langData.benefits.coinsBonusPerQuest.self;
+
+        if (benefit.coinsMultiplierPerQuest > 0)
+          newDescription = langData.benefits.coinsMultiplierPerQuest.self;
+
+        const newBenefit = new Benefit({
+          coinsGain: benefit.coinsGain,
+          coinsGainMultiplier: benefit.coinsGainMultiplier,
+          coinsBonusPerQuest: benefit.coinsBonusPerQuest,
+          coinsMultiplierPerQuest: benefit.coinsMultiplierPerQuest,
+          description: newDescription,
+        });
+        targetBuilding.benefits.push(newBenefit);
+      }
     });
   }
 

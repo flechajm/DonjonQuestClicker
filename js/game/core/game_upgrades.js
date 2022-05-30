@@ -52,16 +52,16 @@ class GameUpgrades {
           const replaceValue = benefit.getFormattedValue(benefit.getValue(), varColor);
 
           if (benefit.coinsGain > 0)
-            benefit.description = String(langData.benefits.coinsGain.self).replace('{g}', replaceValue).replace(' ({t})', '');
+            benefit.description = langData.benefits.coinsGain.self;
 
           if (benefit.coinsGainMultiplier > 0)
-            benefit.description = String(langData.benefits.coinsGainMultiplier).replace('{g}', replaceValue).replace(' ({t})', '');
+            benefit.description = langData.benefits.coinsGainMultiplier.self;
 
           if (benefit.coinsBonusPerQuest > 0)
-            benefit.description = String(langData.benefits.coinsBonusPerQuest).replace('{g}', replaceValue).replace(' ({t})', '');
+            benefit.description = langData.benefits.coinsBonusPerQuest.self;
 
           if (benefit.coinsMultiplierPerQuest > 0)
-            benefit.description = String(langData.benefits.coinsMultiplierPerQuest).replace('{g}', replaceValue).replace(' ({t})', '');
+            benefit.description = langData.benefits.coinsMultiplierPerQuest.self;
 
         }
 

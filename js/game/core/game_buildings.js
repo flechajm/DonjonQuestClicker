@@ -60,7 +60,7 @@ class GameBuildings {
               .replace('{g}', value)
               .replace('{b}', targetBuildingName);
           } else {
-            benefit.description = String(langData.benefits.coinsGain.self);
+            benefit.description = langData.benefits.coinsGain.self;
           }
         }
 
@@ -70,7 +70,7 @@ class GameBuildings {
               .replace('{g}', value)
               .replace('{b}', targetBuildingName);
           } else {
-            benefit.description = String(langData.benefits.coinsGainMultiplier.self);
+            benefit.description = langData.benefits.coinsGainMultiplier.self;
           }
         }
 
@@ -80,7 +80,7 @@ class GameBuildings {
               .replace('{g}', value)
               .replace('{b}', targetBuildingName);
           } else {
-            benefit.description = String(langData.benefits.coinsBonusPerQuest.self);
+            benefit.description = langData.benefits.coinsBonusPerQuest.self;
           }
         }
 
@@ -90,7 +90,7 @@ class GameBuildings {
               .replace('{g}', value)
               .replace('{b}', targetBuildingName);
           } else {
-            benefit.description = String(langData.benefits.coinsMultiplierPerQuest.self);
+            benefit.description = langData.benefits.coinsMultiplierPerQuest.self;
           }
 
         }

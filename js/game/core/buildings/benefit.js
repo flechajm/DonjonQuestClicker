@@ -77,6 +77,14 @@ class Benefit {
     getFormattedValue(value, color) {
         return `<span style='color: var(--${color});'><b>+${value}${this.calculateAsPercent ? '%' : ''}</b></span>`;
     }
+
+    getFullDescription(buildingQuantity, numberUnits) {
+        let value = this.getFormattedValue(Number.pretty(this.getValue(), numberUnits), 'benefit');
+        let totalValue = this.getFormattedValue(Number.pretty(roundNumber(this.getValue() * buildingQuantity), numberUnits), "available");
+        let finalDescription = String(this.description).replace('{g}', value).replace('{t}', totalValue);
+
+        return finalDescription;
+    }
 }
 
 export default Benefit;

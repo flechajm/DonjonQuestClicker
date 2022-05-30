@@ -17,6 +17,7 @@
 
   --bright-high: 130%;
   --bright-low: 60%;
+  --bright-lowest: 40%;
 
   --tier-handmade: grey;
   --tier-poor: aliceblue;
@@ -146,7 +147,8 @@ html {
   font-size: medium;
   font-weight: bold;
   padding: 10px;
-  width: 350px;
+  max-width: 550px;
+  min-width: 300px;
 
   .header-wrapper {
     display: flex;
@@ -242,7 +244,7 @@ html {
 
   .quote {
     font-family: "MorrisRoman";
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-style: italic;
     color: grey;
     display: flex;
@@ -815,8 +817,8 @@ html {
 
             &.disabled-tara {
               cursor: not-allowed;
-              filter: brightness(var(--bright-low));
-              -webkit-filter: brightness(var(--bright-low));
+              filter: brightness(var(--bright-lowest));
+              -webkit-filter: brightness(var(--bright-lowest));
 
               &:hover {
                 transform: scale(1.04);
