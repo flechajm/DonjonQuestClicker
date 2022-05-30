@@ -70,7 +70,7 @@ class Tooltip {
     let separator = '<div class="separator"></div>';
 
     this.#tooltip = $("#tooltip");
-    this.#tooltip.width(cost ? 430 : 330);
+    this.#tooltip.css('width', cost ? 540 : 330);
     this.#headerWrapper = this.#tooltip.find("div.header-wrapper");
     this.#headerContainer = this.#headerWrapper.find("div.container");
     this.#cost = this.#headerWrapper.find("div.cost");
@@ -155,6 +155,10 @@ class Tooltip {
   }
 
   static #mouseMove({ event, paddingTop, paddingLeft }) {
+    const gameHeight = parseInt($('#game').height(), 10);
+    const tooltipHeight = parseInt(this.#tooltip.height(), 10);
+
+
     if (paddingTop) {
       this.#tooltip.css("top", `${event.pageY + paddingTop}px`);
     }
@@ -163,8 +167,15 @@ class Tooltip {
       this.#tooltip.css("left", `${event.pageX + paddingLeft}px`);
     }
 
-    if (parseInt(this.#tooltip.css('top'), 10) < 0)
+    const positionTop = parseInt(this.#tooltip.css('top'), 10);
+    if (positionTop < 0)
       this.#tooltip.css("top", 0);
+
+    // 27px (footer).
+    if (positionTop + tooltipHeight + 27 > gameHeight) {
+      const newHeight = gameHeight - tooltipHeight - 27;
+      this.#tooltip.css("top", newHeight);
+    }
   }
 
   /**
