@@ -50,7 +50,7 @@
         "id": 6,
         "name": "Explorador",
         "description": "Unidad de exploración que permite inspeccionar calabozos o mazmorras y hacerse con una porción del botín.",
-        "quote": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        "quote": "¿Quién dice que los exploradores sólo servimos para cartografiar?"
       },
       {
         "id": 7,
@@ -66,7 +66,7 @@
       },
       {
         "id": 9,
-        "name": "Wizard",
+        "name": "Mago",
         "description": "Dedicado a la mejora.",
         "quote": "No tengo miedo de un ejército de leones dirigido por una oveja. Tengo miedo de un ejército de ovejas dirigido por un león."
       }
@@ -142,6 +142,475 @@
       {
         "id": 2,
         "name": "Granja",
+        "description": "",
+        "tiers": [
+          {
+            "id": 1,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 2,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 3,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 4,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 5,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 6,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 7,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 8,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 9,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 10,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 11,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 12,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 13,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 14,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 15,
+            "quote": "Un poco mejor"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Aserradero",
+        "description": "",
+        "tiers": [
+          {
+            "id": 1,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 2,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 3,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 4,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 5,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 6,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 7,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 8,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 9,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 10,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 11,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 12,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 13,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 14,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 15,
+            "quote": "Un poco mejor"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Carpintería",
+        "description": "",
+        "tiers": [
+          {
+            "id": 1,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 2,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 3,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 4,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 5,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 6,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 7,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 8,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 9,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 10,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 11,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 12,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 13,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 14,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 15,
+            "quote": "Un poco mejor"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Taberna",
+        "description": "",
+        "tiers": [
+          {
+            "id": 1,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 2,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 3,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 4,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 5,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 6,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 7,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 8,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 9,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 10,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 11,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 12,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 13,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 14,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 15,
+            "quote": "Un poco mejor"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Explorador",
+        "description": "",
+        "tiers": [
+          {
+            "id": 1,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 2,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 3,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 4,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 5,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 6,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 7,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 8,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 9,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 10,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 11,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 12,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 13,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 14,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 15,
+            "quote": "Un poco mejor"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Escudero",
+        "description": "",
+        "tiers": [
+          {
+            "id": 1,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 2,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 3,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 4,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 5,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 6,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 7,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 8,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 9,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 10,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 11,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 12,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 13,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 14,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 15,
+            "quote": "Un poco mejor"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Herrería",
+        "description": "",
+        "tiers": [
+          {
+            "id": 1,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 2,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 3,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 4,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 5,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 6,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 7,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 8,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 9,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 10,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 11,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 12,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 13,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 14,
+            "quote": "Un poco mejor"
+          },
+          {
+            "id": 15,
+            "quote": "Un poco mejor"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Mago",
         "description": "",
         "tiers": [
           {
@@ -306,10 +775,10 @@
     "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompensa</span></center></i>"
   },
   "console": {
-    "achievmentUnlocked": "<span class='achievment-unlocked'>¡Logro desbloqueado!</span>",
+    "achievmentUnlocked": "¡Logro desbloqueado!",
     "buyBuilding": "<span class='console buy-building'>Has comprado <span>{b}</span> por <span>{g} de oro</span>.</span>",
     "buyUpgradeToBuilding": "<span class='console buy-upgrade'>Has comprado una mejora de tipo <span style='color: var(--tier-{tc})'>{t}</span> para <span>{b}</span> por <span>{g} de oro</span>.</span>",
-    "buildingLevelUp": "<span class='console levelUp'>🎉¡Felicitaciones! ¡Tu <span>{b}</span> ha subido de nivel, ahora está en nivel {l}!</span>"
+    "buildingLevelUp": "<span class='console levelUp'>🎉¡Felicitaciones! ¡Tu <span>{b}</span> ha subido de nivel! Ahora está en nivel {l}.</span>"
   },
   "footer": {
     "twitter": "Visita mi Twitter",
