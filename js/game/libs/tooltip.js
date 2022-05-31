@@ -32,6 +32,8 @@ class Tooltip {
    */
   static #content;
 
+  static #isHoldingCtrl;
+
   /**
    * Muestra un tooltip con información.
    *
@@ -101,36 +103,39 @@ class Tooltip {
       paddingWidth = this.#tooltip.width();
     }
 
-    this.#tooltip.css({ top: "", right: "", bottom: "", left: "" });
+    if (!Tooltip.getShiftPressed()) {
+      this.#tooltip.css({ top: "", right: "", bottom: "", left: "" });
 
-    switch (position) {
-      case "top":
-        paddingTop = -paddingHeight - padding - extraPadding;
-        paddingLeft = -center;
+      switch (position) {
+        case "top":
+          paddingTop = -paddingHeight - padding - extraPadding;
+          paddingLeft = -center;
 
-        this.#setPaddingLock(event, "bottom", paddingLock);
-        break;
-      case "right":
-        paddingTop = -center;
-        paddingLeft = padding + extraPadding;
+          this.#setPaddingLock(event, "bottom", paddingLock);
+          break;
+        case "right":
+          paddingTop = -center;
+          paddingLeft = padding + extraPadding;
 
-        this.#setPaddingLock(event, "left", paddingLock);
-        break;
-      case "bottom":
-        paddingTop = padding + extraPadding;
-        paddingLeft = -center;
+          this.#setPaddingLock(event, "left", paddingLock);
+          break;
+        case "bottom":
+          paddingTop = padding + extraPadding;
+          paddingLeft = -center;
 
-        this.#setPaddingLock(event, "top", paddingLock);
-        break;
-      case "left":
-        paddingTop = -center;
-        paddingLeft = -paddingWidth - padding - extraPadding;
+          this.#setPaddingLock(event, "top", paddingLock);
+          break;
+        case "left":
+          paddingTop = -center;
+          paddingLeft = -paddingWidth - padding - extraPadding;
 
-        this.#setPaddingLock(event, "right", paddingLock);
-        break;
+          this.#setPaddingLock(event, "right", paddingLock);
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
+
     }
 
     if (event != null) {
@@ -146,7 +151,17 @@ class Tooltip {
 
       this.show();
     }
+
   }
+
+  static setShiftPressed(pressed) {
+    this.#isHoldingCtrl = pressed;
+  }
+
+  static getShiftPressed() {
+    return this.#isHoldingCtrl;
+  }
+
 
   static #setPaddingLock(event, paddingPosition, paddingLock) {
     if (event != null && paddingLock != null) {
@@ -157,7 +172,6 @@ class Tooltip {
   static #mouseMove({ event, paddingTop, paddingLeft }) {
     const gameHeight = parseInt($('#game').height(), 10);
     const tooltipHeight = parseInt(this.#tooltip.height(), 10);
-
 
     if (paddingTop) {
       this.#tooltip.css("top", `${event.pageY + paddingTop}px`);

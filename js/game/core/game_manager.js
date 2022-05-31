@@ -246,7 +246,9 @@ class GameManager {
           gameManager.bindTooltipFunctionToBuildingButton(e, building);
         })
         .mouseout(function () {
-          Tooltip.hide();
+          if (!Tooltip.getShiftPressed()) {
+            Tooltip.hide();
+          }
         });
     }
   }
@@ -445,16 +447,16 @@ class GameManager {
       let upgrade = GameUpgrades.getUpgradeById(upgradeOwned.id);
       let upgradeBenefits = GameUpgrades.getTierByUpgrade(upgrade, upgradeOwned.tier).benefits;
       let benefit;
-      if (upgradeBenefits.length == 1) {
-        benefit = `<span style='margin-top: 5px;'>${upgradeBenefits[0].getFullDescription(quantity, this.getUnits())}</span>`;
-      } else {
-        benefit = `<div style='margin-top: 5px; margin-left: 50px;'>${upgradeBenefits.map((upgradeBenefit) => { return `<li>${upgradeBenefit.getFullDescription(quantity, this.getUnits())}</li>` }).join("")}</div>`;
-      }
+      // if (upgradeBenefits.length == 1) {
+      //   benefit = `<span style='margin-top: 5px;'>${upgradeBenefits[0].getFullDescription(quantity, this.getUnits())}</span>`;
+      // } else {
+      benefit = `<div style='margin-top: 5px; margin-left: 50px;'>${upgradeBenefits.map((upgradeBenefit) => { return `<li>${upgradeBenefit.getFullDescription(quantity, this.getUnits())}</li>` }).join("")}</div>`;
+      //}
 
       return `<div class='tier-upgrades'><span>✔️ ${tierName} ${benefit}</span></div>`
     }).join("");
 
-    let upgradesDescription = upgradesOwned.length > 0 ? `<b><u>${LanguageManager.getData().store.upgradesTitle}:</u></b><br /><ul>${upgradeTiers}</ul>` : '';
+    let upgradesDescription = upgradesOwned.length > 0 ? `<b><u>${LanguageManager.getData().store.upgradesTitle}:</u></b><br /><div style='overflow-y: overlay; max-height: 400px;'><ul>${upgradeTiers}</ul></div>` : '';
 
     Tooltip.setTooltip({
       event: e,
@@ -528,6 +530,12 @@ class GameManager {
     this.#addUnits();
     this.#welcomeBack();
     this.#setUpBuildings();
+
+    $('body').keydown(function (e) {
+      Tooltip.setShiftPressed(e.shiftKey);
+    }).keyup(function (e) {
+      Tooltip.setShiftPressed(e.shiftKey);
+    });
   }
 
   /**
