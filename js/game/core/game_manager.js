@@ -490,13 +490,15 @@ class GameManager {
       return finalDescription != '' ? `<li>${finalDescription}</li>` : ''
     }).join("");
 
-    const showDescription = upgrade.description.trim() != '';
-
     let unlockLevel = '';
-    if (tier.levelUp > 1) {
+    const showDescription = upgrade.description.trim() != '';
+    const building = GameBuildings.getBuildingById(upgrade.id);
+
+    if (building != null && tier.levelUp > building.level) {
       let buildingNameFormatted = langData.store.levelUp.replace("{b}", GameBuildings.getFormattedName(upgrade.name, 'gold'));
       unlockLevel = `${buildingNameFormatted.replace('{l}', '⭐'.repeat(tier.levelUp))}<br /><br />`;
     }
+
     Tooltip.setTooltip({
       event: e,
       title: upgrade.name,
@@ -530,7 +532,14 @@ class GameManager {
     this.#addUnits();
     this.#welcomeBack();
     this.#setUpBuildings();
+    this.#bindShiftKey();
+  }
 
+
+  /**
+   * Bindea la tecla Shift al <body> para poder dejar fijos los tooltips de los edificios.
+   */
+  #bindShiftKey() {
     $('body').keydown(function (e) {
       Tooltip.setShiftPressed(e.shiftKey);
     }).keyup(function (e) {

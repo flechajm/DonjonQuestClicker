@@ -33,7 +33,7 @@ class GameLoop {
     /**
      * Período en segundos para el guardado del progreso.
      */
-    this.savePeriod = 10;
+    this.savePeriod = 60;
   }
 
   /**

@@ -10,7 +10,7 @@ class GameInfo {
   /**
    * Versión del juego.
    */
-  static version = "1.0";
+  static version = "0.1a";
 
   /**
    * Fecha de creación del juego.
