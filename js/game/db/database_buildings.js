@@ -36,10 +36,10 @@ class DbBuildings {
             new Building({
                 id: 3,
                 icon: 'sawmill',
-                baseCost: 1500,
+                baseCost: 1700,
                 benefits: [
                     new Benefit({
-                        coinsGain: 5,
+                        coinsGain: 7,
                     }),
                 ],
             }),
@@ -51,7 +51,7 @@ class DbBuildings {
                 baseCost: 15000,
                 benefits: [
                     new Benefit({
-                        coinsGain: 15,
+                        coinsGain: 40,
                     }),
                     new Benefit({
                         coinsGain: 20,
@@ -65,13 +65,13 @@ class DbBuildings {
             new Building({
                 id: 5,
                 icon: 'tavern',
-                baseCost: 40000,
+                baseCost: 150000,
                 benefits: [
                     new Benefit({
-                        coinsGain: 50,
+                        coinsGain: 220,
                     }),
                     new Benefit({
-                        coinsBonusPerQuest: 5,
+                        coinsBonusPerQuest: 10,
                     }),
                     new Benefit({
                         coinsGain: 10,
@@ -85,16 +85,16 @@ class DbBuildings {
             new Building({
                 id: 6,
                 icon: 'scout',
-                baseCost: 100000,
+                baseCost: 980000,
                 benefits: [
                     new Benefit({
-                        coinsBonusPerQuest: 100,
+                        coinsBonusPerQuest: 300,
                     }),
-                    new Benefit({
-                        coinsGain: 10,
-                        targetBuilding: 5,
-                        calculateAsPercent: true,
-                    }),
+                    // new Benefit({
+                    //     coinsGain: 15,
+                    //     targetBuilding: 5,
+                    //     calculateAsPercent: true,
+                    // }),
                 ],
             }),
 
@@ -102,23 +102,23 @@ class DbBuildings {
             new Building({
                 id: 7,
                 icon: 'shield_bearer',
-                baseCost: 400000,
+                baseCost: 12.3e6,
                 benefits: [
                     new Benefit({
-                        coinsGain: 500,
+                        coinsGain: 2700,
                     }),
                     new Benefit({
-                        coinsBonusPerQuest: 1000,
+                        coinsBonusPerQuest: 1500,
                     }),
                     new Benefit({
                         coinsMultiplierPerQuest: 15,
                         calculateAsPercent: true,
                     }),
-                    new Benefit({
-                        coinsGain: 20,
-                        targetBuilding: 5,
-                        calculateAsPercent: true,
-                    }),
+                    // new Benefit({
+                    //     coinsGain: 20,
+                    //     targetBuilding: 5,
+                    //     calculateAsPercent: true,
+                    // }),
                 ],
             }),
 
@@ -126,26 +126,32 @@ class DbBuildings {
             new Building({
                 id: 8,
                 icon: 'forge',
-                baseCost: 2500000,
+                baseCost: 2.7e8,
                 benefits: [
+                    // new Benefit({
+                    //     coinsGain: 500,
+                    //     targetBuilding: 1,
+                    //     calculateAsPercent: true,
+                    // }),
+                    // new Benefit({
+                    //     coinsBonusPerQuest: 150,
+                    //     targetBuilding: 6,
+                    // }),
                     new Benefit({
                         coinsGain: 150,
-                        calculateAsPercent: true,
-                        //targetBuilding: 7,
-                    }),
-                    new Benefit({
-                        coinsBonusPerQuest: 50,
                         calculateAsPercent: true,
                         targetBuilding: 7,
                     }),
                     // new Benefit({
-                    //     coinsMultiplierPerQuest: 1,
+                    //     coinsBonusPerQuest: 50,
+                    //     calculateAsPercent: true,
                     //     targetBuilding: 7,
                     // }),
-                    new Benefit({
-                        coinsBonusPerQuest: 150,
-                        targetBuilding: 6,
-                    }),
+                    // new Benefit({
+                    //     coinsMultiplierPerQuest: 1,
+                    //     targetBuilding: 7,
+                    //     calculateAsPercent: true,
+                    // }),
                 ],
             }),
 

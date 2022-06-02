@@ -652,6 +652,8 @@ class GameManager {
    * Recalcula los beneficios de todos los edificios.
    */
   #rebuildBuildingBenefits() {
+    // TODO: Recorrer de forma ascendente y guardar el objeto 'coins' por edificio. Cuando aparece un edificio con un beneficio hacia otro edificio hay que verificar si ya se recorrió el edificio beneficiado. Si dicho edificio ya se recorrió anteriormente, hay que tomar el objeto 'coins' del edificio en cuestión y actualizarlo con el beneficio que le otorga el otro edificio. Si el edificio beneficiado no se recorrió nunca, entonces, se calculan sus beneficios, se guarda el objeto 'coins' y se actualizan los valores con los beneficios del edificio beneficiario.
+    //const reverseBuildings = this.buildingsOwned;
     const reverseBuildings = this.buildingsOwned.sort((a, b) => b.id - a.id);
     let addedBuildings = [];
     let coins = {
@@ -720,7 +722,8 @@ class GameManager {
     };
 
     if (targetBenefit && targetBuildingQuantity) {
-      let isSameBenefit = (targetBenefit.coinsGain > 0 && benefit.coinsGain > 0) ||
+      let isSameBenefit =
+        (targetBenefit.coinsGain > 0 && benefit.coinsGain > 0) ||
         (targetBenefit.coinsGainMultiplier > 0 && benefit.coinsGainMultiplier > 0) ||
         (targetBenefit.coinsBonusPerQuest > 0 && benefit.coinsBonusPerQuest > 0) ||
         (targetBenefit.coinsMultiplierPerQuest > 0 && benefit.coinsMultiplierPerQuest > 0);
@@ -889,7 +892,7 @@ class GameManager {
         GameBuildings.unlockBuilding({
           id: nextBuilding.id,
           name: nextBuilding.name,
-          cost: nextBuilding.cost.commafy(),
+          cost: this.#prettyNumber(nextBuilding.cost),
           canBuy: this.coins >= nextBuilding.cost,
           icon: `${nextBuilding.icon}_${nextBuilding.level}`,
         });
