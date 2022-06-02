@@ -90,11 +90,11 @@ class DbBuildings {
                     new Benefit({
                         coinsBonusPerQuest: 300,
                     }),
-                    // new Benefit({
-                    //     coinsGain: 15,
-                    //     targetBuilding: 5,
-                    //     calculateAsPercent: true,
-                    // }),
+                    new Benefit({
+                        coinsGain: 15,
+                        targetBuilding: 5,
+                        calculateAsPercent: true,
+                    }),
                 ],
             }),
 
@@ -114,11 +114,11 @@ class DbBuildings {
                         coinsMultiplierPerQuest: 15,
                         calculateAsPercent: true,
                     }),
-                    // new Benefit({
-                    //     coinsGain: 20,
-                    //     targetBuilding: 5,
-                    //     calculateAsPercent: true,
-                    // }),
+                    new Benefit({
+                        coinsGain: 20,
+                        targetBuilding: 5,
+                        calculateAsPercent: true,
+                    }),
                 ],
             }),
 

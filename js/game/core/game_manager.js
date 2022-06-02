@@ -653,8 +653,8 @@ class GameManager {
    */
   #rebuildBuildingBenefits() {
     // TODO: Recorrer de forma ascendente y guardar el objeto 'coins' por edificio. Cuando aparece un edificio con un beneficio hacia otro edificio hay que verificar si ya se recorrió el edificio beneficiado. Si dicho edificio ya se recorrió anteriormente, hay que tomar el objeto 'coins' del edificio en cuestión y actualizarlo con el beneficio que le otorga el otro edificio. Si el edificio beneficiado no se recorrió nunca, entonces, se calculan sus beneficios, se guarda el objeto 'coins' y se actualizan los valores con los beneficios del edificio beneficiario.
-    //const reverseBuildings = this.buildingsOwned;
-    const reverseBuildings = this.buildingsOwned.sort((a, b) => b.id - a.id);
+    const reverseBuildings = this.buildingsOwned;
+    //const reverseBuildings = this.buildingsOwned.sort((a, b) => b.id - a.id);
     let addedBuildings = [];
     let coins = {
       gain: 0,
@@ -670,30 +670,67 @@ class GameManager {
       if (addedBuildings.indexOf(buildingOwned.id) > -1) continue;
 
       const building = GameBuildings.getBuildingById(buildingOwned.id);
+      const filteredBuildingsByTargetBuilding = GameBuildings.filterByTargetBuilding(building.id);
+
       building.benefits.forEach((benefit) => {
-        if (benefit.targetBuilding) {
-          const targetBuilding = GameBuildings.getBuildingById(benefit.targetBuilding);
-          const targetQuantity = this.buildingsOwned.find((b) => b.id == targetBuilding.id).quantity;
+        filteredBuildingsByTargetBuilding.forEach((filteredBuilding) => {
+          if (this.buildingsOwned.some((bo) => bo.id == filteredBuilding.id)) {
 
-          targetBuilding.benefits.forEach((targetBenefit) => {
-            const calculatedBenefit = this.#calculateBenefit({ benefit: benefit, targetBenefit: targetBenefit, buildingQuantity: buildingOwned.quantity, targetBuildingQuantity: targetQuantity });
+            filteredBuilding.benefits.forEach((filteredBenefit) => {
+              const targetQuantity = this.buildingsOwned.find((b) => b.id == filteredBuilding.id).quantity;
+              if (filteredBenefit.targetBuilding == building.id) {
+                const calculatedBenefit = this.#calculateBenefit({
+                  benefit: benefit,
+                  targetBenefit: filteredBenefit,
+                  buildingQuantity: buildingOwned.quantity,
+                  targetBuildingQuantity: targetQuantity
+                });
 
-            coins.gain += calculatedBenefit.gain;
-            coins.gainMultiplier += calculatedBenefit.gainMultiplier;
-            coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
-            coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
-          });
+                coins.gain += calculatedBenefit.gain;
+                coins.gainMultiplier += calculatedBenefit.gainMultiplier;
+                coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
+                coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
+              }
+            });
+          }
+        });
+        const calculatedBenefit = this.#calculateBenefit({ benefit: benefit, buildingQuantity: buildingOwned.quantity });
 
-          addedBuildings.push(benefit.targetBuilding);
-        } else {
-          const calculatedBenefit = this.#calculateBenefit({ benefit: benefit, buildingQuantity: buildingOwned.quantity });
+        coins.gain += calculatedBenefit.gain;
+        coins.gainMultiplier += calculatedBenefit.gainMultiplier;
+        coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
+        coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
 
-          coins.gain += calculatedBenefit.gain;
-          coins.gainMultiplier += calculatedBenefit.gainMultiplier;
-          coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
-          coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
-        }
       });
+
+
+
+
+
+      // building.benefits.forEach((benefit) => {
+      //   if (benefit.targetBuilding) {
+      //     const targetBuilding = GameBuildings.getBuildingById(benefit.targetBuilding);
+      //     const targetQuantity = this.buildingsOwned.find((b) => b.id == targetBuilding.id).quantity;
+
+      //     targetBuilding.benefits.forEach((targetBenefit) => {
+      //       const calculatedBenefit = this.#calculateBenefit({ benefit: benefit, targetBenefit: targetBenefit, buildingQuantity: buildingOwned.quantity, targetBuildingQuantity: targetQuantity });
+
+      //       coins.gain += calculatedBenefit.gain;
+      //       coins.gainMultiplier += calculatedBenefit.gainMultiplier;
+      //       coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
+      //       coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
+      //     });
+
+      //     addedBuildings.push(benefit.targetBuilding);
+      //   } else {
+      //     const calculatedBenefit = this.#calculateBenefit({ benefit: benefit, buildingQuantity: buildingOwned.quantity });
+
+      //     coins.gain += calculatedBenefit.gain;
+      //     coins.gainMultiplier += calculatedBenefit.gainMultiplier;
+      //     coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
+      //     coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
+      //   }
+      // });
 
       addedBuildings.push(building.id);
     }

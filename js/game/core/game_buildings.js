@@ -190,6 +190,10 @@ class GameBuildings {
     return this.#buildings.find((b) => b.id == id);
   }
 
+  static filterByTargetBuilding(targetBuildingId) {
+    return this.#buildings.filter((building) => building.benefits.find((benefit) => benefit.targetBuilding == targetBuildingId));
+  }
+
   static getFormattedName(name, color) {
     return `<span style='color: var(--${color});'><b>${name}</b></span>`;
   }
