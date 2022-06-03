@@ -652,9 +652,6 @@ class GameManager {
    * Recalcula los beneficios de todos los edificios.
    */
   #rebuildBuildingBenefits() {
-    // TODO: Recorrer de forma ascendente y guardar el objeto 'coins' por edificio. Cuando aparece un edificio con un beneficio hacia otro edificio hay que verificar si ya se recorrió el edificio beneficiado. Si dicho edificio ya se recorrió anteriormente, hay que tomar el objeto 'coins' del edificio en cuestión y actualizarlo con el beneficio que le otorga el otro edificio. Si el edificio beneficiado no se recorrió nunca, entonces, se calculan sus beneficios, se guarda el objeto 'coins' y se actualizan los valores con los beneficios del edificio beneficiario.
-    const reverseBuildings = this.buildingsOwned;
-    //const reverseBuildings = this.buildingsOwned.sort((a, b) => b.id - a.id);
     let addedBuildings = [];
     let coins = {
       gain: 0,
@@ -663,7 +660,7 @@ class GameManager {
       multiplierPerQuest: 0,
     };
 
-    for (let i = 0; i < reverseBuildings.length; i++) {
+    for (let i = 0; i < this.buildingsOwned.length; i++) {
       const buildingOwned = this.buildingsOwned[i];
       GameBuildings.updateImage(buildingOwned.id);
 
@@ -672,40 +669,56 @@ class GameManager {
       const building = GameBuildings.getBuildingById(buildingOwned.id);
       const filteredBuildingsByTargetBuilding = GameBuildings.filterByTargetBuilding(building.id);
 
+      console.log(`-> Edificio: ${building.name}`);
+      console.log(`   |__ Beneficios:`);
       building.benefits.forEach((benefit) => {
-        filteredBuildingsByTargetBuilding.forEach((filteredBuilding) => {
-          if (this.buildingsOwned.some((bo) => bo.id == filteredBuilding.id)) {
+        let processedBenefit = false;
+        console.log(`       |__ ${benefit.description}`);
 
-            filteredBuilding.benefits.forEach((filteredBenefit) => {
-              const targetQuantity = this.buildingsOwned.find((b) => b.id == filteredBuilding.id).quantity;
-              if (filteredBenefit.targetBuilding == building.id) {
-                const calculatedBenefit = this.#calculateBenefit({
-                  benefit: benefit,
-                  targetBenefit: filteredBenefit,
-                  buildingQuantity: buildingOwned.quantity,
-                  targetBuildingQuantity: targetQuantity
-                });
+        if (benefit.targetBuilding == null) {
+          filteredBuildingsByTargetBuilding.forEach((filteredBuilding) => {
+            if (this.buildingsOwned.some((bo) => bo.id == filteredBuilding.id)) {
 
-                coins.gain += calculatedBenefit.gain;
-                coins.gainMultiplier += calculatedBenefit.gainMultiplier;
-                coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
-                coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
-              }
-            });
+              filteredBuilding.benefits.forEach((filteredBenefit) => {
+
+                if (filteredBenefit.targetBuilding == building.id) {
+                  const targetQuantity = this.buildingsOwned.find((b) => b.id == filteredBuilding.id).quantity;
+                  const calculatedBenefit = this.#calculateSameBenefit
+                    ({
+                      benefit: benefit,
+                      targetBenefit: filteredBenefit,
+                      buildingQuantity: buildingOwned.quantity,
+                      targetBuildingQuantity: targetQuantity
+                    });
+
+                  coins.gain += calculatedBenefit.gain;
+                  coins.gainMultiplier += calculatedBenefit.gainMultiplier;
+                  coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
+                  coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
+
+                  processedBenefit = true;
+
+                  if (calculatedBenefit.gain > 0 ||
+                    calculatedBenefit.gainMultiplier > 1 ||
+                    calculatedBenefit.bonusPerQuest > 0 ||
+                    calculatedBenefit.multiplierPerQuest > 1) {
+                    console.log(`           |__ Mejorado por: ${filteredBuilding.name}`);
+                  }
+                }
+              });
+            }
+          });
+
+          if (!processedBenefit) {
+            const calculatedBenefit = this.#calculateBasicBenefit(benefit, buildingOwned.quantity);
+
+            coins.gain += calculatedBenefit.gain;
+            coins.gainMultiplier += calculatedBenefit.gainMultiplier;
+            coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
+            coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
           }
-        });
-        const calculatedBenefit = this.#calculateBenefit({ benefit: benefit, buildingQuantity: buildingOwned.quantity });
-
-        coins.gain += calculatedBenefit.gain;
-        coins.gainMultiplier += calculatedBenefit.gainMultiplier;
-        coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
-        coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
-
+        }
       });
-
-
-
-
 
       // building.benefits.forEach((benefit) => {
       //   if (benefit.targetBuilding) {
@@ -772,6 +785,38 @@ class GameManager {
       }
     } else {
       coins = this.#calculateBasicBenefit(benefit, buildingQuantity);
+    }
+
+    return coins;
+  }
+
+  /**
+   * Realiza los cálculos correspondientes para obtener los modificadores finales de un beneficio,
+   * o un beneficio objetivo en todas sus posibilidades.
+   * @param {Benefit} benefit                 Beneficio actual.
+   * @param {Benefit} targetBenefit           Beneficio objetivo.
+   * @param {Number}  buildingQuantity        Cantidad de edificios del actual beneficio.
+   * @param {Number}  targetBuildingQuantity  Cantidad de edificios del beneficio objetivo.
+   * @returns {Object} Objeto que incluye los modificadores (de monedas de oro) principales del juego.
+   */
+  #calculateSameBenefit({ benefit, targetBenefit, buildingQuantity, targetBuildingQuantity }) {
+    let coins = {
+      gain: 0,
+      gainMultiplier: 1,
+      bonusPerQuest: 0,
+      multiplierPerQuest: 1,
+    };
+
+    if (targetBenefit && targetBuildingQuantity) {
+      let isSameBenefit =
+        (targetBenefit.coinsGain > 0 && benefit.coinsGain > 0) ||
+        (targetBenefit.coinsGainMultiplier > 0 && benefit.coinsGainMultiplier > 0) ||
+        (targetBenefit.coinsBonusPerQuest > 0 && benefit.coinsBonusPerQuest > 0) ||
+        (targetBenefit.coinsMultiplierPerQuest > 0 && benefit.coinsMultiplierPerQuest > 0);
+
+      if (isSameBenefit) {
+        coins = this.#calculateComplexBenefit(benefit, targetBenefit, buildingQuantity, targetBuildingQuantity);
+      }
     }
 
     return coins;

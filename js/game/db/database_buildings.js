@@ -41,6 +41,10 @@ class DbBuildings {
                     new Benefit({
                         coinsGain: 7,
                     }),
+                    new Benefit({
+                        coinsGain: 1,
+                        targetBuilding: 1,
+                    }),
                 ],
             }),
 
@@ -128,30 +132,30 @@ class DbBuildings {
                 icon: 'forge',
                 baseCost: 2.7e8,
                 benefits: [
-                    // new Benefit({
-                    //     coinsGain: 500,
-                    //     targetBuilding: 1,
-                    //     calculateAsPercent: true,
-                    // }),
-                    // new Benefit({
-                    //     coinsBonusPerQuest: 150,
-                    //     targetBuilding: 6,
-                    // }),
+                    new Benefit({
+                        coinsGain: 500,
+                        targetBuilding: 1,
+                        calculateAsPercent: true,
+                    }),
+                    new Benefit({
+                        coinsBonusPerQuest: 150,
+                        targetBuilding: 6,
+                    }),
                     new Benefit({
                         coinsGain: 150,
                         calculateAsPercent: true,
                         targetBuilding: 7,
                     }),
-                    // new Benefit({
-                    //     coinsBonusPerQuest: 50,
-                    //     calculateAsPercent: true,
-                    //     targetBuilding: 7,
-                    // }),
-                    // new Benefit({
-                    //     coinsMultiplierPerQuest: 1,
-                    //     targetBuilding: 7,
-                    //     calculateAsPercent: true,
-                    // }),
+                    new Benefit({
+                        coinsBonusPerQuest: 50,
+                        calculateAsPercent: true,
+                        targetBuilding: 7,
+                    }),
+                    new Benefit({
+                        coinsMultiplierPerQuest: 1,
+                        targetBuilding: 7,
+                        calculateAsPercent: true,
+                    }),
                 ],
             }),
 
