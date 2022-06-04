@@ -10,6 +10,7 @@ import GameEffects from "./game_effects.js";
 import LanguageManager from "../libs/language_manager.js";
 import Tooltip from "../libs/tooltip.js";
 import Benefit from "./buildings/benefit.js";
+import { audioManager } from "../main.js";
 
 /**
  * Clase encargada del manejo del juego.

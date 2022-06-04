@@ -7,9 +7,11 @@ import GameUpgrades from "./core/game_upgrades.js";
 import GameAchievments from "./core/game_achievments.js";
 
 import LanguageManager from "./libs/language_manager.js"
+import AudioManager from "./libs/audio_manager.js";
 import Tooltip from "./libs/tooltip.js";
 
 var gameManager;
+var audioManager;
 
 $(function () {
   setBackground();
@@ -29,6 +31,8 @@ $(function () {
     GameUpgrades.create();
 
     gameManager.start();
+    audioManager = new AudioManager();
+    audioManager.init();
   });
 });
 
@@ -84,4 +88,4 @@ function setFooterTooltips() {
     });
 }
 
-export { gameManager };
+export { gameManager, audioManager };
