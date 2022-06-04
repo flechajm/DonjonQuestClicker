@@ -34,14 +34,18 @@ class AudioManager {
      * Plays the selected sound.
      * @param {soundTypes} sound Sound to play.
      */
-    play(sound) {
-        // const source = this.#getSource(sound);
+    play(sound, volume) {
+        this.#sfx = new Howl({
+            src: [`../audio/sfx/${sound}.mp3`],
+            preload: true,
+            volume: volume ?? 1,
+        });
 
-        // if (sound === 'bgm' && this.bgmOn) {
-        //     this.#setBGM(source);
-        // } else if (this.sfxOn) {
-        //     this.#setSFX(source);
-        // }
+        this.#sfx.play();
+    }
+
+    isPlaying() {
+        return this.#sfx.playing();
     }
 
     getMusicName(bgm) {
@@ -113,7 +117,7 @@ class AudioManager {
             ];
             let randomMusicFiles = this.#shuffleArray(musicFiles);
             for (var i = 0; i < randomMusicFiles.length; i++) {
-                this.#randomList.push(`../audio/${randomMusicFiles[i]}`);
+                this.#randomList.push(`../audio/bgm/${randomMusicFiles[i]}`);
             }
         }
 

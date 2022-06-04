@@ -2,6 +2,7 @@ import DbAchievments from "../db/database_achievments.js";
 import GameLog from "./game_log.js";
 
 import LanguageManager from "../libs/language_manager.js";
+import { audioManager } from "../main.js";
 
 class GameAchievments {
     #achievments = [];
@@ -15,6 +16,9 @@ class GameAchievments {
         const achievment = this.#achievments.find((a) => a.id == id);
         const isUnlocked = this.unlockeds.some((a) => a == id);
         if (achievment && !isUnlocked) {
+            if (audioManager) {
+                audioManager.play('achievment', 0.3);
+            }
             GameLog.write(`<span class='achievment-unlocked'>${LanguageManager.getData().console.achievmentUnlocked}</span>🏆`);
             GameLog.write(`<div class='achievment'>
                                 <div class='icon'><img src='/img/${achievment.icon}.png' /></div>

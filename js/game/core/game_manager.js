@@ -148,6 +148,7 @@ class GameManager {
     GameEffects.spawnCoinsEarned(e, this.#prettyNumber(coinsEarned));
     //GameEffects.spawnIconCoin(e);
 
+    audioManager.play('click', 0.4);
     this.addCoins(coinsEarned);
   }
 
@@ -231,13 +232,17 @@ class GameManager {
       if (building.cost > gameManager.coins) {
         button.addClass("disabled");
         button.unbind("click");
+        button.unbind("mouseenter");
       } else {
         Tooltip.updateCost(gameManager.coins);
         button.removeClass("disabled");
         button.unbind("click").click(function (e) {
+          audioManager.play('click', 0.8);
           gameManager.buyBuilding(building.id, 1);
           gameManager.bindTooltipFunctionToBuildingButton(e, building);
           gameManager.checkBuildingsAvailable();
+        }).unbind("mouseenter").mouseenter(function () {
+          audioManager.play('mouse_hover', 1.8);
         });
       }
 
@@ -276,13 +281,17 @@ class GameManager {
       if (isUnbuyable || (tier.cost > gameManager.coins)) {
         button.addClass("disabled-tara");
         button.unbind("click");
+        button.unbind("mouseenter");
       } else {
         Tooltip.updateCost(gameManager.coins);
         button.removeClass("disabled-tara");
         button.unbind("click").click(function (e) {
+          audioManager.play('plop', 0.2);
           gameManager.buyUpgrarde(upgrade, tier);
           gameManager.bindTooltipFunctionToUpgradeButton(e, upgrade, tier);
           gameManager.checkUpgradesAvailable();
+        }).unbind("mouseenter").mouseenter(function () {
+          audioManager.play('mouse_hover', 1.8);
         });
       }
 
@@ -421,6 +430,7 @@ class GameManager {
 
     const previousLevelUp = this.upgradesOwned.find((u) => u.id == upgrade.id && u.tier == tier.number - 1)?.levelUp;
     if (previousLevelUp < tier.levelUp) {
+      audioManager.play('levelup');
       GameLog.write(`${LanguageManager.getData().console.buildingLevelUp
         .replace('{b}', upgrade.name)
         .replace('{l}', '⭐'.repeat(tier.levelUp))}`);
@@ -972,6 +982,8 @@ class GameManager {
       if (nextBuilding && !isUnlockedNextBuilding) {
         $("#building-locked").remove();
 
+        if (isUnlockedPreviousBuilding && !isUnlockedNextBuilding)
+          GameLog.write(LanguageManager.getData().console.buildingUnlocked.replace('{b}', nextBuilding.name));
         GameBuildings.unlockBuilding({
           id: nextBuilding.id,
           name: nextBuilding.name,
@@ -1118,6 +1130,9 @@ class GameManager {
         gameManager.openChest(e);
         Tooltip.hide();
         gameManager.setTooltipChest(false);
+      })
+      .mouseenter(function () {
+        audioManager.play('mouse_hover', 1.8);
       })
       .mousedown(function () {
         $(this).addClass("pressed");

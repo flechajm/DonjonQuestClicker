@@ -366,6 +366,15 @@ html {
       color: var(--gold);
     }
   }
+
+  &.building-unlocked {
+    color: darkorange;
+
+    span {
+      font-weight: 600;
+      color: var(--benefit);
+    }
+  }
 }
 
 #wrapper {

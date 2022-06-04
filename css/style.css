@@ -407,6 +407,15 @@ html {
   color: var(--gold);
 }
 
+.console.building-unlocked {
+  color: darkorange;
+}
+
+.console.building-unlocked span {
+  font-weight: 600;
+  color: var(--benefit);
+}
+
 #wrapper {
   position: relative;
   height: calc(100% - 25px);
