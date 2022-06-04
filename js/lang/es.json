@@ -783,6 +783,10 @@
   "footer": {
     "twitter": "Visita mi Twitter",
     "youtube": "Mi canal de YouTube, donde subo gameplays de variedad de juegos, especialmente de terror.<br />Nada que ver con Donjon Quest Clicker.",
-    "github": "Mi GitHub personal. Podrás encontrar todos mis proyectos públicos, incluso el código de Donjon Quest Clicker."
+    "github": "Mi GitHub personal. Podrás encontrar todos mis proyectos públicos, incluso el código de Donjon Quest Clicker.",
+    "music": {
+      "createdBy": "Todos los temas creados por:",
+      "license": "Licenciado bajo"
+    }
   }
 }

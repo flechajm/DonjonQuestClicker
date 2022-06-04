@@ -162,9 +162,11 @@ class AudioManager {
             preload: true,
             volume: audioManager.getVolume(),
             onplay: function () {
+                $('.music').css('display', 'flex');
                 $('.music').find('span').eq(0).html(actualBGMName);
             },
             onend: function () {
+                $('.music').css('display', 'none');
                 if ((index + 1) == randomList.length) {
                     audioManager.playBGM(0);
                 } else {
