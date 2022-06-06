@@ -20,6 +20,8 @@ class GameManager {
   #basePowUpgrades;
   #units;
   #showTooltipChest;
+  #showCoinsGainDetail;
+  #blinkTimeout;
 
   /**
    * 
@@ -66,7 +68,7 @@ class GameManager {
     this.config = new GameConfig(config);
     this.achievments = new GameAchievments(achievments);
     this.#basePow = 1.17;
-    this.#basePowUpgrades = 10;
+    this.#basePowUpgrades = 1.5;
     this.#units = [];
     this.#showTooltipChest = true;
   }
@@ -127,6 +129,14 @@ class GameManager {
     return this.#showTooltipChest;
   }
 
+  setCoinsGainDetailed(show) {
+    this.#showCoinsGainDetail = show;
+  }
+
+  getCoinsGainDetailed() {
+    return this.#showCoinsGainDetail;
+  }
+
   /**
    * Obtiene la clase del héroe.
    * @returns {String} Clase del héroe.
@@ -164,8 +174,8 @@ class GameManager {
     }
 
     $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);
-    //$("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s)`);
-    $("#coins.per-sec").html(`(+${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))}/s) m: ${this.#prettyNumber(this.coinsGainMultiplier)}`);
+    if (!this.getCoinsGainDetailed())
+      $("#coins.per-sec").html(`${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))} /s`);
   }
 
   /**
@@ -277,6 +287,7 @@ class GameManager {
       if (!button) return;
 
       const isUnbuyable = GameUpgrades.isUnbuyable(availableUpgrade, this.upgradesOwned);
+      this.availableUpgrades[i].isUnbuyable = isUnbuyable;
 
       if (isUnbuyable || (tier.cost > gameManager.coins)) {
         button.addClass("disabled-tara");
@@ -288,17 +299,21 @@ class GameManager {
         button.unbind("click").click(function (e) {
           audioManager.play('plop', 0.2);
           gameManager.buyUpgrarde(upgrade, tier);
-          gameManager.bindTooltipFunctionToUpgradeButton(e, upgrade, tier);
           gameManager.checkUpgradesAvailable();
+          gameManager.bindTooltipFunctionToUpgradeButton(e, upgrade, tier);
+          gameManager.redrawUpgrades();
+          Tooltip.hide();
         }).unbind("mouseenter").mouseenter(function () {
           audioManager.play('mouse_hover', 1.8);
         });
       }
 
-      button.unbind("mouseover mousemove")
+      button
+        .unbind("mouseover mousemove")
         .on('mouseover mousemove', function (e) {
           gameManager.bindTooltipFunctionToUpgradeButton(e, upgrade, tier);
-        }).unbind("mouseout")
+        })
+        .unbind("mouseout")
         .mouseout(function () {
           Tooltip.hide();
         });
@@ -356,7 +371,7 @@ class GameManager {
   getTierCostUpdated(upgrade, tierNumber) {
     let tier = upgrade?.tiers.find((t) => t.number == tierNumber);
     if (tier) {
-      tier.cost = tier.number == 1 ? upgrade.baseCost : Math.floor(upgrade.baseCost * Math.pow(this.#basePowUpgrades * ((tierNumber - 1) / 2), tierNumber - 1));
+      tier.cost = Math.floor(upgrade.baseCost * Math.pow(this.#basePowUpgrades * ((tierNumber) * 2), tierNumber - 1));
     }
 
     return tier;
@@ -387,18 +402,16 @@ class GameManager {
     }
 
     const building = GameBuildings.getBuildingById(id);
+    GameLog.write(`${LanguageManager.getData().console.buyBuilding
+      .replace('{b}', building.name)
+      .replace('{g}', this.#prettyNumber(building.cost))}`);
+    this.achievments.unlock(building.unlockAchievment);
 
     this.#substractCoins(building.cost);
     this.#rebuildBuildingBenefits();
     this.#updateBuildingCost(id, buildingOwned.quantity);
     this.#unlockNextBuilding(buildingOwned, -1);
     this.#unlockUpgrade(buildingOwned);
-
-    GameLog.write(`${LanguageManager.getData().console.buyBuilding
-      .replace('{b}', building.name)
-      .replace('{g}', this.#prettyNumber(building.cost))}`);
-
-    this.achievments.unlock(building.unlockAchievment);
 
     buildingOwnedDOM.html(buildingOwned.quantity);
   }
@@ -414,6 +427,10 @@ class GameManager {
     const upgradeOwned = { id: upgrade.id, tier: tier.number, levelUp: tier.levelUp };
     this.upgradesOwned.push(upgradeOwned);
 
+    if (this.upgradesOwned.length == 1) {
+      this.achievments.unlock(3);
+    }
+
     this.#substractCoins(tier.cost);
     this.#addUpgradeBenefits(upgradeOwned);
     this.#rebuildBuildingBenefits();
@@ -422,15 +439,31 @@ class GameManager {
     this.availableUpgrades.splice(indexOf, 1);
     this.#updateUpgradesTitle();
 
+    const tierClass = GameUpgrades.getTierClass(tier.number);
     GameLog.write(`${LanguageManager.getData().console.buyUpgradeToBuilding
-      .replace('{tc}', GameUpgrades.getTierClass(tier.number))
+      .replace('{tc}', tierClass)
       .replace('{t}', GameUpgrades.getTierName(tier.number))
       .replace('{b}', upgrade.name)
       .replace('{g}', this.#prettyNumber(tier.cost))}`);
 
+    let tierVarValue = window.getComputedStyle(document.documentElement).getPropertyValue(`--tier-${tierClass}`);
+    document.getElementById(`building-${upgrade.id}`).style.setProperty("--blink-shadow", tierVarValue);
+
+    const buildingButton = $(`#building-${upgrade.id}`);
+
+    if (buildingButton.hasClass('blink')) {
+      buildingButton.removeClass('blink');
+      clearTimeout(this.#blinkTimeout);
+    }
+
+    buildingButton.addClass('blink');
+    this.#blinkTimeout = setTimeout(() => {
+      buildingButton.removeClass('blink');
+    }, 7000);
+
     const previousLevelUp = this.upgradesOwned.find((u) => u.id == upgrade.id && u.tier == tier.number - 1)?.levelUp;
     if (previousLevelUp < tier.levelUp) {
-      audioManager.play('levelup');
+      audioManager.play('levelup', 0.3);
       GameLog.write(`${LanguageManager.getData().console.buildingLevelUp
         .replace('{b}', upgrade.name)
         .replace('{l}', '⭐'.repeat(tier.levelUp))}`);
@@ -538,7 +571,7 @@ class GameManager {
   #configure() {
     this.achievments.setLocalization();
     this.buildingsOwned.sort((a, b) => a.id - b.id);
-    this.availableUpgrades.sort((a, b) => a.cost - b.cost);
+    this.availableUpgrades.sort((a, b) => a.isUnbuyable - b.isUnbuyable || a.cost - b.cost);
     this.setHeroName(this.heroName);
     this.#addUnits();
     this.#welcomeBack();
@@ -913,8 +946,9 @@ class GameManager {
     $("#store > .title.big > span").html(LanguageManager.getData().store.title);
 
     for (let i = 0; i < this.availableUpgrades.length; i++) {
-      let upgrade = GameUpgrades.getUpgradeById(this.availableUpgrades[i].id);
-      let tier = this.getTierCostUpdated(upgrade, this.availableUpgrades[i].tier);
+      const availableUpgrade = this.availableUpgrades[i];
+      let upgrade = GameUpgrades.getUpgradeById(availableUpgrade.id);
+      let tier = this.getTierCostUpdated(upgrade, availableUpgrade.tier);
 
       if (tier) {
         GameUpgrades.unlockUpgrade({
@@ -923,6 +957,9 @@ class GameManager {
           tier: tier.number,
           icon: `${upgrade.icon}_${tier.levelUp}`,
         });
+
+        let owned = $(`#upgrade-${availableUpgrade.id}-${availableUpgrade.tier}`);
+        availableUpgrade.element = owned;
       }
     }
 
@@ -1063,27 +1100,36 @@ class GameManager {
         const tier = this.getTierCostUpdated(upgrade, tierNumber);
 
         if (tier) {
-          this.availableUpgrades.push({ id: buildingOwned.id, tier: tierNumber, cost: tier.cost, icon: upgrade.icon });
-          this.availableUpgrades.sort((a, b) => a.cost - b.cost);
-          $('.container.upgrades').html('');
+          const availableUpgrade = { id: buildingOwned.id, tier: tierNumber, cost: tier.cost, icon: upgrade.icon };
+          const isUnbuyable = GameUpgrades.isUnbuyable(availableUpgrade, this.upgradesOwned);
+          const auxUpgrade = GameUpgrades.getUpgradeById(availableUpgrade.id);
+          const tierLevel = GameUpgrades.getTierByUpgrade(auxUpgrade, availableUpgrade.tier).levelUp;
+          availableUpgrade.isUnbuyable = isUnbuyable;
 
-          for (let i = 0; i < this.availableUpgrades.length; i++) {
-            const availableUpgrade = this.availableUpgrades[i];
-            const auxUpgrade = GameUpgrades.getUpgradeById(availableUpgrade.id);
-            const tierLevel = GameUpgrades.getTierByUpgrade(auxUpgrade, availableUpgrade.tier).levelUp;
-            const isUnbuyable = GameUpgrades.isUnbuyable(availableUpgrade, this.upgradesOwned);
+          GameUpgrades.unlockUpgrade({
+            id: availableUpgrade.id,
+            canBuy: isUnbuyable ^ this.coins >= availableUpgrade.cost,
+            tier: availableUpgrade.tier,
+            icon: `${availableUpgrade.icon}_${tierLevel}`,
+          });
 
-            GameUpgrades.unlockUpgrade({
-              id: availableUpgrade.id,
-              canBuy: isUnbuyable ^ this.coins >= availableUpgrade.cost,
-              tier: availableUpgrade.tier,
-              icon: `${availableUpgrade.icon}_${tierLevel}`,
-            });
-          }
+          let owned = $(`#upgrade-${availableUpgrade.id}-${availableUpgrade.tier}`);
+          availableUpgrade.element = owned;
+
+          this.availableUpgrades.push(availableUpgrade);
+          this.redrawUpgrades();
         }
       }
 
       this.#updateUpgradesTitle();
+    }
+  }
+
+  redrawUpgrades() {
+    this.availableUpgrades.sort((a, b) => a.isUnbuyable - b.isUnbuyable || a.cost - b.cost);
+    for (let i = 0; i < this.availableUpgrades.length; i++) {
+      const availableUpgrade = this.availableUpgrades[i];
+      $("#store-wrap").find('#upgrades > div.container').append(availableUpgrade.element[0]);
     }
   }
 
@@ -1117,6 +1163,7 @@ class GameManager {
    */
   #initGameLoop() {
     this.gameLoop = new GameLoop();
+    this.gameLoop.showFPS();
   }
 
   /**
@@ -1158,6 +1205,13 @@ class GameManager {
           });
         }
       });
+
+    $("#coins.per-sec").mouseenter(function () {
+      gameManager.setCoinsGainDetailed(true);
+      $(this).html(`base/s: ${Number.pretty(gameManager.coinsGain, gameManager.getUnits())} * m: ${gameManager.coinsGainMultiplier} = ${Number.pretty(gameManager.coinsGain * gameManager.coinsGainMultiplier, gameManager.getUnits())} /s`);
+    }).mouseout(function () {
+      gameManager.setCoinsGainDetailed(false);
+    });
 
     $("#donjon-heroname").click(function () {
       let name = window.prompt(LanguageManager.getData().hero.prompt, gameManager.getHeroName());

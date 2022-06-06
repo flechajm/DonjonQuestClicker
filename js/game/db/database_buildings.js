@@ -58,7 +58,7 @@ class DbBuildings {
                         coinsGain: 40,
                     }),
                     new Benefit({
-                        coinsGain: 20,
+                        coinsGain: 50,
                         targetBuilding: 3,
                         calculateAsPercent: true,
                     }),
@@ -106,7 +106,7 @@ class DbBuildings {
             new Building({
                 id: 7,
                 icon: 'shield_bearer',
-                baseCost: 12.3e6,
+                baseCost: 13.2e6,
                 benefits: [
                     new Benefit({
                         coinsGain: 2700,
@@ -115,7 +115,7 @@ class DbBuildings {
                         coinsBonusPerQuest: 1500,
                     }),
                     new Benefit({
-                        coinsMultiplierPerQuest: 15,
+                        coinsMultiplierPerQuest: 5,
                         calculateAsPercent: true,
                     }),
                     new Benefit({
@@ -132,6 +132,9 @@ class DbBuildings {
                 icon: 'forge',
                 baseCost: 2.7e8,
                 benefits: [
+                    new Benefit({
+                        coinsGain: 19000,
+                    }),
                     new Benefit({
                         coinsGain: 500,
                         targetBuilding: 1,
@@ -163,12 +166,21 @@ class DbBuildings {
             new Building({
                 id: 9,
                 icon: 'wizard',
-                baseCost: 7500000,
+                baseCost: 8.6e9,
                 benefits: [
                     new Benefit({
-                        coinsGain: 150,
+                        coinsGain: 80000,
+                    }),
+                    new Benefit({
+                        coinsBonusPerQuest: 5000,
+                    }),
+                    new Benefit({
+                        coinsMultiplierPerQuest: 40,
                         calculateAsPercent: true,
-                        //targetBuilding: 7,
+                    }),
+                    new Benefit({
+                        coinsGainMultiplier: 20,
+                        calculateAsPercent: true,
                     }),
                 ],
             }),

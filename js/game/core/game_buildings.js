@@ -43,8 +43,6 @@ class GameBuildings {
 
       for (let j = 0; j < building.benefits.length; j++) {
         const benefit = building.benefits[j];
-        const varColor = 'benefit';
-        const value = benefit.getFormattedValue(benefit.getValue(), varColor);
 
         let targetBuilding;
         let targetBuildingName;
@@ -56,9 +54,7 @@ class GameBuildings {
 
         if (benefit.coinsGain > 0) {
           if (targetBuilding) {
-            benefit.description = String(langData.benefits.coinsGain.toBuilding)
-              .replace('{g}', value)
-              .replace('{b}', targetBuildingName);
+            benefit.description = String(langData.benefits.coinsGain.toBuilding).replace('{b}', targetBuildingName);
           } else {
             benefit.description = langData.benefits.coinsGain.self;
           }
@@ -66,9 +62,7 @@ class GameBuildings {
 
         if (benefit.coinsGainMultiplier > 0) {
           if (targetBuilding) {
-            benefit.description = String(langData.benefits.coinsGainMultiplier.toBuilding)
-              .replace('{g}', value)
-              .replace('{b}', targetBuildingName);
+            benefit.description = String(langData.benefits.coinsGainMultiplier.toBuilding).replace('{b}', targetBuildingName);
           } else {
             benefit.description = langData.benefits.coinsGainMultiplier.self;
           }
@@ -76,9 +70,7 @@ class GameBuildings {
 
         if (benefit.coinsBonusPerQuest > 0) {
           if (targetBuilding) {
-            benefit.description = String(langData.benefits.coinsBonusPerQuest.toBuilding)
-              .replace('{g}', value)
-              .replace('{b}', targetBuildingName);
+            benefit.description = String(langData.benefits.coinsBonusPerQuest.toBuilding).replace('{b}', targetBuildingName);
           } else {
             benefit.description = langData.benefits.coinsBonusPerQuest.self;
           }
@@ -86,13 +78,10 @@ class GameBuildings {
 
         if (benefit.coinsMultiplierPerQuest > 0) {
           if (targetBuilding) {
-            benefit.description = String(langData.benefits.coinsMultiplierPerQuest.toBuilding)
-              .replace('{g}', value)
-              .replace('{b}', targetBuildingName);
+            benefit.description = String(langData.benefits.coinsMultiplierPerQuest.toBuilding).replace('{b}', targetBuildingName);
           } else {
             benefit.description = langData.benefits.coinsMultiplierPerQuest.self;
           }
-
         }
       }
     }

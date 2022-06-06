@@ -723,6 +723,11 @@
       "id": 2,
       "title": "Hogar, dulce hogar",
       "description": "El comienzo de una aventura."
+    },
+    {
+      "id": 3,
+      "title": "Enchúlame la máquina",
+      "description": "Compra tu primer mejora."
     }
   ],
   "formatUnit": {

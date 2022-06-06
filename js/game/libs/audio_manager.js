@@ -164,6 +164,7 @@ class AudioManager {
         this.#bgm = new Howl({
             src: [actualBGM],
             preload: true,
+            autoplay: true,
             volume: audioManager.getVolume(),
             onplay: function () {
                 $('.music').css('display', 'flex');

@@ -93,11 +93,12 @@ class GameLoop {
     // Chequeo de achievments por oro obtenido.
     this.checkCoinsAchievments();
 
-
     setTimeout(() => {
       this.gameLoop();
     }, this.loopPeriod);
   }
+
+
 
   /**
    * Guarda el progreso del juego cada X período de tiempo.
@@ -111,6 +112,24 @@ class GameLoop {
     }, 1000 * this.savePeriod);
   }
 
+  showFPS() {
+    let startTime = performance.now();
+    let fps = 0;
+    let fpsDOM = $('#fps');
+    requestAnimationFrame(
+      function loop() {
+        let now = Date.now();
+        fps = Math.floor(1000 / (now - startTime));
+        startTime = now;
+        requestAnimationFrame(loop);
+      }
+    );
+
+    setInterval(() => {
+      fpsDOM.html(`${fps} fps`);
+    }, 500);
+  }
+
   /**
    * Verifica si hay logros que se puedan obtener de forma desatendida y, si hay, los desbloquea.
    */
@@ -118,11 +137,12 @@ class GameLoop {
     // if (gameManager.coins >= 100)
     //   gameManager.achievments.unlock(3);
 
-    if (gameManager.coinsHistory >= 100)
-      gameManager.achievments.unlock(3);
+    // if (gameManager.coinsHistory >= 100)
+    //   gameManager.achievments.unlock(3);
 
-    if (gameManager.coinsHistory >= 10000)
-      gameManager.achievments.unlock(3);
+    // if (gameManager.coinsHistory >= 10000)
+    //   gameManager.achievments.unlock(3);
+
   }
 }
 
