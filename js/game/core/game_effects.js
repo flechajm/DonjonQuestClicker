@@ -14,17 +14,19 @@ class GameEffects {
             const obj = $('.coin-floating.number').first();
             obj.remove();
         } else {
-            const distnaceBetween = 10;
+            const distnaceBetween = 2;
             let posX = randomBetween(e.pageX - distnaceBetween, e.pageX + distnaceBetween);
             //let posY = randomBetween(0, 50);
             let div = $('<div class="coin-floating number">')
                 .css({
-                    left: posX,
-                    top: e.pageY,
+                    top: e.pageY - 10,
                     opacity: 1
                 })
                 .append(`+${coinsEarned}`)
                 .appendTo('#donjon');
+
+            posX = posX + 20 - div.width() / 2;
+            div.css('left', posX);
 
             div.animate({ top: e.pageY - 100, opacity: 0 }, 500, "linear", function () {
                 $(this).remove();

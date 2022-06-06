@@ -457,7 +457,11 @@ class GameManager {
     }
 
     buildingButton.addClass('blink');
-    this.#blinkTimeout = setTimeout(() => {
+    // this.#blinkTimeout = setTimeout(() => {
+    //   buildingButton.removeClass('blink');
+    // }, 7000);
+
+    setInterval(() => {
       buildingButton.removeClass('blink');
     }, 7000);
 
@@ -1166,11 +1170,38 @@ class GameManager {
     this.gameLoop.showFPS();
   }
 
+  rotateForEver($elem, rotator) {
+    const gameManager = this;
+    if (rotator === void (0)) {
+      rotator = $({ deg: 0 });
+    } else {
+      rotator.get(0).deg = 0;
+    }
+
+    return rotator.animate(
+      { deg: 360 },
+      {
+        duration: 8000,
+        easing: 'linear',
+        step: function (now) {
+          $elem.css({ transform: 'rotate(' + now + 'deg)' });
+        },
+        complete: function () {
+          gameManager.rotateForEver($elem, rotator);
+        },
+      }
+    );
+  }
+
+
+
   /**
    * Establece los eventos básicos para el mouse en el juego.
    */
   #setEvents() {
     const gameManager = this;
+    gameManager.rotateForEver($('#light'));
+
     $("#chest-button")
       .click(function (e) {
         $(this).removeClass("pressed");

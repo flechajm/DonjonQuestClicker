@@ -3,8 +3,9 @@ import Howl from "./howler.js";
 class AudioManager {
     #bgm;
     #sfx;
-    #randomList = [];
-    #volume;
+    #shuffledMusic = [];
+    #bmgVolume;
+    #sfxVolume;
 
     /**
      * Constructor of AudioManager.
@@ -15,18 +16,22 @@ class AudioManager {
 
         this.#bgm;
         this.#sfx;
-        this.#volume;
-        this.#randomList = this.getRandomList();
+        this.#bmgVolume;
+        this.#sfxVolume = 1;
+        this.#shuffledMusic = this.shuffle();
     }
 
+    /**
+     * Inits and configure the Audio Manager.
+     */
     init() {
         const audioManager = this;
         const volumeControl = $("#volume-control");
         volumeControl.bind("input", function (e) {
-            audioManager.setVolume(e.currentTarget.value / 100);
+            audioManager.setBGMVolume(e.currentTarget.value / 100);
         });
 
-        audioManager.setVolume(volumeControl.val() / 100);
+        audioManager.setBGMVolume(volumeControl.val() / 100);
         audioManager.playBGM(0);
     }
 
@@ -35,19 +40,20 @@ class AudioManager {
      * @param {soundTypes} sound Sound to play.
      */
     play(sound, volume) {
+        const audioManager = this;
         this.#sfx = new Howl({
             src: [`../audio/sfx/${sound}.mp3`],
             preload: true,
-            volume: volume ?? 1,
+            volume: (volume ?? 1) / audioManager.getSFXVolume(),
         });
 
         this.#sfx.play();
     }
 
-    isPlaying() {
-        return this.#sfx.playing();
-    }
-
+    /**
+     * Gets the music name.
+     * @param {String} bgm BGM file.
+     */
     getMusicName(bgm) {
         let indexOfSlash = bgm.lastIndexOf('/') + 1;
         let audionNameLength = bgm.length - 4;
@@ -94,8 +100,11 @@ class AudioManager {
         return this.sfxOn;
     }
 
-    getRandomList() {
-        if (this.#randomList.length == 0) {
+    /**
+     * Shuffles the music files.
+     */
+    shuffle() {
+        if (this.#shuffledMusic.length == 0) {
             let musicFiles = [
                 'Battle of the Creek - Alexander Nakarada.mp3',
                 'Behind The Sword - Alexander Nakarada.mp3',
@@ -117,11 +126,11 @@ class AudioManager {
             ];
             let randomMusicFiles = this.#shuffleArray(musicFiles);
             for (var i = 0; i < randomMusicFiles.length; i++) {
-                this.#randomList.push(`../audio/bgm/${randomMusicFiles[i]}`);
+                this.#shuffledMusic.push(`../audio/bgm/${randomMusicFiles[i]}`);
             }
         }
 
-        return this.#randomList;
+        return this.#shuffledMusic;
     }
 
     #shuffleArray(array) {
@@ -140,15 +149,42 @@ class AudioManager {
         value.innerHTML = onOff ? '<div>ON</div><div>🔊</div>' : '<div>OFF</div><div>🔈</div>';
     }
 
-    setVolume(volume) {
-        this.#volume = volume;
-        if (this.#bgm) {
-            this.#bgm.volume(this.#volume);
+
+
+    /**
+     * Gets the SFX volume
+     */
+    getSFXVolume() {
+        return this.#sfxVolume;
+    }
+
+    /**
+     * Sets the SFX volume
+     * @param {Number} volume Volume.
+     */
+    setSFXVolume(volume) {
+        this.#bmgVolume = volume;
+        if (this.#sfx) {
+            this.#sfx.volume(this.#sfxVolume);
         }
     }
 
-    getVolume() {
-        return this.#volume;
+    /**
+     * Sets the BGM volume
+     * @param {Number} volume Volume.
+     */
+    setBGMVolume(volume) {
+        this.#bmgVolume = volume;
+        if (this.#bgm) {
+            this.#bgm.volume(this.#bmgVolume);
+        }
+    }
+
+    /**
+     * Gets the BGM volume
+     */
+    getBGMVolume() {
+        return this.#bmgVolume;
     }
 
     /**
@@ -157,7 +193,7 @@ class AudioManager {
      */
     playBGM(index) {
         const audioManager = this;
-        const randomList = this.#randomList;
+        const randomList = this.#shuffledMusic;
         const actualBGM = randomList[index];
         const actualBGMName = this.getMusicName(actualBGM);
 
@@ -165,7 +201,7 @@ class AudioManager {
             src: [actualBGM],
             preload: true,
             autoplay: true,
-            volume: audioManager.getVolume(),
+            volume: audioManager.getBGMVolume(),
             onplay: function () {
                 $('.music').css('display', 'flex');
                 $('.music').find('span').eq(0).html(actualBGMName);
@@ -196,15 +232,6 @@ class AudioManager {
         });
 
         this.#sfx.play();
-    }
-
-    /**
-     * Gets the path of the sound.
-     * @param {String} sound Sound
-     * @returns {String} Sound path.
-     */
-    #getSource(sound) {
-        return 'audio/' + sound + '.mp3';
     }
 }
 

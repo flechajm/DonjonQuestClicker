@@ -87,27 +87,6 @@ ul {
   background: #bbb;
 }
 
-/* Animations */
-@-webkit-keyframes rotate360 {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes rotate360 {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes blink {
   0% {
     box-shadow: 0px 0 40px -15px var(--blink-shadow) inset;
@@ -589,17 +568,6 @@ html {
         transition: opacity 0.6s ease-in-out;
         opacity: 0.3;
 
-        &.rotate {
-          -webkit-animation-name: rotate360;
-          -webkit-animation-duration: 8s;
-          -webkit-animation-iteration-count: infinite;
-          -webkit-animation-timing-function: linear;
-          animation-name: rotate360;
-          animation-duration: 8s;
-          animation-iteration-count: infinite;
-          animation-timing-function: linear;
-        }
-
         &.show {
           opacity: 1;
         }
@@ -719,7 +687,7 @@ html {
 
             &::-webkit-scrollbar {
               -webkit-appearance: none;
-              width: 3px;
+              width: 0;
               background: transparent;
             }
 
@@ -729,8 +697,9 @@ html {
             }
 
             &:hover {
-              max-height: 100vh;
+              max-height: 320px;
               transition: max-height 0.3s ease-in-out;
+              overflow-y: overlay;
             }
           }
         }
