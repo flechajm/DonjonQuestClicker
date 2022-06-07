@@ -783,7 +783,7 @@
     "achievmentUnlocked": "¡Logro desbloqueado!",
     "buyBuilding": "<span class='console buy-building'>Has comprado <span>{b}</span> por <span>{g} de oro</span>.</span>",
     "buyUpgradeToBuilding": "<span class='console buy-upgrade'>Has comprado una mejora de tipo <span style='color: var(--tier-{tc})'>{t}</span> para <span>{b}</span> por <span>{g} de oro</span>.</span>",
-    "buildingLevelUp": "<span class='console levelUp'>🎉¡Felicitaciones! ¡Tu <span>{b}</span> ha subido de nivel! Ahora está en nivel {l}.</span>",
+    "buildingLevelUp": "<span class='console levelUp'>🎉¡Felicitaciones, tu <span>{b}</span> ha subido de nivel! Ahora está en nivel {l}.</span>",
     "buildingUnlocked": "<span class='console building-unlocked'>✨Nuevo edificio desbloqueado: <span>{b}</span>.</span>"
   },
   "footer": {

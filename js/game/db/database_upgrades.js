@@ -51,70 +51,70 @@ class DbUpgrades {
                         number: 6,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 1000, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 5e3, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
                         number: 7,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 10000, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 1e4, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
                         number: 8,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 50000, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 5e4, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
                         number: 9,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 200000, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 2e5, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
                         number: 10,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 300000, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 1e6, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
                         number: 11,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 1e6, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 1e7, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
                         number: 12,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 1e7, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 1e8, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
                         number: 13,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 1e8, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 1e9, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
                         number: 14,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 1e9, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 1e10, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
                         number: 15,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 1e10, targetBuilding: 1 }),
+                            new Benefit({ coinsGain: 5e11, targetBuilding: 1 }),
                         ]
                     }),
                 ]
@@ -142,21 +142,21 @@ class DbUpgrades {
                         number: 3,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 1.5, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 2, calculateAsPercent: true, targetBuilding: 2 }),
                         ]
                     }),
                     new Tier({
                         number: 4,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 2, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 3, calculateAsPercent: true, targetBuilding: 2 }),
                         ]
                     }),
                     new Tier({
                         number: 5,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 2.5, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 4, calculateAsPercent: true, targetBuilding: 2 }),
                         ]
                     }),
                     new Tier({
@@ -211,7 +211,7 @@ class DbUpgrades {
                         number: 12,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 200, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 300, calculateAsPercent: true, targetBuilding: 2 }),
                             new Benefit({ coinsGain: 5e6, targetBuilding: 2 }),
                         ]
                     }),
@@ -219,7 +219,7 @@ class DbUpgrades {
                         number: 13,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 300, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 600, calculateAsPercent: true, targetBuilding: 2 }),
                             new Benefit({ coinsGain: 10e6, targetBuilding: 2 }),
                         ]
                     }),
@@ -227,7 +227,7 @@ class DbUpgrades {
                         number: 14,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 400, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 900, calculateAsPercent: true, targetBuilding: 2 }),
                             new Benefit({ coinsGain: 20e6, targetBuilding: 2 }),
                         ]
                     }),
@@ -235,7 +235,7 @@ class DbUpgrades {
                         number: 15,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 500, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 1500, calculateAsPercent: true, targetBuilding: 2 }),
                             new Benefit({ coinsGain: 50e6, targetBuilding: 2 }),
                         ]
                     }),
@@ -257,98 +257,98 @@ class DbUpgrades {
                         number: 2,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 2e2, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 5e2, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 3,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 3e2, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 1e3, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 4,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 5e2, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 2.5e3, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 5,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 1e3, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 5e3, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 6,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 160, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 3e4, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 7,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 320, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 3e5, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 8,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 100, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 3e6, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 9,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 150, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 3e7, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 10,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 250, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 3e8, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 11,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 500, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 5e10, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 12,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 1000, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 5e11, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 13,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 3000, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 5e12, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 14,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 5000, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 5e13, targetBuilding: 3 }),
                         ]
                     }),
                     new Tier({
                         number: 15,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 10000, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 10e13, targetBuilding: 3 }),
                         ]
                     }),
                 ]
@@ -362,105 +362,105 @@ class DbUpgrades {
                         number: 1,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 0.5, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 1e3, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 2,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 1, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 3e3, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 3,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 2, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 5e3, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 4,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 5, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 10e3, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 5,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 15, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 15e3, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 6,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 30, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 1e5, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 7,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 50, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 5e6, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 8,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 100, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 5e7, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 9,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 150, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 5e8, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 10,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 250, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 5e9, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 11,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 500, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 7e11, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 12,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 1000, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 7e12, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 13,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 3000, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 7e13, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 14,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 5000, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 7e14, targetBuilding: 4 }),
                         ]
                     }),
                     new Tier({
                         number: 15,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 10000, targetBuilding: 4 }),
+                            new Benefit({ coinsGain: 10e15, targetBuilding: 4 }),
                         ]
                     }),
                 ]

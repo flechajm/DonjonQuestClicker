@@ -118,7 +118,7 @@ class GameLoop {
     let fpsDOM = $('#fps');
     requestAnimationFrame(
       function loop() {
-        let now = Date.now();
+        let now = performance.now();
         fps = Math.floor(1000 / (now - startTime));
         startTime = now;
         requestAnimationFrame(loop);

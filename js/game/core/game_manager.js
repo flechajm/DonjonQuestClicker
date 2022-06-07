@@ -1239,7 +1239,7 @@ class GameManager {
 
     $("#coins.per-sec").mouseenter(function () {
       gameManager.setCoinsGainDetailed(true);
-      $(this).html(`base/s: ${Number.pretty(gameManager.coinsGain, gameManager.getUnits())} * m: ${gameManager.coinsGainMultiplier} = ${Number.pretty(gameManager.coinsGain * gameManager.coinsGainMultiplier, gameManager.getUnits())} /s`);
+      $(this).html(`base/s: ${Number.pretty(gameManager.coinsGain, gameManager.getUnits())} * m: ${Number.pretty(gameManager.coinsGainMultiplier, gameManager.getUnits())} = ${Number.pretty(gameManager.coinsGain * gameManager.coinsGainMultiplier, gameManager.getUnits())} /s`);
     }).mouseout(function () {
       gameManager.setCoinsGainDetailed(false);
     });
