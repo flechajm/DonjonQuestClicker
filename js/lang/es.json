@@ -711,7 +711,8 @@
     "coinsMultiplierPerQuest": {
       "self": "Aumenta el multiplicador de recompensa por quest ➡️ {g} ({t}).",
       "toBuilding": "Incrementa el multiplicador por quest de {b} ➡️ {g} ({t})."
-    }
+    },
+    "beneficiedBy": "Beneficiado por {b} ➡️ {g} ({t})."
   },
   "achievments": [
     {

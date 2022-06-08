@@ -5,7 +5,6 @@
   src: url("/font/MorrisRomanBlack.otf");
   src: url("/font/MorrisRomanBlack.ttf");
 }
-
 :root {
   --dark: #0e0e0e;
   --gold: #ffcc33;
@@ -48,7 +47,6 @@
 }
 
 * {
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -83,34 +81,26 @@ ul {
 
 @keyframes blink {
   0% {
-    -webkit-box-shadow: 0px 0 40px -15px var(--blink-shadow) inset;
-            box-shadow: 0px 0 40px -15px var(--blink-shadow) inset;
+    box-shadow: 0px 0 40px -15px var(--blink-shadow) inset;
   }
   50% {
-    -webkit-box-shadow: none;
-            box-shadow: none;
+    box-shadow: none;
   }
   100% {
-    -webkit-box-shadow: 0px 0 40px -15px var(--blink-shadow) inset;
-            box-shadow: 0px 0 40px -15px var(--blink-shadow) inset;
+    box-shadow: 0px 0 40px -15px var(--blink-shadow) inset;
   }
 }
-
 @-webkit-keyframes blink {
   0% {
-    -webkit-box-shadow: 0px 0 40px -15px gold inset;
-            box-shadow: 0px 0 40px -15px gold inset;
+    box-shadow: 0px 0 40px -15px gold inset;
   }
   50% {
-    -webkit-box-shadow: none;
-            box-shadow: none;
+    box-shadow: none;
   }
   100% {
-    -webkit-box-shadow: 0px 0 40px -15px crimson inset;
-            box-shadow: 0px 0 40px -15px crimson inset;
+    box-shadow: 0px 0 40px -15px crimson inset;
   }
 }
-
 body,
 html {
   margin: 0;
@@ -131,21 +121,16 @@ html {
 
 #tooltip {
   display: none;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  justify-content: left;
+  flex-direction: column;
   z-index: 99999;
   border: 3px solid transparent;
   -o-border-image: url("/img/tooltip_border.png") 3 round;
      border-image: url("/img/tooltip_border.png") 3 round;
   border-radius: 3px;
-  box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
-  -webkit-box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
-  -moz-box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
   position: absolute;
   background: url("/img/popup_bg.png");
   background-position: center;
@@ -158,70 +143,43 @@ html {
   max-width: 550px;
   min-width: 300px;
 }
-
 #tooltip a {
   padding-left: 3px;
   color: white;
 }
-
 #tooltip a:hover {
   color: wheat;
 }
-
 #tooltip .header-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   width: 100%;
   height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
 }
-
 #tooltip .header-wrapper .container {
   width: 100%;
 }
-
 #tooltip .header-wrapper .title {
   font-family: "Roboto Slab";
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 #tooltip .header-wrapper .subtitle {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   font-size: x-small;
   font-weight: normal;
   font-family: Tahoma, Arial, sans-serif;
   margin-top: 2px;
 }
-
 #tooltip .header-wrapper .info {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
   white-space: nowrap;
 }
-
 #tooltip .value {
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -234,26 +192,20 @@ html {
   font-weight: normal;
   font-family: "Merriweather";
 }
-
 #tooltip .value.unavailable {
   color: var(--unavailable);
 }
-
 #tooltip .value:not(:empty)::before {
   content: url("/img/coins.png");
   position: absolute;
   margin-left: -20px;
-  -webkit-filter: drop-shadow(0px 0px 2px var(--dark));
   filter: drop-shadow(0px 0px 2px var(--dark));
 }
-
 #tooltip .hidden-value {
   display: none;
 }
-
 #tooltip .icon {
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
+  transform: scale(1.2);
   margin-right: 8px;
   width: 32px;
   min-width: 32px;
@@ -261,53 +213,36 @@ html {
   filter: drop-shadow(0px 0px 3px black) contrast(1.2);
   -webkit-filter: drop-shadow(0px 0px 3px black) contrast(1.2);
 }
-
 #tooltip .content {
   margin-top: 10px;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: normal;
   font-size: 0.7rem;
 }
-
 #tooltip .content.no-margin {
   margin-top: 0;
 }
-
 #tooltip .separator {
   position: relative;
   height: 1px;
   width: 100%;
-  background: -webkit-gradient(linear, right top, left top, from(rgba(255, 255, 255, 0)), color-stop(rgba(255, 255, 255, 0.25)), to(rgba(255, 255, 255, 0)));
   background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
   margin: 8px 0 8px 0;
 }
-
 #tooltip .quote {
   font-family: "MorrisRoman";
   font-size: 1rem;
   font-style: italic;
   color: grey;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
+  justify-content: end;
   text-align: right;
 }
-
 #tooltip .tier-upgrades {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: start;
+  align-content: center;
+  align-items: center;
   margin-bottom: 4px;
   margin-left: -20px;
 }
@@ -318,26 +253,17 @@ html {
 }
 
 .achievment {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
   border: 3px solid transparent;
   -o-border-image: url("/img/tooltip_border.png") 3 round;
      border-image: url("/img/tooltip_border.png") 3 round;
   border-radius: 3px;
-  box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
-  -webkit-box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
-  -moz-box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
   background: url("/img/popup_bg.png");
   background-position: center;
   background-size: cover;
@@ -348,33 +274,22 @@ html {
   padding: 7px 10px 10px 10px;
   width: 300px;
 }
-
 .achievment img {
   width: 32px;
   height: 32px;
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  transform: scale(1.1);
 }
-
 .achievment .icon {
   padding-right: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .achievment .title {
   font-family: "Roboto Slab";
   font-weight: bold;
 }
-
 .achievment .subtitle {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   font-size: x-small;
   font-weight: normal;
   font-family: Tahoma, Arial, sans-serif;
@@ -384,48 +299,37 @@ html {
 .console.buy-building {
   color: mediumspringgreen;
 }
-
 .console.buy-building span {
   font-weight: 600;
 }
-
 .console.buy-building span:nth-of-type(1) {
   color: var(--benefit);
 }
-
 .console.buy-building span:nth-of-type(2) {
   color: var(--gold);
 }
-
 .console.buy-upgrade {
   color: mediumpurple;
 }
-
 .console.buy-upgrade span {
   font-weight: 600;
 }
-
 .console.buy-upgrade span:nth-of-type(2) {
   color: var(--benefit);
 }
-
 .console.buy-upgrade span:nth-of-type(3) {
   color: var(--gold);
 }
-
 .console.levelUp {
   color: palegoldenrod;
 }
-
 .console.levelUp span {
   font-weight: 600;
   color: var(--gold);
 }
-
 .console.building-unlocked {
   color: darkorange;
 }
-
 .console.building-unlocked span {
   font-weight: 600;
   color: var(--benefit);
@@ -440,22 +344,14 @@ html {
   bottom: 0px;
   overflow: hidden;
 }
-
 #wrapper #game {
   padding: 0;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   width: 100%;
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
 }
-
 #wrapper #game #fps {
   position: absolute;
   top: 10px;
@@ -465,7 +361,6 @@ html {
   z-index: 1;
   font-family: "Roboto Slab";
 }
-
 #wrapper #game .background {
   position: absolute;
   background-position: center;
@@ -476,18 +371,14 @@ html {
   background-attachment: initial;
   height: 110%;
   width: 110%;
-  -webkit-filter: saturate(1.5) contrast(1.03);
-          filter: saturate(1.5) contrast(1.03);
+  filter: saturate(1.5) contrast(1.03);
 }
-
 #wrapper #game .divider {
   width: 20px;
   position: relative;
   background: #333;
-  -webkit-box-shadow: 0px 0px 0px 1px #111 inset, 0px 0px 0px 3px #444 inset, 1px 1px 2px 3px #222 inset;
-          box-shadow: 0px 0px 0px 1px #111 inset, 0px 0px 0px 3px #444 inset, 1px 1px 2px 3px #222 inset;
+  box-shadow: 0px 0px 0px 1px #111 inset, 0px 0px 0px 3px #444 inset, 1px 1px 2px 3px #222 inset;
 }
-
 #wrapper #game #donjon {
   overflow: hidden;
   width: calc(100% - 340px);
@@ -496,17 +387,10 @@ html {
   -webkit-box-shadow: 1px 0px 20px 20px rgba(0, 0, 0, 0.5) inset;
   -moz-box-shadow: 1px 0px 20px 20px rgba(0, 0, 0, 0.5) inset;
 }
-
 #wrapper #game #donjon .band {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   width: 100%;
   left: 0;
@@ -514,30 +398,24 @@ html {
   height: 60px;
   top: 10%;
   margin: auto;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0)), color-stop(50%, rgba(121, 116, 55, 0.596)), to(rgba(0, 0, 0, 0)));
   background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(121, 116, 55, 0.596) 50%, rgba(0, 0, 0, 0) 100%);
   z-index: 100;
 }
-
 #wrapper #game #donjon .band::before, #wrapper #game #donjon .band::after {
   content: "";
   height: 1px;
-  background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), color-stop(50%, rgba(255, 255, 255, 0.25)), to(rgba(255, 255, 255, 0)));
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0) 100%);
   position: absolute;
   left: 0px;
   right: 0px;
   z-index: -1;
 }
-
 #wrapper #game #donjon .band::before {
   top: -1px;
 }
-
 #wrapper #game #donjon .band::after {
   bottom: -1px;
 }
-
 #wrapper #game #donjon .coin-floating {
   position: absolute;
   pointer-events: none;
@@ -545,36 +423,30 @@ html {
   margin-top: -20px;
   z-index: 10;
 }
-
 #wrapper #game #donjon .coin-floating.number {
   color: var(--gold);
   font-size: 1.5rem;
 }
-
 #wrapper #game #donjon #donjon-heroname {
   cursor: pointer;
   width: 40%;
   white-space: nowrap;
 }
-
 #wrapper #game #donjon #donjon-heroname p {
   font-family: "MorrisRoman";
   font-size: xxx-large;
   color: lightyellow;
 }
-
 #wrapper #game #donjon #donjon-stats {
   top: 180px;
   width: 60%;
 }
-
 #wrapper #game #donjon #donjon-stats-persec {
   top: 245px;
   height: 25px;
   width: 30%;
   opacity: 0.6;
 }
-
 #wrapper #game #donjon #chest-button {
   cursor: pointer;
   position: absolute;
@@ -585,7 +457,6 @@ html {
   margin: auto;
   width: 268px;
   height: 238px;
-  -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
   background: url("/img/treasure_chest.png");
   background-position: center;
@@ -593,18 +464,13 @@ html {
   background-size: cover;
   z-index: 1;
 }
-
 #wrapper #game #donjon #chest-button:hover {
   background: url("/img/treasure_chest_bright.png");
-  -webkit-transform: scale(1.05);
-          transform: scale(1.05);
+  transform: scale(1.05);
 }
-
 #wrapper #game #donjon #chest-button:hover.pressed {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  transform: scale(1.1);
 }
-
 #wrapper #game #donjon #light {
   position: absolute;
   width: 835px;
@@ -617,41 +483,29 @@ html {
   background-image: url("/img/flare.png");
   background-position: center;
   background-size: cover;
-  -webkit-transition: opacity 0.6s ease-in-out;
   transition: opacity 0.6s ease-in-out;
   opacity: 0.3;
 }
-
 #wrapper #game #donjon #light.show {
   opacity: 1;
 }
-
 #wrapper #game #donjon #coins {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
   font-size: xx-large;
   font-weight: bold;
   color: var(--gold);
-  text-shadow: -1px 0px 3px black;
+  text-shadow: -1px 0px 3px rgb(0, 0, 0);
   line-height: 0.8;
   white-space: nowrap;
 }
-
 #wrapper #game #donjon #coins span {
   font-family: "MorrisRoman";
   font-size: x-large;
   padding-left: 10px;
   padding-right: 5px;
 }
-
 #wrapper #game #donjon #coins.per-sec {
   display: block;
   font-size: small;
@@ -659,30 +513,19 @@ html {
   opacity: 0.6;
   cursor: pointer;
 }
-
 #wrapper #game #store {
   width: 300px;
   position: relative;
 }
-
 #wrapper #game #store .columns {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   position: relative;
   height: 100%;
 }
-
 #wrapper #game #store .title {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 70px;
   background: url("/img/top_bar.jpg");
@@ -691,33 +534,23 @@ html {
   font-family: "MorrisRoman";
   padding-bottom: 10px;
 }
-
 #wrapper #game #store .title.big {
   background-color: var(--dark);
   background-blend-mode: difference;
   background-size: cover;
 }
-
 #wrapper #game #store .title.big span {
   font-size: xxx-large;
 }
-
 #wrapper #game #store .title.normal {
   background-size: cover;
 }
-
 #wrapper #game #store .title.normal span {
   font-size: xx-large;
 }
-
 #wrapper #game #store #store-wrap {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   width: 100%;
   top: 70px;
   bottom: 0px;
@@ -728,13 +561,11 @@ html {
   background-color: #333;
   background-blend-mode: multiply;
 }
-
 #wrapper #game #store #store-wrap::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 0;
   background: transparent;
 }
-
 #wrapper #game #store #store-wrap .title-section {
   height: 30px;
   text-align: center;
@@ -744,60 +575,38 @@ html {
   background-blend-mode: difference;
   background-size: contain;
 }
-
 #wrapper #game #store #store-wrap .store-section {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   font-size: 1.3rem;
   font-family: "MorrisRoman";
 }
-
 #wrapper #game #store #store-wrap .store-section .container.upgrades {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   padding-bottom: 2px;
   overflow-y: clip;
   max-height: 62px;
-  -webkit-transition: max-height 0.2s ease-in-out;
   transition: max-height 0.2s ease-in-out;
 }
-
 #wrapper #game #store #store-wrap .store-section .container.upgrades::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 0;
   background: transparent;
 }
-
 #wrapper #game #store #store-wrap .store-section .container.upgrades::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 16px;
 }
-
 #wrapper #game #store #store-wrap .store-section .container.upgrades:hover {
   max-height: 320px;
-  -webkit-transition: max-height 0.3s ease-in-out;
   transition: max-height 0.3s ease-in-out;
   overflow-y: overlay;
 }
-
 #wrapper #game #store #store-wrap .upgrades-unavailable {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   height: 60px;
   width: 100%;
   color: burlywood;
@@ -806,29 +615,18 @@ html {
   padding-top: 6px;
   opacity: 0.3;
 }
-
 #wrapper #game #store #store-wrap .upgrade-button {
   cursor: pointer;
   width: 58px;
   height: 58px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   margin: 2px 1px 0px 1px;
   border-radius: 4px;
   text-shadow: 2px 2px 4px #000, 0px 0px 7px var(--dark), 0px 0px 10px var(--dark);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button .upgrade-image {
   background-position: center;
   background-size: cover;
@@ -837,7 +635,6 @@ html {
   filter: drop-shadow(0px 0px 3px black) contrast(1.2);
   -webkit-filter: drop-shadow(0px 0px 3px black) contrast(1.2);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier {
   background: url(/img/popup_bg.png);
   background-size: cover;
@@ -845,77 +642,62 @@ html {
   background-blend-mode: hard-light;
   border-style: ridge;
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.handmade {
   background-color: var(--tier-handmade);
   border-color: var(--tier-handmade);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.poor {
   background-color: var(--tier-poor);
   border-color: var(--tier-poor);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.very-common {
   background-color: var(--tier-very-common);
   border-color: var(--tier-very-common);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.common {
   background-color: var(--tier-common);
   border-color: var(--tier-common);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.frequent {
   background-color: var(--tier-frequent);
   border-color: var(--tier-frequent);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.uncommon {
   background-color: var(--tier-uncommon);
   border-color: var(--tier-uncommon);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.rare {
   background-color: var(--tier-rare);
   border-color: var(--tier-rare);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.very-rare {
   background-color: var(--tier-very-rare);
   border-color: var(--tier-very-rare);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.extremely-rare {
   background-color: var(--tier-extremely-rare);
   border-color: var(--tier-extremely-rare);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.epic {
   background-color: var(--tier-epic);
   border-color: var(--tier-epic);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.legendary {
   background-color: var(--tier-legendary);
   border-color: var(--tier-legendary);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.mythic {
   background-color: var(--tier-mythic);
   border-color: var(--tier-mythic);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.marvelous {
   background-color: var(--tier-marvelous);
   border-color: var(--tier-marvelous);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.superb {
   background-color: var(--tier-superb);
   border-color: var(--tier-superb);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.outstanding {
   background-image: var(--tier-outstanding), url(../img/popup_bg.png);
   background-blend-mode: soft-light;
@@ -923,32 +705,24 @@ html {
      border-image: var(--tier-outstanding);
   border-image-slice: 1;
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier:not(.disabled-tara):hover {
   filter: brightness(var(--bright-high));
   -webkit-filter: brightness(var(--bright-high));
-  -webkit-transform: scale(1.04);
-          transform: scale(1.04);
+  transform: scale(1.04);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier:not(.disabled-tara):active {
   filter: brightness(var(--bright-low));
   -webkit-filter: brightness(var(--bright-low));
-  -webkit-transform: scale(0.97);
-          transform: scale(0.97);
+  transform: scale(0.97);
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.disabled-tara {
   cursor: not-allowed;
   filter: brightness(var(--bright-lowest));
   -webkit-filter: brightness(var(--bright-lowest));
 }
-
 #wrapper #game #store #store-wrap .upgrade-button.tier.disabled-tara:hover {
-  -webkit-transform: scale(1.04);
-          transform: scale(1.04);
+  transform: scale(1.04);
 }
-
 #wrapper #game #store #store-wrap .building-button {
   cursor: pointer;
   width: 300px;
@@ -956,76 +730,55 @@ html {
   background: url("/img/building_button.png") 0 -160px;
   background-size: cover;
   background-repeat: no-repeat;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  flex-direction: row;
+  justify-content: flex-start;
   padding: 10px 0 10px 20px;
   text-shadow: 2px 2px 4px #000, 0px 0px 7px var(--dark), 0px 0px 10px var(--dark);
 }
-
 #wrapper #game #store #store-wrap .building-button.blink {
   -webkit-animation: blink 2s linear infinite;
   animation: blink 2s linear infinite;
 }
-
 #wrapper #game #store #store-wrap .building-button.locked {
   cursor: help;
   background: url("/img/building_button.png") 0 0;
 }
-
 #wrapper #game #store #store-wrap .building-button.disabled {
   cursor: not-allowed;
   filter: brightness(var(--bright-low));
   -webkit-filter: brightness(var(--bright-low));
 }
-
 #wrapper #game #store #store-wrap .building-button.disabled :nth-child(2):nth-child(2) {
   color: var(--unavailable);
 }
-
 #wrapper #game #store #store-wrap .building-button:not(.dungeon):not(.disabled):not(.locked):hover {
   background: url("/img/building_button.png") 0 -240px;
 }
-
 #wrapper #game #store #store-wrap .building-button:not(.dungeon):not(.disabled):not(.locked):hover:active {
   background: url("/img/building_button.png") 0 -80px;
-  box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
-  -webkit-box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
-  -moz-box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
 }
-
 #wrapper #game #store #store-wrap .building-button:not(.dungeon):not(.disabled):not(.locked):hover:active div {
-  -webkit-transform: scale(0.97);
-          transform: scale(0.97);
+  transform: scale(0.97);
 }
-
 #wrapper #game #store #store-wrap .building-button.dungeon {
   background: url("/img/building_button.png") 0 -400px;
 }
-
 #wrapper #game #store #store-wrap .building-button.dungeon:not(.disabled):not(.locked):hover {
   background: url("/img/building_button.png") 0 -480px;
 }
-
 #wrapper #game #store #store-wrap .building-button.dungeon:not(.disabled):not(.locked):hover:active {
   background: url("/img/building_button.png") 0 -320px;
-  box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
-  -webkit-box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
-  -moz-box-shadow: inset 0px 0px 10px 2px black, 0px 0px 10px 2px black;
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 0.9), 0px 0px 10px 2px rgba(0, 0, 0, 0.6);
 }
-
 #wrapper #game #store #store-wrap .building-button.dungeon:not(.disabled):not(.locked):hover:active div {
-  -webkit-transform: scale(0.97);
-          transform: scale(0.97);
+  transform: scale(0.97);
 }
-
 #wrapper #game #store #store-wrap .building-button .building-image {
   background-position: center;
   background-size: cover;
@@ -1035,28 +788,18 @@ html {
   filter: drop-shadow(0px 0px 3px black) contrast(1.2);
   -webkit-filter: drop-shadow(0px 0px 3px black) contrast(1.2);
 }
-
 #wrapper #game #store #store-wrap .building-button .building-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: space-evenly;
   margin-top: -5px;
 }
-
 #wrapper #game #store #store-wrap .building-button .building-header .building-name {
   font-family: "MorrisRoman";
   font-size: 2.5rem;
   color: whitesmoke;
   z-index: 1;
 }
-
 #wrapper #game #store #store-wrap .building-button .building-header .building-cost {
   color: var(--available);
   margin-left: 25px;
@@ -1064,15 +807,12 @@ html {
   font-size: small;
   font-family: "Merriweather";
 }
-
 #wrapper #game #store #store-wrap .building-button .building-header .building-cost::before {
   content: url("/img/coins.png");
   position: absolute;
   margin-left: -20px;
-  -webkit-filter: drop-shadow(0px 0px 2px var(--dark));
   filter: drop-shadow(0px 0px 2px var(--dark));
 }
-
 #wrapper #game #store #store-wrap .building-button .building-count-owned {
   position: absolute;
   right: 10px;
@@ -1082,10 +822,7 @@ html {
   margin-top: 30px;
   text-shadow: 2px 2px 5px var(--dark), 2px 2px 5px var(--dark), 2px 2px 5px var(--dark);
 }
-
 #wrapper #game #log {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   position: absolute;
   bottom: 0;
@@ -1096,7 +833,6 @@ html {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 6px 6px 0 0;
 }
-
 #wrapper #game #log .text {
   font-family: monospace;
   width: 100%;
@@ -1107,19 +843,10 @@ html {
 }
 
 footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
   margin: 0;
   padding: 0;
@@ -1129,26 +856,18 @@ footer {
   background-size: contain;
   background-color: var(--dark);
   background-blend-mode: luminosity;
-  -webkit-transform: rotateX(180deg);
-          transform: rotateX(180deg);
+  transform: rotateX(180deg);
 }
-
 footer a {
   padding-left: 3px;
   color: white;
 }
-
 footer a:hover {
   color: wheat;
 }
-
 footer div {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   height: 20px;
   padding: 0 10px 0 10px;
   font-size: x-small;
@@ -1156,69 +875,52 @@ footer div {
   font-family: Arial, Helvetica, sans-serif;
   border-left: 1px dotted rgba(128, 128, 128, 0.404);
 }
-
 footer div.content {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-transform: rotateX(180deg);
-          transform: rotateX(180deg);
+  transform: rotateX(180deg);
   padding-left: 0;
   border-left: 0;
 }
-
 footer div.content .social {
   background-position: 10px 3px;
   background-repeat: no-repeat;
   padding-left: 30px;
 }
-
 footer div.content .social.twitter {
   background-image: url("/img/social/twitter.png");
 }
-
 footer div.content .social.youtube {
   background-image: url("/img/social/youtube.png");
 }
-
 footer div.content .social.github {
   background-image: url("/img/social/github.png");
 }
-
 footer div.music {
   display: none;
-  -webkit-transform: rotateX(180deg);
-          transform: rotateX(180deg);
+  transform: rotateX(180deg);
 }
-
 footer div.music span:nth-of-type(1) {
   cursor: pointer;
 }
-
 footer div.music span:nth-of-type(2) {
-  -webkit-transform: scale(0.7);
-          transform: scale(0.7);
+  transform: scale(0.7);
   padding-right: 0;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"] {
+footer div.music span:nth-of-type(2) input[type=range] {
   display: block;
   width: 70px;
   margin-top: 5px;
   margin-right: -15px;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]:focus {
+footer div.music span:nth-of-type(2) input[type=range]:focus {
   outline: none;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"],
-footer div.music span:nth-of-type(2) input[type="range"]::-webkit-slider-runnable-track,
-footer div.music span:nth-of-type(2) input[type="range"]::-webkit-slider-thumb {
+footer div.music span:nth-of-type(2) input[type=range],
+footer div.music span:nth-of-type(2) input[type=range]::-webkit-slider-runnable-track,
+footer div.music span:nth-of-type(2) input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]::-webkit-slider-thumb {
+footer div.music span:nth-of-type(2) input[type=range]::-webkit-slider-thumb {
   background-color: #777;
   width: 20px;
   height: 20px;
@@ -1226,47 +928,38 @@ footer div.music span:nth-of-type(2) input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   margin-top: -9px;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]::-moz-range-thumb {
+footer div.music span:nth-of-type(2) input[type=range]::-moz-range-thumb {
   background-color: #777;
   width: 15px;
   height: 15px;
   border: 3px solid #333;
   border-radius: 50%;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]::-ms-thumb {
+footer div.music span:nth-of-type(2) input[type=range]::-ms-thumb {
   background-color: #777;
   width: 20px;
   height: 20px;
   border: 3px solid #333;
   border-radius: 50%;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]::-webkit-slider-runnable-track {
+footer div.music span:nth-of-type(2) input[type=range]::-webkit-slider-runnable-track {
   background-color: #777;
   height: 3px;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]:focus::-webkit-slider-runnable-track {
+footer div.music span:nth-of-type(2) input[type=range]:focus::-webkit-slider-runnable-track {
   outline: none;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]::-moz-range-track {
+footer div.music span:nth-of-type(2) input[type=range]::-moz-range-track {
   background-color: #777;
   height: 3px;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]::-ms-track {
+footer div.music span:nth-of-type(2) input[type=range]::-ms-track {
   background-color: #777;
   height: 3px;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]::-ms-fill-lower {
+footer div.music span:nth-of-type(2) input[type=range]::-ms-fill-lower {
   background-color: HotPink;
 }
-
-footer div.music span:nth-of-type(2) input[type="range"]::-ms-fill-upper {
+footer div.music span:nth-of-type(2) input[type=range]::-ms-fill-upper {
   background-color: black;
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

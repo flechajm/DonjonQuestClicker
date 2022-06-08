@@ -48,8 +48,6 @@ class GameUpgrades {
 
         for (let k = 0; k < benefits.length; k++) {
           const benefit = benefits[k];
-          const varColor = 'benefit';
-          const replaceValue = benefit.getFormattedValue(benefit.getValue(), varColor);
 
           if (benefit.coinsGain > 0)
             benefit.description = langData.benefits.coinsGain.self;
@@ -64,7 +62,6 @@ class GameUpgrades {
             benefit.description = langData.benefits.coinsMultiplierPerQuest.self;
 
         }
-
       }
     }
   }
