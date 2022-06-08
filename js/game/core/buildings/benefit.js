@@ -55,6 +55,8 @@ class Benefit {
          * Indica si los beneficios otorgados deben calcularse como un porcentaje, sino, sólo se suman.
          */
         this.calculateAsPercent = calculateAsPercent ?? false;
+
+        this.aditional = '';
     }
 
     /**

@@ -72,15 +72,15 @@ class DbBuildings {
                 baseCost: 150000,
                 benefits: [
                     new Benefit({
-                        coinsGain: 220,
+                        coinsGain: 300,
                     }),
                     new Benefit({
                         coinsBonusPerQuest: 10,
                     }),
                     new Benefit({
-                        coinsGain: 10,
+                        coinsGain: 1,
                         targetBuilding: 1,
-                        calculateAsPercent: true,
+                        calculateAsPercent: false,
                     }),
                 ],
             }),

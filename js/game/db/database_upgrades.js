@@ -474,50 +474,56 @@ class DbUpgrades {
                         number: 1,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 0.5, targetBuilding: 5 }),
-                            new Benefit({ coinsBonusPerQuest: 100, targetBuilding: 5 }),
+                            new Benefit({ coinsGain: 5e3, targetBuilding: 5 }),
+                            new Benefit({ coinsBonusPerQuest: 90, targetBuilding: 5 }),
                         ]
                     }),
                     new Tier({
                         number: 2,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 1, targetBuilding: 5 }),
+                            new Benefit({ coinsGain: 1e4, targetBuilding: 5 }),
+                            new Benefit({ coinsBonusPerQuest: 300, targetBuilding: 5 }),
                         ]
                     }),
                     new Tier({
                         number: 3,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 2, targetBuilding: 5 }),
+                            new Benefit({ coinsGain: 1e5, targetBuilding: 5 }),
+                            new Benefit({ coinsBonusPerQuest: 1e3, targetBuilding: 5 }),
                         ]
                     }),
                     new Tier({
                         number: 4,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 5, targetBuilding: 5 }),
+                            new Benefit({ coinsGain: 1e6, targetBuilding: 5 }),
+                            new Benefit({ coinsBonusPerQuest: 1e4, targetBuilding: 5 }),
                         ]
                     }),
                     new Tier({
                         number: 5,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 15, targetBuilding: 5 }),
+                            new Benefit({ coinsGain: 1e7, targetBuilding: 5 }),
+                            new Benefit({ coinsBonusPerQuest: 1e5, targetBuilding: 5 }),
                         ]
                     }),
                     new Tier({
                         number: 6,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 30, targetBuilding: 5 }),
+                            new Benefit({ coinsGain: 5e8, targetBuilding: 5 }),
+                            new Benefit({ coinsBonusPerQuest: 5e6, targetBuilding: 5 }),
                         ]
                     }),
                     new Tier({
                         number: 7,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 50, targetBuilding: 5 }),
+                            new Benefit({ coinsGain: 5e9, targetBuilding: 5 }),
+                            new Benefit({ coinsBonusPerQuest: 5e7, targetBuilding: 5 }),
                         ]
                     }),
                     new Tier({
