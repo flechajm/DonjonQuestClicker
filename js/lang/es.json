@@ -778,13 +778,17 @@
   "coins": "oro",
   "coinsInfo": {
     "title": "Estadísticas generales",
-    "coins": "🪙 Oro actualmente: <span>{g}</span>.",
-    "coinsGain": "🪙 Producción de oro por segundo: <span>{g}</span>.",
-    "coinsGainMultiplier": "🧲 Multiplicador de oro por segundo: <span>{g}%</span>.",
-    "coinsBonusPerQuest": "🎁 Recompensa de oro por quest: <span>{g}</span>.",
-    "coinsMultiplierPerQuest": "💎 Multiplicador de recompensa de oro por quest: <span>{g}%</span>.",
-    "coinsHistory": "🪙 Oro acumulado desde que comenzó el juego: <span>{g}</span>.",
-    "clicksHistory": "👆 Clicks hechos en el cofre desde que comenzó el juego: <span>{c}</span>."
+    "subtitle": "Fecha de inicio del juego: <span class='date'>{dt}</span>.",
+    "notStartYet": "Aún no has comenzado... ¡Has click en el cofre!",
+    "coins": "🪙 Oro actualmente: <span class='gold'>{g}</span>.",
+    "coinsGain": "🏭 Producción <span class='partial-value'>base</span> de oro por segundo: <span class='partial-value'>{g}</span>.",
+    "coinsGainMultiplier": "🧲 Multiplicador <span class='partial-value'>base</span> de oro por segundo: <span class='partial-value'>{g}%</span>.",
+    "coinsTotalPerSecond": "🪙 Producción <span class='full-value'>total</span> de oro por segundo: <span class='full-value'>{g}</span> (🏭 * 🧲).",
+    "coinsBonusPerQuest": "🎁 Recompensa <span class='partial-value'>base</span> de oro por quest: <span class='partial-value'>{g}</span>.",
+    "coinsMultiplierPerQuest": "💎 Multiplicador <span class='partial-value'>base</span> de oro por quest: <span class='partial-value'>{g}%</span>.",
+    "coinsTotalPerQuest": "🪙 Recompensa <span class='full-value'>total</span> de oro por quest: <span class='full-value'>{g}</span>. (🎁 * 💎)",
+    "coinsHistory": "🪙 Oro acumulado desde que comenzó el juego: <span class='gold'>{g}</span>.",
+    "clicksHistory": "👆 Clicks hechos en el cofre desde que comenzó el juego: <span class='clicks'>{c}</span>."
   },
   "chest": {
     "title": "Tesoro",

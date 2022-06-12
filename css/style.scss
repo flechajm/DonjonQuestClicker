@@ -199,6 +199,10 @@ html {
       // font-family: Tahoma, Arial, sans-serif;
       font-family: "Century Gothic";
       margin-top: 2px;
+
+      span.date {
+        color: deepskyblue;
+      }
     }
 
     .info {
@@ -343,6 +347,7 @@ html {
   .title {
     font-family: "Roboto Slab";
     font-weight: bold;
+    font-size: 1rem;
   }
 
   .subtitle {
@@ -409,7 +414,21 @@ html {
 
 .coins-info {
   span {
-    color: var(--available);
+    &.gold {
+      color: var(--gold);
+    }
+
+    &.full-value {
+      color: var(--available);
+    }
+
+    &.partial-value {
+      color: var(--tier-frequent);
+    }
+
+    &.clicks {
+      color: darkorange;
+    }
   }
 }
 
@@ -1027,6 +1046,7 @@ html {
     }
 
     #log {
+      user-select: text;
       display: flex;
       position: absolute;
       bottom: 0;
@@ -1038,12 +1058,17 @@ html {
       border-radius: 6px 6px 0 0;
 
       .text {
-        font-family: monospace;
+        //font-family: monospace;
         width: 100%;
         margin: 10px;
         padding: 10px;
         overflow-y: scroll;
         overflow-x: hidden;
+
+        font-family: "Century Gothic";
+        font-size: 0.75rem;
+        font-weight: bold;
+        letter-spacing: 0.2px;
       }
     }
   }

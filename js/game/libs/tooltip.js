@@ -73,6 +73,7 @@ class Tooltip {
     let center;
     let separator = '<div class="separator"></div>';
 
+    this.event = event;
     this.#tooltip = $("#tooltip");
     this.#tooltip.css('width', cost ? 600 : width);
     this.#headerWrapper = this.#tooltip.find("div.header-wrapper");
@@ -113,25 +114,25 @@ class Tooltip {
           paddingTop = -paddingHeight - padding - extraPadding;
           paddingLeft = -center;
 
-          this.#setPaddingLock(event, "bottom", paddingLock);
+          this.#setPaddingLock(this.event, "bottom", paddingLock);
           break;
         case "right":
           paddingTop = -center;
           paddingLeft = padding + extraPadding;
 
-          this.#setPaddingLock(event, "left", paddingLock);
+          this.#setPaddingLock(this.event, "left", paddingLock);
           break;
         case "bottom":
           paddingTop = padding + extraPadding;
           paddingLeft = -center;
 
-          this.#setPaddingLock(event, "top", paddingLock);
+          this.#setPaddingLock(this.event, "top", paddingLock);
           break;
         case "left":
           paddingTop = -center;
           paddingLeft = -paddingWidth - padding - extraPadding;
 
-          this.#setPaddingLock(event, "right", paddingLock);
+          this.#setPaddingLock(this.event, "right", paddingLock);
           break;
 
         default:
@@ -140,14 +141,14 @@ class Tooltip {
 
     }
 
-    if (event != null) {
+    if (this.event != null) {
       if (paddingLock == null) {
-        this.#mouseMove({ event: event, paddingTop: paddingTop, paddingLeft: paddingLeft });
+        this.#mouseMove({ event: this.event, paddingTop: paddingTop, paddingLeft: paddingLeft });
       } else {
         if (position == "left" || position == "right") {
-          this.#mouseMove({ event: event, paddingTop: paddingTop });
+          this.#mouseMove({ event: this.event, paddingTop: paddingTop });
         } else if (position == "top" || position == "bottom") {
-          this.#mouseMove({ event: event, paddingLeft: paddingLeft });
+          this.#mouseMove({ event: this.event, paddingLeft: paddingLeft });
         }
       }
 
@@ -217,6 +218,10 @@ class Tooltip {
    */
   static hide() {
     if (this.#tooltip != null && this.#tooltip.length == 1) this.#tooltip.hide();
+  }
+
+  static getEvent() {
+    return this.event;
   }
 }
 

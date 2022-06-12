@@ -169,17 +169,17 @@ class DbBuildings {
                 baseCost: 8.6e9,
                 benefits: [
                     new Benefit({
-                        coinsGain: 80000,
+                        coinsGain: 1e5,
                     }),
                     new Benefit({
-                        coinsBonusPerQuest: 5000,
+                        coinsBonusPerQuest: 1e4,
                     }),
                     new Benefit({
-                        coinsMultiplierPerQuest: 40,
+                        coinsMultiplierPerQuest: 50,
                         calculateAsPercent: true,
                     }),
                     new Benefit({
-                        coinsGainMultiplier: 20,
+                        coinsGainMultiplier: 50,
                         calculateAsPercent: true,
                     }),
                 ],

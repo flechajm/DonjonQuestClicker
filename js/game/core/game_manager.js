@@ -25,20 +25,21 @@ class GameManager {
 
   /**
    * 
-   * @param {String} heroName                 Nombre del jugador que aparecerá en pantalla.
-   * @param {Number} coins                    Monedas de oro del momento.
-   * @param {Number} coinsGain                Ganancia de monedas de oro por segundo.
-   * @param {Number} coinsGainMultiplier      Multiplicador de ganancia de monedas de oro por segundo.
-   * @param {Number} coinsPerQuest            Monedas de oro base por quest.
-   * @param {Number} coinsBonusPerQuest       Ganancia de monedas de oro extra por quest.
-   * @param {Number} coinsMultiplierPerQuest  Multiplicador de ganancia de monedas de oro por quest.
-   * @param {Number} coinsHistory             Total de monedas de oro acumuladas desde que comenzó el juego.
-   * @param {Number} clicksHistory            Total de clicks hechos en el cofre desde comenzó el juego.
-   * @param {Number} buildingsOwned           Edificios obtenidos (comprados).
-   * @param {Number} upgradesOwned            Mejoras obtenidas (compradas).
-   * @param {Number} availableUpgrades        Mejoras disponibles para comprar.
-   * @param {Number} config                   Configuración del juego.
-   * @param {Number} achievments              Manejador de logros.
+   * @param {String}          heroName                 Nombre del jugador que aparecerá en pantalla.
+   * @param {Number}          coins                    Monedas de oro del momento.
+   * @param {Number}          coinsGain                Ganancia de monedas de oro por segundo.
+   * @param {Number}          coinsGainMultiplier      Multiplicador de ganancia de monedas de oro por segundo.
+   * @param {Number}          coinsPerQuest            Monedas de oro base por quest.
+   * @param {Number}          coinsBonusPerQuest       Ganancia de monedas de oro extra por quest.
+   * @param {Number}          coinsMultiplierPerQuest  Multiplicador de ganancia de monedas de oro por quest.
+   * @param {Number}          coinsHistory             Total de monedas de oro acumuladas desde que comenzó el juego.
+   * @param {Number}          clicksHistory            Total de clicks hechos en el cofre desde comenzó el juego.
+   * @param {Object}          buildingsOwned           Edificios obtenidos (comprados).
+   * @param {Object}          upgradesOwned            Mejoras obtenidas (compradas).
+   * @param {Object}          availableUpgrades        Mejoras disponibles para comprar.
+   * @param {GameConfig}      config                   Configuración del juego.
+   * @param {DateTime}        initDate                 Fecha y hora de inicio del juego.
+   * @param {GameAchievments} achievments              Manejador de logros.
    */
   constructor({
     heroName,
@@ -54,6 +55,7 @@ class GameManager {
     upgradesOwned,
     availableUpgrades,
     config,
+    initDate,
     achievments,
   }) {
     this.heroName = heroName ?? "John Arrow";
@@ -69,6 +71,7 @@ class GameManager {
     this.upgradesOwned = upgradesOwned ?? [];
     this.availableUpgrades = availableUpgrades ?? [];
     this.config = new GameConfig(config);
+    this.initDate = initDate;
     this.achievments = new GameAchievments(achievments);
     this.#basePow = 1.17;
     this.#basePowUpgrades = 1.5;
@@ -156,8 +159,10 @@ class GameManager {
     this.clicksHistory++;
     let coinsEarned = Math.round((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
 
-    if (this.coins == 0)
+    if (this.coinsHistory == 0) {
+      this.initDate = new Date().getTime();
       this.achievments.unlock(1);
+    }
 
     GameEffects.spawnCoinsEarned(e, this.#prettyNumber(coinsEarned));
     //GameEffects.spawnIconCoin(e);
@@ -178,8 +183,26 @@ class GameManager {
     }
 
     $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);
-    if (!this.getCoinsGainDetailed())
-      $("#coins-per-sec").html(`${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))} /s`);
+    if (!this.getCoinsGainDetailed()) {
+      this.showCoinsPerSec();
+    } else {
+      const coinsInfo = this.updateGeneralStatistics();
+      const event = Tooltip.getEvent();
+      Tooltip.setTooltip({
+        event: event,
+        title: coinsInfo.title,
+        subtitle: coinsInfo.subtitle,
+        description: `<span class='coins-info'>${coinsInfo.coins}${this.drawDividerLines()}${coinsInfo.coinsGain}<br />${coinsInfo.coinsGainMultiplier}<br />${coinsInfo.coinsTotalPerSecond}${this.drawDividerLines()}${coinsInfo.coinsBonusPerQuest}<br />${coinsInfo.coinsMultiplierPerQuest}<br />${coinsInfo.coinsTotalPerQuest}${this.drawDividerLines()}${coinsInfo.coinsHistory}<br />${coinsInfo.clicksHistory}</span>`,
+        icon: "/img/stats.png",
+        position: "bottom",
+        width: 500,
+        gameUnits: this.getUnits(),
+      });
+    }
+  }
+
+  showCoinsPerSec() {
+    $("#coins-per-sec").html(`${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))} /s`);
   }
 
   /**
@@ -512,7 +535,8 @@ class GameManager {
       // if (upgradeBenefits.length == 1) {
       //   benefit = `<span style='margin-top: 5px;'>${upgradeBenefits[0].getFullDescription(quantity, this.getUnits())}</span>`;
       // } else {
-      benefit = `<div style='padding: 5px 8px; margin-left: 10px; border-left: 3px ridge var(--tier-${tierVar});'>${upgradeBenefits.map((upgradeBenefit) => {
+      let border = upgradeOwned.tier == 15 ? 'border-image: var(--tier-outstanding) 1 15%; border-left: 3px ridge;' : `border-left: 3px ridge var(--tier-${tierVar})`;
+      benefit = `<div style='padding: 5px 8px; margin-left: 10px; ${border};'>${upgradeBenefits.map((upgradeBenefit) => {
         return `<li>${upgradeBenefit.getFullDescription(quantity, this.getUnits())}</li>`
       }).join("")}</div>`;
       //}
@@ -1082,7 +1106,7 @@ class GameManager {
    */
   #initGameLoop() {
     this.gameLoop = new GameLoop();
-    this.gameLoop.showFPS();
+    //this.gameLoop.showFPS();
   }
 
   rotateForEver($elem, rotator) {
@@ -1154,31 +1178,24 @@ class GameManager {
     $("#coins-per-sec").mouseenter(function () {
       gameManager.setCoinsGainDetailed(true);
       $(this).html(`base/s: ${Number.pretty(gameManager.coinsGain, gameManager.getUnits())} * m: ${Number.pretty(gameManager.coinsGainMultiplier, gameManager.getUnits())} = ${Number.pretty(gameManager.coinsGain * gameManager.coinsGainMultiplier, gameManager.getUnits())} /s`);
+    }).mouseout(function () {
+      gameManager.showCoinsPerSec();
+      gameManager.setCoinsGainDetailed(false);
+      Tooltip.hide();
     }).mousemove(function (e) {
-      const langData = LanguageManager.getData().coinsInfo;
-      const coinsInfo = {
-        coins: langData.coins.replace('{g}', Number.pretty(gameManager.coins, gameManager.getUnits())),
-        coinsGain: langData.coinsGain.replace('{g}', Number.pretty(gameManager.coinsGain, gameManager.getUnits())),
-        coinsGainMultiplier: langData.coinsGainMultiplier.replace('{g}', Number.pretty(gameManager.coinsGainMultiplier, gameManager.getUnits())),
-        coinsBonusPerQuest: langData.coinsBonusPerQuest.replace('{g}', Number.pretty(gameManager.coinsBonusPerQuest, gameManager.getUnits())),
-        coinsMultiplierPerQuest: langData.coinsMultiplierPerQuest.replace('{g}', Number.pretty(gameManager.coinsMultiplierPerQuest, gameManager.getUnits())),
-        coinsHistory: langData.coinsHistory.replace('{g}', Number.pretty(gameManager.coinsHistory, gameManager.getUnits())),
-        clicksHistory: langData.clicksHistory.replace('{c}', Number.pretty(gameManager.clicksHistory, gameManager.getUnits())),
-      }
+      const coinsInfo = gameManager.updateGeneralStatistics();
 
       Tooltip.setTooltip({
         event: e,
-        title: LanguageManager.getData().coinsInfo.title,
-        description: `<span class='coins-info'>${coinsInfo.coins}<br />${coinsInfo.coinsGain}<br />${coinsInfo.coinsGainMultiplier}<br />${coinsInfo.coinsBonusPerQuest}<br />${coinsInfo.coinsMultiplierPerQuest}<br />${coinsInfo.coinsHistory}<br />${coinsInfo.clicksHistory}</span>`,
+        title: coinsInfo.title,
+        subtitle: coinsInfo.subtitle,
+        description: `<span class='coins-info'>${coinsInfo.coins}${gameManager.drawDividerLines()}${coinsInfo.coinsGain}<br />${coinsInfo.coinsGainMultiplier}<br />${coinsInfo.coinsTotalPerSecond}${gameManager.drawDividerLines()}${coinsInfo.coinsBonusPerQuest}<br />${coinsInfo.coinsMultiplierPerQuest}<br />${coinsInfo.coinsTotalPerQuest}${gameManager.drawDividerLines()}${coinsInfo.coinsHistory}<br />${coinsInfo.clicksHistory}</span>`,
         icon: "/img/stats.png",
         position: "bottom",
         width: 500,
         gameUnits: gameManager.getUnits(),
       });
       Tooltip.show();
-    }).mouseout(function () {
-      Tooltip.hide();
-      gameManager.setCoinsGainDetailed(false);
     });
 
     $("#donjon-heroname").click(function () {
@@ -1191,6 +1208,37 @@ class GameManager {
         }
       }
     });
+  }
+
+  updateGeneralStatistics(e) {
+    const langData = LanguageManager.getData().coinsInfo;
+
+    let initDate = new Date(this.initDate);
+    let initDateString = `&nbsp;${initDate.toLocaleDateString()} ${initDate.toLocaleTimeString()} hs`;
+    let notStartYet = `&nbsp;${langData.notStartYet}`;
+    let subtitle = langData.subtitle.replace('{dt}', this.initDate ? `${initDateString}` : notStartYet);
+
+    const coinsInfo = {
+      event: e,
+      title: langData.title,
+      subtitle: subtitle,
+      coins: langData.coins.replace('{g}', this.#prettyNumber(this.coins)),
+      coinsGain: langData.coinsGain.replace('{g}', this.#prettyNumber(this.coinsGain)),
+      coinsGainMultiplier: langData.coinsGainMultiplier.replace('{g}', this.#prettyNumber(this.coinsGainMultiplier)),
+      coinsTotalPerSecond: langData.coinsTotalPerSecond.replace('{g}', this.#prettyNumber(this.coinsGain * this.coinsGainMultiplier)),
+      coinsBonusPerQuest: langData.coinsBonusPerQuest.replace('{g}', this.#prettyNumber(this.coinsPerQuest + this.coinsBonusPerQuest)),
+      coinsMultiplierPerQuest: langData.coinsMultiplierPerQuest.replace('{g}', this.#prettyNumber(this.coinsMultiplierPerQuest)),
+      coinsTotalPerQuest: langData.coinsTotalPerQuest.replace('{g}', this.#prettyNumber((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest)),
+      coinsHistory: langData.coinsHistory.replace('{g}', this.#prettyNumber(this.coinsHistory)),
+      clicksHistory: langData.clicksHistory.replace('{c}', this.#prettyNumber(this.clicksHistory)),
+    }
+
+    return coinsInfo;
+  }
+
+  drawDividerLines() {
+    let line = "-".repeat(70);
+    return `<span style='letter-spacing: 2px'><br />${line}<br /></span>`;
   }
 
   /**

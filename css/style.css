@@ -218,6 +218,10 @@ html {
   margin-top: 2px;
 }
 
+#tooltip .header-wrapper .subtitle span.date {
+  color: deepskyblue;
+}
+
 #tooltip .header-wrapper .info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -385,6 +389,7 @@ html {
 .achievment .title {
   font-family: "Roboto Slab";
   font-weight: bold;
+  font-size: 1rem;
 }
 
 .achievment .subtitle {
@@ -450,8 +455,20 @@ html {
   color: var(--benefit);
 }
 
-.coins-info span {
+.coins-info span.gold {
+  color: var(--gold);
+}
+
+.coins-info span.full-value {
   color: var(--available);
+}
+
+.coins-info span.partial-value {
+  color: var(--tier-frequent);
+}
+
+.coins-info span.clicks {
+  color: darkorange;
 }
 
 #wrapper {
@@ -1111,6 +1128,10 @@ html {
 }
 
 #wrapper #game #log {
+  -webkit-user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1125,12 +1146,15 @@ html {
 }
 
 #wrapper #game #log .text {
-  font-family: monospace;
   width: 100%;
   margin: 10px;
   padding: 10px;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-family: "Century Gothic";
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 0.2px;
 }
 
 footer {

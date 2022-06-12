@@ -105,7 +105,7 @@ class GameLoop {
    */
   saveLoop() {
     setInterval(() => {
-      if (gameManager.coins > 0) {
+      if (gameManager.initDate) {
         GameStateManager.save();
         GameLog.writeSaveProgress();
       }
