@@ -72,6 +72,10 @@ class Building {
          */
         this.quote = quote;
     }
+
+    getIcon() {
+        return `${this.icon}_${this.level}`;
+    }
 }
 
 export default Building;

@@ -230,11 +230,13 @@ class GameUpgrades {
                           font-family: Arial, Helvetica, sans-serif;
                           font-size: x-small;
                           text-shadow: ${textShadow};
-                          border-radius: 3px;
+                          border-radius: 0px 10px 10px 0px;
                           font-weight: normal;
                           color: ${textColor};
                           ${background}: var(${backgroundColor});
-                          padding: 2px 5px 2px 5px'>${text}</span>`;
+                          letter-spacing: 0;
+                          padding: 2px 7px 3px 5px'>${text}</span>`;
+
   }
 
   /**

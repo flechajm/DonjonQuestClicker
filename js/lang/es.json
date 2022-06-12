@@ -697,22 +697,22 @@
   "benefits": {
     "title": "Beneficios",
     "coinsGain": {
-      "self": "Produce ➡️ {g} ({t}) de oro por segundo.",
-      "toBuilding": "Incrementa la producción de {b} ➡️ {g} ({t})."
+      "self": "🏭 Produce ➡️ {g} ({t}) de oro 🪙 por segundo.",
+      "toBuilding": "🚀 Incrementa la 🏭 producción de {b} ➡️ {g} ({t})."
     },
     "coinsGainMultiplier": {
-      "self": "Aumenta el multiplicador de oro por segundo ➡️ {g} ({t}).",
-      "toBuilding": "Incrementa el multiplicador de producción de {b} ➡️ {g} ({t})."
+      "self": "🧲 Aumenta el multiplicador de oro 🪙 por segundo ➡️ {g} ({t}).",
+      "toBuilding": "🚀 Incrementa el 🧲 multiplicador de producción de {b} ➡️ {g} ({t})."
     },
     "coinsBonusPerQuest": {
-      "self": "Recompensa ➡️ {g} ({t}) de oro por quest.",
-      "toBuilding": "Incrementa la recompensa de {b} ➡️ {g} ({t})."
+      "self": "🎁 Recompensa ➡️ {g} ({t}) de oro 🪙 por quest.",
+      "toBuilding": "🚀 Incrementa la 🎁 recompensa de {b} ➡️ {g} ({t})."
     },
     "coinsMultiplierPerQuest": {
-      "self": "Aumenta el multiplicador de recompensa por quest ➡️ {g} ({t}).",
-      "toBuilding": "Incrementa el multiplicador por quest de {b} ➡️ {g} ({t})."
+      "self": "💎 Aumenta el multiplicador de recompensa por quest ➡️ {g} ({t}).",
+      "toBuilding": "🚀 Incrementa el 💎 multiplicador por quest de {b} ➡️ {g} ({t})."
     },
-    "beneficiedBy": "Beneficiado por {b} ➡️ {g} ({t})."
+    "beneficiedBy": "💡 Beneficiado por {b} ➡️ {g} ({t})."
   },
   "achievments": [
     {
@@ -776,6 +776,16 @@
   "quantity": "Cantidad",
   "rarity": "Rareza",
   "coins": "oro",
+  "coinsInfo": {
+    "title": "Estadísticas generales",
+    "coins": "🪙 Oro actualmente: <span>{g}</span>.",
+    "coinsGain": "🪙 Producción de oro por segundo: <span>{g}</span>.",
+    "coinsGainMultiplier": "🧲 Multiplicador de oro por segundo: <span>{g}%</span>.",
+    "coinsBonusPerQuest": "🎁 Recompensa de oro por quest: <span>{g}</span>.",
+    "coinsMultiplierPerQuest": "💎 Multiplicador de recompensa de oro por quest: <span>{g}%</span>.",
+    "coinsHistory": "🪙 Oro acumulado desde que comenzó el juego: <span>{g}</span>.",
+    "clicksHistory": "👆 Clicks hechos en el cofre desde que comenzó el juego: <span>{c}</span>."
+  },
   "chest": {
     "title": "Tesoro",
     "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompensa</span></center></i>"

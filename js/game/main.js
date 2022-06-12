@@ -91,7 +91,7 @@ function setFooterTooltips() {
     .mousemove(function (e) {
       Tooltip.setTooltip({
         event: e,
-        description: `${LanguageManager.getData().footer.music.createdBy}<ul><li>Alexander Nakarada <a href='https://www.serpentsoundstudios.com' target='_blank'>(Website)</a></li><li>Ean Grimm <a href='https://youtube.com/c/Musicforyoursoul' target='_blank'>(YouTube)</a></li></ul>${LanguageManager.getData().footer.music.license} <a href='http://creativecommons.org/licenses/by/4.0/' target='_blank'>Creative Commons BY Attribution 4.0</a>`,
+        description: `${LanguageManager.getData().footer.music.createdBy}<ul><li>Alexander Nakarada <a href='https://www.serpentsoundstudios.com' target='_blank'>(Website)</a></li><li>Ean Grimm <a href='https://youtube.com/c/Musicforyoursoul' target='_blank'>(YouTube)</a></li></ul>${LanguageManager.getData().footer.music.license}<a href='http://creativecommons.org/licenses/by/4.0/' target='_blank'>Creative Commons BY Attribution 4.0</a>`,
         paddingLock: 2,
         position: 'left',
       });

@@ -48,6 +48,7 @@ class Tooltip {
    * @param {String}  position      Indica en qué posición se mostrará tomando en cuenta las coordenadas del mouse. Los valores posibles son: 'top', 'right', 'bottom', 'left'. Valor por defecto: 'top'.
    * @param {Boolean} canBuy        Indica si se puede comprar o no un edificio. Tiene sentido únicamente cuando el parámetro {cost} valor.
    * @param {Number}  extraPadding  Añade un margen extra (al ya predefinido) entre el mouse y el tooltip. [Opcional].
+   * @param {Number}  width         Especifica el ancho del tooltip. [Opcional].
    * @param {Arrays}  gameUnits     Unidades de números.
    */
   static setTooltip({
@@ -62,6 +63,7 @@ class Tooltip {
     canBuy = null,
     extraPadding = null,
     paddingLock = null,
+    width = 330,
     gameUnits = null
   }) {
     extraPadding = extraPadding ?? 20;
@@ -72,7 +74,7 @@ class Tooltip {
     let separator = '<div class="separator"></div>';
 
     this.#tooltip = $("#tooltip");
-    this.#tooltip.css('width', cost ? 540 : 330);
+    this.#tooltip.css('width', cost ? 600 : width);
     this.#headerWrapper = this.#tooltip.find("div.header-wrapper");
     this.#headerContainer = this.#headerWrapper.find("div.container");
     this.#cost = this.#headerWrapper.find("div.cost");

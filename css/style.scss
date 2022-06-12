@@ -7,6 +7,11 @@
   src: url("/font/MorrisRomanBlack.ttf");
 }
 
+@font-face {
+  font-family: "Century Gothic";
+  src: url("/font/CenturyGothic.ttf");
+}
+
 :root {
   --dark: #0e0e0e;
   --gold: #ffcc33;
@@ -58,9 +63,13 @@
 }
 
 ul {
-  // list-style: none;
+  list-style: none;
   margin-left: -0.5rem;
   margin-right: 1rem;
+}
+
+li {
+  margin-bottom: 0.2rem;
 }
 
 /* Scrollbars */
@@ -138,11 +147,11 @@ html {
   border: 3px solid transparent;
   border-image: url("/img/tooltip_border.png") 3 round;
   border-radius: 3px;
-  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
-    0px 0px 10px 2px rgba(0, 0, 0, 60%);
   -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
     0px 0px 10px 2px rgba(0, 0, 0, 60%);
   -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
+    0px 0px 10px 2px rgba(0, 0, 0, 60%);
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
     0px 0px 10px 2px rgba(0, 0, 0, 60%);
   position: absolute;
   background: url("/img/popup_bg.png");
@@ -153,12 +162,13 @@ html {
   font-size: medium;
   font-weight: bold;
   padding: 10px;
-  max-width: 550px;
+  max-width: 600px;
   min-width: 300px;
 
   a {
     padding-left: 3px;
     color: white;
+    text-decoration: none;
 
     &:hover {
       color: wheat;
@@ -185,8 +195,9 @@ html {
       display: flex;
       align-items: center;
       font-size: x-small;
-      font-weight: normal;
-      font-family: Tahoma, Arial, sans-serif;
+      font-weight: bold;
+      // font-family: Tahoma, Arial, sans-serif;
+      font-family: "Century Gothic";
       margin-top: 2px;
     }
 
@@ -229,18 +240,30 @@ html {
     width: 32px;
     min-width: 32px;
     height: 32px;
-    filter: drop-shadow(0px 0px 3px black) contrast(1.2);
     -webkit-filter: drop-shadow(0px 0px 3px black) contrast(1.2);
+    filter: drop-shadow(0px 0px 3px black) contrast(1.2);
   }
 
   .content {
     margin-top: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: normal;
+    // font-family: Arial, Helvetica, sans-serif;
+    font-family: "Century Gothic";
+    font-weight: bold;
     font-size: 0.7rem;
+    text-shadow: 1px 1px 2px #000, 3px 3px 4px var(--dark),
+      3px 3px 5px var(--dark);
+    letter-spacing: 0.7px;
+    line-height: 1rem;
 
     &.no-margin {
       margin-top: 0;
+    }
+
+    .content-subtitle {
+      color: lightsalmon;
+      text-decoration-color: lightsalmon;
+      text-underline-offset: 2.5px;
+      text-decoration: underline;
     }
   }
 
@@ -272,7 +295,7 @@ html {
     justify-content: start;
     align-content: center;
     align-items: center;
-    margin-bottom: 4px;
+    //margin-bottom: 4px;
     margin-left: -20px;
   }
 }
@@ -290,11 +313,11 @@ html {
   border: 3px solid transparent;
   border-image: url("/img/tooltip_border.png") 3 round;
   border-radius: 3px;
-  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
-    0px 0px 10px 2px rgba(0, 0, 0, 60%);
   -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
     0px 0px 10px 2px rgba(0, 0, 0, 60%);
   -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
+    0px 0px 10px 2px rgba(0, 0, 0, 60%);
+  box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
     0px 0px 10px 2px rgba(0, 0, 0, 60%);
   background: url("/img/popup_bg.png");
   background-position: center;
@@ -384,6 +407,12 @@ html {
   }
 }
 
+.coins-info {
+  span {
+    color: var(--available);
+  }
+}
+
 #wrapper {
   position: relative;
   height: calc(100% - 25px);
@@ -428,6 +457,10 @@ html {
       width: 20px;
       position: relative;
       background: #333;
+      -webkit-box-shadow: 0px 0px 0px 1px #111 inset, 0px 0px 0px 3px #444 inset,
+        1px 1px 2px 3px #222 inset;
+      -moz-box-shadow: 0px 0px 0px 1px #111 inset, 0px 0px 0px 3px #444 inset,
+        1px 1px 2px 3px #222 inset;
       box-shadow: 0px 0px 0px 1px #111 inset, 0px 0px 0px 3px #444 inset,
         1px 1px 2px 3px #222 inset;
     }
@@ -437,9 +470,9 @@ html {
       width: calc(100% - 340px);
       position: relative;
 
-      box-shadow: 1px 0px 20px 20px rgba(0, 0, 0, 0.5) inset;
       -webkit-box-shadow: 1px 0px 20px 20px rgba(0, 0, 0, 0.5) inset;
       -moz-box-shadow: 1px 0px 20px 20px rgba(0, 0, 0, 0.5) inset;
+      box-shadow: 1px 0px 20px 20px rgba(0, 0, 0, 0.5) inset;
 
       .band {
         display: flex;
@@ -520,6 +553,20 @@ html {
         height: 25px;
         width: 30%;
         opacity: 0.6;
+
+        #coins-per-sec {
+          display: block;
+          cursor: pointer;
+          color: var(--gold);
+          text-shadow: -1px 0px 3px rgba(0, 0, 0, 1);
+          line-height: 0.8;
+          white-space: nowrap;
+          font-family: "Century Gothic";
+          font-size: small;
+          font-weight: bold;
+          margin-top: 2px;
+          opacity: 0.6;
+        }
       }
 
       #chest-button {
@@ -583,21 +630,22 @@ html {
         text-shadow: -1px 0px 3px rgba(0, 0, 0, 1);
         line-height: 0.8;
         white-space: nowrap;
+        font-family: "Century Gothic";
 
         span {
-          font-family: "MorrisRoman";
-          font-size: x-large;
+          font-size: large;
+          margin-top: 5px;
           padding-left: 10px;
           padding-right: 5px;
         }
 
-        &.per-sec {
-          display: block;
-          font-size: small;
-          margin-top: 2px;
-          opacity: 0.6;
-          cursor: pointer;
-        }
+        // &.per-sec {
+        //   display: block;
+        //   font-size: small;
+        //   margin-top: 2px;
+        //   opacity: 0.6;
+        //   cursor: pointer;
+        // }
       }
     }
 
@@ -735,8 +783,8 @@ html {
             background-size: cover;
             height: 40px;
             width: 40px;
-            filter: drop-shadow(0px 0px 3px black) contrast(1.2);
             -webkit-filter: drop-shadow(0px 0px 3px black) contrast(1.2);
+            filter: drop-shadow(0px 0px 3px black) contrast(1.2);
           }
 
           &.tier {
@@ -825,21 +873,21 @@ html {
             }
 
             &:not(.disabled-tara):hover {
-              filter: brightness(var(--bright-high));
               -webkit-filter: brightness(var(--bright-high));
+              filter: brightness(var(--bright-high));
               transform: scale(1.04);
             }
 
             &:not(.disabled-tara):active {
-              filter: brightness(var(--bright-low));
               -webkit-filter: brightness(var(--bright-low));
+              filter: brightness(var(--bright-low));
               transform: scale(0.97);
             }
 
             &.disabled-tara {
               cursor: not-allowed;
-              filter: brightness(var(--bright-lowest));
               -webkit-filter: brightness(var(--bright-lowest));
+              filter: brightness(var(--bright-lowest));
 
               &:hover {
                 transform: scale(1.04);
@@ -878,8 +926,8 @@ html {
 
           &.disabled {
             cursor: not-allowed;
-            filter: brightness(var(--bright-low));
             -webkit-filter: brightness(var(--bright-low));
+            filter: brightness(var(--bright-low));
 
             :nth-child(2):nth-child(2) {
               color: var(--unavailable);
@@ -891,13 +939,12 @@ html {
 
             &:active {
               background: url("/img/building_button.png") 0 -80px;
-              box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
-                0px 0px 10px 2px rgba(0, 0, 0, 60%);
               -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
                 0px 0px 10px 2px rgba(0, 0, 0, 60%);
               -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
                 0px 0px 10px 2px rgba(0, 0, 0, 60%);
-
+              box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
+                0px 0px 10px 2px rgba(0, 0, 0, 60%);
               div {
                 transform: scale(0.97);
               }
@@ -912,13 +959,12 @@ html {
 
               &:active {
                 background: url("/img/building_button.png") 0 -320px;
-                box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
-                  0px 0px 10px 2px rgba(0, 0, 0, 60%);
                 -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
                   0px 0px 10px 2px rgba(0, 0, 0, 60%);
                 -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
                   0px 0px 10px 2px rgba(0, 0, 0, 60%);
-
+                box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
+                  0px 0px 10px 2px rgba(0, 0, 0, 60%);
                 div {
                   transform: scale(0.97);
                 }
@@ -932,8 +978,8 @@ html {
             height: 48px;
             width: 48px;
             margin: 5px 8px 0 -15px;
-            filter: drop-shadow(0px 0px 3px black) contrast(1.2);
             -webkit-filter: drop-shadow(0px 0px 3px black) contrast(1.2);
+            filter: drop-shadow(0px 0px 3px black) contrast(1.2);
           }
 
           .building-header {

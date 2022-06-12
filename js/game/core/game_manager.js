@@ -33,6 +33,7 @@ class GameManager {
    * @param {Number} coinsBonusPerQuest       Ganancia de monedas de oro extra por quest.
    * @param {Number} coinsMultiplierPerQuest  Multiplicador de ganancia de monedas de oro por quest.
    * @param {Number} coinsHistory             Total de monedas de oro acumuladas desde que comenzó el juego.
+   * @param {Number} clicksHistory            Total de clicks hechos en el cofre desde comenzó el juego.
    * @param {Number} buildingsOwned           Edificios obtenidos (comprados).
    * @param {Number} upgradesOwned            Mejoras obtenidas (compradas).
    * @param {Number} availableUpgrades        Mejoras disponibles para comprar.
@@ -48,6 +49,7 @@ class GameManager {
     coinsBonusPerQuest,
     coinsMultiplierPerQuest,
     coinsHistory,
+    clicksHistory,
     buildingsOwned,
     upgradesOwned,
     availableUpgrades,
@@ -62,6 +64,7 @@ class GameManager {
     this.coinsBonusPerQuest = coinsBonusPerQuest ?? 0;
     this.coinsMultiplierPerQuest = coinsMultiplierPerQuest ?? 1;
     this.coinsHistory = coinsHistory ?? 0;
+    this.clicksHistory = clicksHistory ?? 0;
     this.buildingsOwned = buildingsOwned ?? [];
     this.upgradesOwned = upgradesOwned ?? [];
     this.availableUpgrades = availableUpgrades ?? [];
@@ -150,6 +153,7 @@ class GameManager {
    * @param {Event} e Mouse event.
    */
   openChest(e) {
+    this.clicksHistory++;
     let coinsEarned = Math.round((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
 
     if (this.coins == 0)
@@ -175,7 +179,7 @@ class GameManager {
 
     $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);
     if (!this.getCoinsGainDetailed())
-      $("#coins.per-sec").html(`${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))} /s`);
+      $("#coins-per-sec").html(`${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))} /s`);
   }
 
   /**
@@ -236,8 +240,8 @@ class GameManager {
 
       if (!button) return;
 
-      building.level = GameUpgrades.getMaxLevelByBuilding(building.id, this.upgradesOwned);
-      GameBuildings.updateImage(building.id);
+      // building.level = GameUpgrades.getMaxLevelByBuilding(building.id, this.upgradesOwned);
+      // GameBuildings.updateImage(building.id);
 
       if (building.cost > gameManager.coins) {
         button.addClass("disabled");
@@ -408,7 +412,7 @@ class GameManager {
     this.achievments.unlock(building.unlockAchievment);
 
     this.#substractCoins(building.cost);
-    this.#rebuildBuildingBenefits2();
+    this.#rebuildBuildingBenefits();
     this.#updateBuildingCost(id, buildingOwned.quantity);
     this.#unlockNextBuilding(buildingOwned, -1);
     this.#unlockUpgrade(buildingOwned);
@@ -433,7 +437,6 @@ class GameManager {
 
     this.#substractCoins(tier.cost);
     this.#addUpgradeBenefits(upgradeOwned);
-    this.#rebuildBuildingBenefits2();
 
     const indexOf = this.availableUpgrades.findIndex((u) => u.id == upgrade.id && u.tier == tier.number);
     this.availableUpgrades.splice(indexOf, 1);
@@ -457,9 +460,6 @@ class GameManager {
     }
 
     buildingButton.addClass('blink');
-    // this.#blinkTimeout = setTimeout(() => {
-    //   buildingButton.removeClass('blink');
-    // }, 7000);
 
     setInterval(() => {
       buildingButton.removeClass('blink');
@@ -467,11 +467,15 @@ class GameManager {
 
     const previousLevelUp = this.upgradesOwned.find((u) => u.id == upgrade.id && u.tier == tier.number - 1)?.levelUp;
     if (previousLevelUp < tier.levelUp) {
+      const building = GameBuildings.getBuildingById(upgrade.id);
+      building.level = tier.levelUp;
       audioManager.play('levelup', 0.3);
       GameLog.write(`${LanguageManager.getData().console.buildingLevelUp
         .replace('{b}', upgrade.name)
         .replace('{l}', '⭐'.repeat(tier.levelUp))}`);
     }
+
+    this.#rebuildBuildingBenefits();
     owned.remove();
   }
 
@@ -487,11 +491,20 @@ class GameManager {
     let upgradesOwned = gameManager.getUpgradeOwnedFilteredById(building.id).sort((a, b) => a.tier - b.tier);
 
     let benefits = building.benefits.map((benefit) => {
+      let auxBenefit = new Benefit(JSON.parse(JSON.stringify(benefit)));
+      if (benefit.targetBuilding) {
+        let targetBuilding = GameBuildings.getBuildingById(benefit.targetBuilding);
+        let targetBuildingName = GameBuildings.getFormattedName(targetBuilding.name, 'gold', `${targetBuilding.icon}_${targetBuilding.level}`);
+        auxBenefit.description = benefit.description.replace('{b}', targetBuildingName);
+      }
+
       let aditional = benefit.aditional ?? '';
-      return `<li>${benefit.getFullDescription(quantity, this.getUnits())}</li>${aditional}`
+      return `<li>${auxBenefit.getFullDescription(quantity, this.getUnits())}</li>${aditional}`
+
     }).join("");
 
     let upgradeTiers = upgradesOwned.map((upgradeOwned) => {
+      let tierVar = GameUpgrades.getTierClass(upgradeOwned.tier);
       let tierName = GameUpgrades.getTierNameFormatted(upgradeOwned.tier);
       let upgrade = GameUpgrades.getUpgradeById(upgradeOwned.id);
       let upgradeBenefits = GameUpgrades.getTierByUpgrade(upgrade, upgradeOwned.tier).benefits;
@@ -499,21 +512,23 @@ class GameManager {
       // if (upgradeBenefits.length == 1) {
       //   benefit = `<span style='margin-top: 5px;'>${upgradeBenefits[0].getFullDescription(quantity, this.getUnits())}</span>`;
       // } else {
-      benefit = `<div style='margin-top: 5px; margin-left: 50px;'>${upgradeBenefits.map((upgradeBenefit) => { return `<li>${upgradeBenefit.getFullDescription(quantity, this.getUnits())}</li>` }).join("")}</div>`;
+      benefit = `<div style='padding: 5px 8px; margin-left: 10px; border-left: 3px ridge var(--tier-${tierVar});'>${upgradeBenefits.map((upgradeBenefit) => {
+        return `<li>${upgradeBenefit.getFullDescription(quantity, this.getUnits())}</li>`
+      }).join("")}</div>`;
       //}
 
-      return `<div class='tier-upgrades'><span>✔️ ${tierName} ${benefit}</span></div>`
+      return `<div class='tier-upgrades'><span>${tierName} ${benefit}</span></div>`
     }).join("");
 
-    let upgradesDescription = upgradesOwned.length > 0 ? `<b><u>${LanguageManager.getData().store.upgradesTitle}:</u></b><br /><div style='overflow-y: overlay; max-height: 400px;'><ul>${upgradeTiers}</ul></div>` : '';
+    let upgradesDescription = upgradesOwned.length > 0 ? `<span class='content-subtitle'>${LanguageManager.getData().store.upgradesTitle}:</span><br /><div style='overflow-y: overlay; max-height: 400px; margin-top: 5px'><ul>${upgradeTiers}</ul></div>` : '';
 
     Tooltip.setTooltip({
       event: e,
       title: building.name,
       subtitle: `${LanguageManager.getData().quantity}: ${quantity}`,
-      description: `@separator@${building.description}<br /><br /><b><u>${LanguageManager.getData().benefits.title
-        }:</u></b><br /><ul>${benefits}</ul>${upgradesDescription}@separator@<span class='quote'>${building.quote}</span>`,
-      icon: `/img/buildings/${building.icon}_${building.level}.png`,
+      description: `@separator@${building.description}<br /><br /><span class='content-subtitle'>${LanguageManager.getData().benefits.title
+        }:</span><br /><ul>${benefits}</ul>${upgradesDescription}@separator@<span class='quote'>${building.quote}</span>`,
+      icon: `/img/buildings/${building.getIcon()}.png`,
       cost: building.cost,
       level: `${LanguageManager.getData().store.level}: ${'⭐'.repeat(building.level)}`,
       canBuy: gameManager.coins >= building.cost,
@@ -544,7 +559,7 @@ class GameManager {
     const building = GameBuildings.getBuildingById(upgrade.id);
 
     if (building != null && tier.levelUp > building.level) {
-      let buildingNameFormatted = langData.store.levelUp.replace("{b}", GameBuildings.getFormattedName(upgrade.name, 'gold'));
+      let buildingNameFormatted = langData.store.levelUp.replace("{b}", GameBuildings.getFormattedName(upgrade.name, 'gold', building.getIcon()));
       unlockLevel = `${buildingNameFormatted.replace('{l}', '⭐'.repeat(tier.levelUp))}<br /><br />`;
     }
 
@@ -552,8 +567,8 @@ class GameManager {
       event: e,
       title: upgrade.name,
       subtitle: `<span>${langData.rarity}: ${GameUpgrades.getTierNameFormatted(tier.number)}</span>`,
-      description: `@separator@${unlockLevel}${showDescription ? `${upgrade.description}<br /><br />` : '<b><u>'}${langData.benefits.title
-        }:</u></b><br /><ul>${benefits}</ul>@separator@<span class='quote'>${tier.quote}</span>`,
+      description: `@separator@${unlockLevel}${showDescription ? `${upgrade.description}<br /><br />` : `<span class='content-subtitle'>`}${langData.benefits.title
+        }:</span><br /><ul>${benefits}</ul>@separator@<span class='quote'>${tier.quote}</span>`,
       icon: `/img/buildings/${upgrade.icon}_${tier.levelUp}.png`,
       cost: tier.cost,
       canBuy: gameManager.coins >= tier.cost,
@@ -697,113 +712,7 @@ class GameManager {
     });
   }
 
-  /**
-   * Recalcula los beneficios de todos los edificios.
-   */
-  // #rebuildBuildingBenefits() {
-  //   let addedBuildings = [];
-  //   let coins = {
-  //     gain: 0,
-  //     gainMultiplier: 0,
-  //     bonusPerQuest: 0,
-  //     multiplierPerQuest: 0,
-  //   };
-
-  //   for (let i = 0; i < this.buildingsOwned.length; i++) {
-  //     const buildingOwned = this.buildingsOwned[i];
-  //     GameBuildings.updateImage(buildingOwned.id);
-
-  //     if (addedBuildings.indexOf(buildingOwned.id) > -1) continue;
-
-  //     const building = GameBuildings.getBuildingById(buildingOwned.id);
-  //     const filteredBuildingsByTargetBuilding = GameBuildings.filterByTargetBuilding(building.id);
-
-  //     console.log(`-> Edificio: ${building.name}`);
-  //     console.log(`   |__ Beneficios:`);
-  //     building.benefits.forEach((benefit) => {
-  //       let processedBenefit = false;
-  //       console.log(`       |__ ${benefit.description}`);
-
-  //       if (benefit.targetBuilding == null) {
-  //         filteredBuildingsByTargetBuilding.forEach((filteredBuilding) => {
-  //           if (this.buildingsOwned.some((bo) => bo.id == filteredBuilding.id)) {
-
-  //             filteredBuilding.benefits.forEach((filteredBenefit) => {
-
-  //               if (filteredBenefit.targetBuilding == building.id) {
-  //                 const targetQuantity = this.buildingsOwned.find((b) => b.id == filteredBuilding.id).quantity;
-  //                 const calculatedBenefit = this.#calculateSameBenefit
-  //                   ({
-  //                     benefit: benefit,
-  //                     targetBenefit: filteredBenefit,
-  //                     buildingQuantity: buildingOwned.quantity,
-  //                     targetBuildingQuantity: targetQuantity
-  //                   });
-
-  //                 coins.gain += calculatedBenefit.gain;
-  //                 coins.gainMultiplier += calculatedBenefit.gainMultiplier;
-  //                 coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
-  //                 coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
-
-  //                 if (calculatedBenefit.gain > 0 ||
-  //                   calculatedBenefit.gainMultiplier > 1 ||
-  //                   calculatedBenefit.bonusPerQuest > 0 ||
-  //                   calculatedBenefit.multiplierPerQuest > 1) {
-
-  //                   processedBenefit = true;
-  //                   console.log(`           |__ Mejorado por: ${filteredBuilding.name}`);
-  //                 }
-  //               }
-  //             });
-  //           }
-  //         });
-
-  //         if (!processedBenefit) {
-  //           const calculatedBenefit = this.#calculateBasicBenefit(benefit, buildingOwned.quantity);
-
-  //           coins.gain += calculatedBenefit.gain;
-  //           coins.gainMultiplier += calculatedBenefit.gainMultiplier;
-  //           coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
-  //           coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
-  //         }
-  //       }
-  //     });
-
-  //     // building.benefits.forEach((benefit) => {
-  //     //   if (benefit.targetBuilding) {
-  //     //     const targetBuilding = GameBuildings.getBuildingById(benefit.targetBuilding);
-  //     //     const targetQuantity = this.buildingsOwned.find((b) => b.id == targetBuilding.id).quantity;
-
-  //     //     targetBuilding.benefits.forEach((targetBenefit) => {
-  //     //       const calculatedBenefit = this.#calculateBenefit({ benefit: benefit, targetBenefit: targetBenefit, buildingQuantity: buildingOwned.quantity, targetBuildingQuantity: targetQuantity });
-
-  //     //       coins.gain += calculatedBenefit.gain;
-  //     //       coins.gainMultiplier += calculatedBenefit.gainMultiplier;
-  //     //       coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
-  //     //       coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
-  //     //     });
-
-  //     //     addedBuildings.push(benefit.targetBuilding);
-  //     //   } else {
-  //     //     const calculatedBenefit = this.#calculateBenefit({ benefit: benefit, buildingQuantity: buildingOwned.quantity });
-
-  //     //     coins.gain += calculatedBenefit.gain;
-  //     //     coins.gainMultiplier += calculatedBenefit.gainMultiplier;
-  //     //     coins.bonusPerQuest += calculatedBenefit.bonusPerQuest;
-  //     //     coins.multiplierPerQuest += calculatedBenefit.multiplierPerQuest;
-  //     //   }
-  //     // });
-
-  //     addedBuildings.push(building.id);
-  //   }
-
-  //   this.coinsGain = coins.gain;
-  //   this.coinsGainMultiplier = coins.gainMultiplier == 0 ? 1 : roundNumber(coins.gainMultiplier);
-  //   this.coinsBonusPerQuest = coins.bonusPerQuest;
-  //   this.coinsMultiplierPerQuest = coins.multiplierPerQuest == 0 ? 1 : roundNumber(coins.multiplierPerQuest);
-  // }
-
-  #rebuildBuildingBenefits2() {
+  #rebuildBuildingBenefits() {
     let coins = {
       gain: 0,
       gainMultiplier: 0,
@@ -837,7 +746,7 @@ class GameManager {
                 coinsMultiplierPerQuest: filteredBenefit.coinsMultiplierPerQuest * targetQuantity,
               });
 
-              arrayBenefits.push({ buildingName: filteredBuilding.name, benefit: actualFilteredBenefit });
+              arrayBenefits.push({ buildingName: filteredBuilding.name, benefit: actualFilteredBenefit, icon: filteredBuilding.getIcon() });
 
               coinsBenefit.calculateAsPercent = actualFilteredBenefit.calculateAsPercent;
               coinsBenefit.coinsGain = actualFilteredBenefit.coinsGain;
@@ -897,8 +806,7 @@ class GameManager {
           arrayBenefits.forEach((b) => {
             let value = b.benefit.getValue();
             let formattedValue = Benefit.getFormattedValue(this.#prettyNumber(value), b.benefit.calculateAsPercent, 'tier-frequent');
-            let formattedBuilding = GameBuildings.getFormattedName(b.buildingName, 'gold');
-
+            let formattedBuilding = GameBuildings.getFormattedName(b.buildingName, 'gold', b.icon);
 
             let totalValue = 0;
             if (b.benefit.calculateAsPercent && benefit.calculateAsPercent) {
@@ -916,7 +824,7 @@ class GameManager {
               (benefit.coinsMultiplierPerQuest > 0 && b.benefit.coinsMultiplierPerQuest > 0)) {
 
               let aditional = LanguageManager.getData().benefits.beneficiedBy.replace('{b}', formattedBuilding).replace('{g}', formattedValue).replace('{t}', formattedTotalValue);
-              benefit.aditional += `<ul><li>${aditional}</li></ul>`;
+              benefit.aditional += `<li><ul><li>${aditional}</li></ul></li>`;
             }
           });
         }
@@ -928,134 +836,6 @@ class GameManager {
     this.coinsBonusPerQuest = coins.bonusPerQuest;
     this.coinsMultiplierPerQuest = coins.multiplierPerQuest == 0 ? 1 : roundNumber(coins.multiplierPerQuest);
   }
-
-  /**
-   * Realiza los cálculos correspondientes para obtener los modificadores finales de un beneficio,
-   * o un beneficio objetivo en todas sus posibilidades.
-   * @param {Benefit} benefit                 Beneficio actual.
-   * @param {Benefit} targetBenefit           Beneficio objetivo.
-   * @param {Number}  buildingQuantity        Cantidad de edificios del actual beneficio.
-   * @param {Number}  targetBuildingQuantity  Cantidad de edificios del beneficio objetivo.
-   * @returns {Object} Objeto que incluye los modificadores (de monedas de oro) principales del juego.
-   */
-  // #calculateBenefit({ benefit, targetBenefit, buildingQuantity, targetBuildingQuantity }) {
-  //   let coins = {
-  //     gain: 0,
-  //     gainMultiplier: 1,
-  //     bonusPerQuest: 0,
-  //     multiplierPerQuest: 1,
-  //   };
-
-  //   if (targetBenefit && targetBuildingQuantity) {
-  //     let isSameBenefit =
-  //       (targetBenefit.coinsGain > 0 && benefit.coinsGain > 0) ||
-  //       (targetBenefit.coinsGainMultiplier > 0 && benefit.coinsGainMultiplier > 0) ||
-  //       (targetBenefit.coinsBonusPerQuest > 0 && benefit.coinsBonusPerQuest > 0) ||
-  //       (targetBenefit.coinsMultiplierPerQuest > 0 && benefit.coinsMultiplierPerQuest > 0);
-
-  //     if (isSameBenefit) {
-  //       coins = this.#calculateComplexBenefit(benefit, targetBenefit, buildingQuantity, targetBuildingQuantity);
-  //     } else {
-  //       coins = this.#calculateBasicBenefit(targetBenefit, targetBuildingQuantity);
-  //     }
-  //   } else {
-  //     coins = this.#calculateBasicBenefit(benefit, buildingQuantity);
-  //   }
-
-  //   return coins;
-  // }
-
-  /**
-   * Realiza los cálculos correspondientes para obtener los modificadores finales de un beneficio,
-   * o un beneficio objetivo en todas sus posibilidades.
-   * @param {Benefit} benefit                 Beneficio actual.
-   * @param {Benefit} targetBenefit           Beneficio objetivo.
-   * @param {Number}  buildingQuantity        Cantidad de edificios del actual beneficio.
-   * @param {Number}  targetBuildingQuantity  Cantidad de edificios del beneficio objetivo.
-   * @returns {Object} Objeto que incluye los modificadores (de monedas de oro) principales del juego.
-   */
-  // #calculateSameBenefit({ benefit, targetBenefit, buildingQuantity, targetBuildingQuantity }) {
-  //   let coins = {
-  //     gain: 0,
-  //     gainMultiplier: 1,
-  //     bonusPerQuest: 0,
-  //     multiplierPerQuest: 1,
-  //   };
-
-  //   if (targetBenefit && targetBuildingQuantity) {
-  //     let isSameBenefit =
-  //       (targetBenefit.coinsGain > 0 && benefit.coinsGain > 0) ||
-  //       (targetBenefit.coinsGainMultiplier > 0 && benefit.coinsGainMultiplier > 0) ||
-  //       (targetBenefit.coinsBonusPerQuest > 0 && benefit.coinsBonusPerQuest > 0) ||
-  //       (targetBenefit.coinsMultiplierPerQuest > 0 && benefit.coinsMultiplierPerQuest > 0);
-
-  //     if (isSameBenefit) {
-  //       coins = this.#calculateComplexBenefit(benefit, targetBenefit, buildingQuantity, targetBuildingQuantity);
-  //     }
-  //   }
-
-  //   return coins;
-  // }
-
-  /**
-   * Realiza los cálculos correspondientes para obtener los modificadores finales de un beneficio.
-   * @param {Benefit} benefit           Beneficio.
-   * @param {Number}  buildingQuantity  Cantidad de edificios del beneficio actual.
-   * @returns {Object} Objeto que incluye los modificadores (de monedas de oro) principales del juego.
-   */
-  // #calculateBasicBenefit(benefit, buildingQuantity) {
-  //   let coins = {
-  //     gain: 0,
-  //     gainMultiplier: 1,
-  //     bonusPerQuest: 0,
-  //     multiplierPerQuest: 1,
-  //   };
-
-  //   if (benefit.calculateAsPercent) {
-  //     coins.gain = sumPercent(benefit.coinsGain, (benefit.coinsGain * buildingQuantity));
-  //     coins.gainMultiplier = sumPercent(coins.gainMultiplier, (benefit.coinsGainMultiplier * buildingQuantity));
-  //     coins.bonusPerQuest = sumPercent(benefit.coinsBonusPerQuest, (benefit.coinsBonusPerQuest * buildingQuantity));
-  //     coins.multiplierPerQuest = sumPercent(coins.multiplierPerQuest, (benefit.coinsMultiplierPerQuest * buildingQuantity));
-  //   } else {
-  //     coins.gain = benefit.coinsGain * buildingQuantity;
-  //     coins.gainMultiplier = benefit.coinsGainMultiplier * buildingQuantity;
-  //     coins.bonusPerQuest = benefit.coinsBonusPerQuest * buildingQuantity;
-  //     coins.multiplierPerQuest = benefit.coinsMultiplierPerQuest * buildingQuantity;
-  //   }
-
-  //   return coins;
-  // }
-
-  /**
-   * Realiza los cálculos correspondientes para obtener los modificadores finales de un beneficio cruzado con un beneficio objetivo.
-   * @param {Benefit} benefit                 Beneficio actual.
-   * @param {Benefit} targetBenefit           Beneficio objetivo.
-   * @param {Number}  buildingQuantity        Cantidad de edificios del actual beneficio.
-   * @param {Number}  targetBuildingQuantity  Cantidad de edificios del beneficio objetivo.
-   * @returns {Object} Objeto que incluye los modificadores (de monedas de oro) principales del juego.
-   */
-  // #calculateComplexBenefit(benefit, targetBenefit, buildingQuantity, targetBuildingQuantity) {
-  //   let coins = {
-  //     gain: 0,
-  //     gainMultiplier: 1,
-  //     bonusPerQuest: 0,
-  //     multiplierPerQuest: 1,
-  //   };
-
-  //   if (benefit.calculateAsPercent) {
-  //     coins.gain = sumPercent(targetBenefit.coinsGain, (benefit.coinsGain * buildingQuantity)) * targetBuildingQuantity;
-  //     coins.gainMultiplier = sumPercent(targetBenefit.coinsGainMultiplier, (benefit.coinsGainMultiplier * buildingQuantity)) * targetBuildingQuantity;
-  //     coins.bonusPerQuest = sumPercent(targetBenefit.coinsBonusPerQuest, (benefit.coinsBonusPerQuest * buildingQuantity)) * targetBuildingQuantity;
-  //     coins.multiplierPerQuest = sumPercent(targetBenefit.coinsMultiplierPerQuest, (benefit.coinsMultiplierPerQuest * buildingQuantity)) * targetBuildingQuantity;
-  //   } else {
-  //     coins.gain = ((benefit.coinsGain * buildingQuantity) + targetBenefit.coinsGain) * targetBuildingQuantity;
-  //     coins.gainMultiplier = ((benefit.coinsGainMultiplier * buildingQuantity) + targetBenefit.coinsGainMultiplier) * targetBuildingQuantity;
-  //     coins.bonusPerQuest = ((benefit.coinsBonusPerQuest * buildingQuantity) + targetBenefit.coinsBonusPerQuest) * targetBuildingQuantity;
-  //     coins.multiplierPerQuest = ((benefit.coinsMultiplierPerQuest * buildingQuantity) + targetBenefit.coinsMultiplierPerQuest) * targetBuildingQuantity;
-  //   }
-
-  //   return coins;
-  // }
 
   /**
    * Refresca en pantalla la cantidad de mejoras disponibles en la sección de "Mejoras", en la Tienda.
@@ -1101,7 +881,7 @@ class GameManager {
         name: startBuilding.name,
         cost: startBuilding.cost.commafy(),
         canBuy: this.coins >= startBuilding.cost,
-        icon: `${startBuilding.icon}_${startBuilding.level}`,
+        icon: startBuilding.getIcon(),
       });
       GameBuildings.insertLockedBuilding();
     } else {
@@ -1115,7 +895,7 @@ class GameManager {
       this.#addUpgradeBenefits(upgrade);
     });
 
-    this.#rebuildBuildingBenefits2();
+    this.#rebuildBuildingBenefits();
   }
 
   /**
@@ -1136,6 +916,7 @@ class GameManager {
       building.cost = this.getBuildingCostUpdated(building, previousBuildingOwned.quantity);
 
       const buildingLevel = GameUpgrades.getMaxLevelByBuilding(building.id, this.upgradesOwned);
+      building.level = buildingLevel;
 
       GameBuildings.unlockBuilding({
         id: building.id,
@@ -1143,7 +924,7 @@ class GameManager {
         cost: this.#prettyNumber(building.cost),
         countOwned: previousBuildingOwned.quantity,
         canBuy: this.coins >= building.cost,
-        icon: `${building.icon}_${buildingLevel}`,
+        icon: building.getIcon(),
       });
     }
 
@@ -1152,14 +933,19 @@ class GameManager {
       if (nextBuilding && !isUnlockedNextBuilding) {
         $("#building-locked").remove();
 
-        if (isUnlockedPreviousBuilding && !isUnlockedNextBuilding)
+        if (isUnlockedPreviousBuilding && !isUnlockedNextBuilding) {
           GameLog.write(LanguageManager.getData().console.buildingUnlocked.replace('{b}', nextBuilding.name));
+        }
+
+        const buildingLevel = GameUpgrades.getMaxLevelByBuilding(nextBuilding.id, this.upgradesOwned);
+        nextBuilding.level = buildingLevel;
+
         GameBuildings.unlockBuilding({
           id: nextBuilding.id,
           name: nextBuilding.name,
           cost: this.#prettyNumber(nextBuilding.cost),
           canBuy: this.coins >= nextBuilding.cost,
-          icon: `${nextBuilding.icon}_${nextBuilding.level}`,
+          icon: nextBuilding.getIcon(),
         });
         if (nextBuilding.id < GameBuildings.getCount()) GameBuildings.insertLockedBuilding();
       }
@@ -1355,7 +1141,6 @@ class GameManager {
       .mousemove(function (e) {
         if (gameManager.getTooltipChest()) {
           Tooltip.setTooltip({
-            id: "chest",
             event: e,
             title: LanguageManager.getData().chest.title,
             description: LanguageManager.getData().chest.description,
@@ -1366,10 +1151,33 @@ class GameManager {
         }
       });
 
-    $("#coins.per-sec").mouseenter(function () {
+    $("#coins-per-sec").mouseenter(function () {
       gameManager.setCoinsGainDetailed(true);
       $(this).html(`base/s: ${Number.pretty(gameManager.coinsGain, gameManager.getUnits())} * m: ${Number.pretty(gameManager.coinsGainMultiplier, gameManager.getUnits())} = ${Number.pretty(gameManager.coinsGain * gameManager.coinsGainMultiplier, gameManager.getUnits())} /s`);
+    }).mousemove(function (e) {
+      const langData = LanguageManager.getData().coinsInfo;
+      const coinsInfo = {
+        coins: langData.coins.replace('{g}', Number.pretty(gameManager.coins, gameManager.getUnits())),
+        coinsGain: langData.coinsGain.replace('{g}', Number.pretty(gameManager.coinsGain, gameManager.getUnits())),
+        coinsGainMultiplier: langData.coinsGainMultiplier.replace('{g}', Number.pretty(gameManager.coinsGainMultiplier, gameManager.getUnits())),
+        coinsBonusPerQuest: langData.coinsBonusPerQuest.replace('{g}', Number.pretty(gameManager.coinsBonusPerQuest, gameManager.getUnits())),
+        coinsMultiplierPerQuest: langData.coinsMultiplierPerQuest.replace('{g}', Number.pretty(gameManager.coinsMultiplierPerQuest, gameManager.getUnits())),
+        coinsHistory: langData.coinsHistory.replace('{g}', Number.pretty(gameManager.coinsHistory, gameManager.getUnits())),
+        clicksHistory: langData.clicksHistory.replace('{c}', Number.pretty(gameManager.clicksHistory, gameManager.getUnits())),
+      }
+
+      Tooltip.setTooltip({
+        event: e,
+        title: LanguageManager.getData().coinsInfo.title,
+        description: `<span class='coins-info'>${coinsInfo.coins}<br />${coinsInfo.coinsGain}<br />${coinsInfo.coinsGainMultiplier}<br />${coinsInfo.coinsBonusPerQuest}<br />${coinsInfo.coinsMultiplierPerQuest}<br />${coinsInfo.coinsHistory}<br />${coinsInfo.clicksHistory}</span>`,
+        icon: "/img/stats.png",
+        position: "bottom",
+        width: 500,
+        gameUnits: gameManager.getUnits(),
+      });
+      Tooltip.show();
     }).mouseout(function () {
+      Tooltip.hide();
       gameManager.setCoinsGainDetailed(false);
     });
 
