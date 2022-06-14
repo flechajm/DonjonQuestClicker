@@ -159,11 +159,6 @@ class GameManager {
     this.clicksHistory++;
     let coinsEarned = Math.round((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
 
-    if (this.coinsHistory == 0) {
-      this.initDate = new Date().getTime();
-      this.achievments.unlock(1);
-    }
-
     GameEffects.spawnCoinsEarned(e, this.#prettyNumber(coinsEarned));
     //GameEffects.spawnIconCoin(e);
 
@@ -180,6 +175,11 @@ class GameManager {
     if (!isLoading) {
       this.coins += quantity;
       this.coinsHistory += quantity;
+
+      if (this.initDate == null) {
+        this.initDate = new Date().getTime();
+        this.achievments.unlock(1);
+      }
     }
 
     $("#coins").html(`${this.getCoinsFormatted(true)} <span>${LanguageManager.getData().coins}</span>`);

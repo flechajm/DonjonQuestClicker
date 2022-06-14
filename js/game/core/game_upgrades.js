@@ -185,7 +185,7 @@ class GameUpgrades {
       case 2:
         return this.#getTierHTML(this.getTierName(tierNumber), '--tier-poor', 'black');
       case 3:
-        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-very-common', 'black');
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-very-common', 'white');
       case 4:
         return this.#getTierHTML(this.getTierName(tierNumber), '--tier-common', 'white');
       case 5:
@@ -209,7 +209,7 @@ class GameUpgrades {
       case 14:
         return this.#getTierHTML(this.getTierName(tierNumber), '--tier-superb', 'white');
       case 15:
-        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-outstanding', 'black');
+        return this.#getTierHTML(this.getTierName(tierNumber), '--tier-outstanding', 'mintcream');
 
       default:
         return this.#getTierHTML(this.getTierName(tierNumber), '--tier-handmade', 'white');
@@ -225,7 +225,7 @@ class GameUpgrades {
    */
   static #getTierHTML(text, backgroundColor, textColor) {
     let background = backgroundColor == '--tier-outstanding' ? 'background-image' : 'background-color';
-    let textShadow = backgroundColor == '--tier-outstanding' ? '0px 0px 1px black' : 'none';
+    let textShadow = (backgroundColor == '--tier-outstanding' || textColor == 'white') ? '1px 1px 2px black' : 'none';
     return `<span style=' border: 1px solid var(--building-section);
                           font-family: Arial, Helvetica, sans-serif;
                           font-size: x-small;
