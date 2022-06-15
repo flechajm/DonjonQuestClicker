@@ -713,105 +713,135 @@ class DbUpgrades {
                         number: 1,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 0.5, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e5, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e4, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 10, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 2,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 1, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e6, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e5, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 20, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 3,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 2, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e7, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e6, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 30, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 4,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 5, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e8, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e6, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 40, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 5,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 15, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e9, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e7, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 50, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 6,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 30, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e10, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e7, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 60, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 7,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 50, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e11, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e8, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 70, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 8,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 100, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e12, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e9, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 80, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 9,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 150, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e13, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e10, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 90, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 10,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 250, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e14, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e11, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 100, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 11,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 500, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e15, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e12, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 110, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 12,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 1000, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e16, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e13, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 120, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 13,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 3000, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e17, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e14, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 130, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 14,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 5000, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e18, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e15, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 140, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                     new Tier({
                         number: 15,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 10000, targetBuilding: 7 }),
+                            new Benefit({ coinsGain: 2e20, targetBuilding: 7 }),
+                            new Benefit({ coinsBonusPerQuest: 5e17, targetBuilding: 7 }),
+                            new Benefit({ coinsMultiplierPerQuest: 150, calculateAsPercent: true, targetBuilding: 7 }),
                         ]
                     }),
                 ]
@@ -819,111 +849,126 @@ class DbUpgrades {
             new Upgrade({
                 id: 8,
                 icon: 'forge',
-                baseCost: 1e9,
+                baseCost: 1e11,
                 tiers: [
                     new Tier({
                         number: 1,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 0.5, calculateAsPercent: true, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 4e8, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 2,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 1, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 4e9, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 3,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 2, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 4e10, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 4,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 5, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 4e11, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 5,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGain: 15, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 4e12, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 6,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 30, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e13, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 25, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 7,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 50, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e14, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 50, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 8,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 100, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e15, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 75, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 9,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 150, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e16, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 100, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 10,
                         levelUp: 2,
                         benefits: [
-                            new Benefit({ coinsGain: 250, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e17, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 150, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 11,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 500, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e18, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 200, calculateAsPercent: true, targetBuilding: 8 }),
+                            new Benefit({ coinsBonusPerQuest: 5e10, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 12,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 1000, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e19, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 250, calculateAsPercent: true, targetBuilding: 8 }),
+                            new Benefit({ coinsBonusPerQuest: 5e12, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 13,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 3000, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e20, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 300, calculateAsPercent: true, targetBuilding: 8 }),
+                            new Benefit({ coinsBonusPerQuest: 5e14, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 14,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 5000, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e21, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 350, calculateAsPercent: true, targetBuilding: 8 }),
+                            new Benefit({ coinsBonusPerQuest: 5e16, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                     new Tier({
                         number: 15,
                         levelUp: 3,
                         benefits: [
-                            new Benefit({ coinsGain: 10000, targetBuilding: 8 }),
+                            new Benefit({ coinsGain: 8e22, targetBuilding: 8 }),
+                            new Benefit({ coinsGainMultiplier: 500, calculateAsPercent: true, targetBuilding: 8 }),
+                            new Benefit({ coinsBonusPerQuest: 5e20, calculateAsPercent: true, targetBuilding: 8 }),
                         ]
                     }),
                 ]

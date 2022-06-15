@@ -130,10 +130,10 @@ class DbBuildings {
             new Building({
                 id: 8,
                 icon: 'forge',
-                baseCost: 2.7e8,
+                baseCost: 2.9e8,
                 benefits: [
                     new Benefit({
-                        coinsGain: 19000,
+                        coinsGain: 40000,
                     }),
                     new Benefit({
                         coinsGain: 500,
@@ -142,6 +142,7 @@ class DbBuildings {
                     }),
                     new Benefit({
                         coinsBonusPerQuest: 150,
+                        calculateAsPercent: true,
                         targetBuilding: 6,
                     }),
                     new Benefit({
@@ -155,7 +156,7 @@ class DbBuildings {
                         targetBuilding: 7,
                     }),
                     new Benefit({
-                        coinsMultiplierPerQuest: 1,
+                        coinsMultiplierPerQuest: 5,
                         targetBuilding: 7,
                         calculateAsPercent: true,
                     }),
