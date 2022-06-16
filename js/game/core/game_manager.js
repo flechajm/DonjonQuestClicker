@@ -186,7 +186,7 @@ class GameManager {
     if (!this.getCoinsGainDetailed()) {
       this.showCoinsPerSec();
     } else {
-      const coinsInfo = this.updateGeneralStatistics();
+      const coinsInfo = this.getGeneralStatistics();
       const event = Tooltip.getEvent();
       Tooltip.setTooltip({
         event: event,
@@ -201,6 +201,9 @@ class GameManager {
     }
   }
 
+  /**
+   * Muestra el oro por segundo final.
+   */
   showCoinsPerSec() {
     $("#coins-per-sec").html(`${this.#prettyNumber((this.coinsGain * this.coinsGainMultiplier))} /s`);
   }
@@ -607,6 +610,83 @@ class GameManager {
    */
   getUnits() {
     return this.#units;
+  }
+
+  /**
+   * Gets the general statistics about coins production.
+   * @param {Event} e Mouse event.
+   * @returns {Object} CoinsInfo object.
+   */
+  getGeneralStatistics(e) {
+    const langData = LanguageManager.getData().coinsInfo;
+
+    let initDate = new Date(this.initDate);
+    let initDateString = `&nbsp;${initDate.toLocaleDateString()} ${initDate.toLocaleTimeString()} hs`;
+    let notStartYet = `&nbsp;${langData.notStartYet}`;
+    let subtitle = langData.subtitle.replace('{dt}', this.initDate ? `${initDateString}` : notStartYet);
+
+    const coinsInfo = {
+      event: e,
+      title: langData.title,
+      subtitle: subtitle,
+      coins: langData.coins.replace('{g}', this.#prettyNumber(this.coins)),
+      coinsGain: langData.coinsGain.replace('{g}', this.#prettyNumber(this.coinsGain)),
+      coinsGainMultiplier: langData.coinsGainMultiplier.replace('{g}', this.#prettyNumber(this.coinsGainMultiplier)),
+      coinsTotalPerSecond: langData.coinsTotalPerSecond.replace('{g}', this.#prettyNumber(this.coinsGain * this.coinsGainMultiplier)),
+      coinsBonusPerQuest: langData.coinsBonusPerQuest.replace('{g}', this.#prettyNumber(this.coinsPerQuest + this.coinsBonusPerQuest)),
+      coinsMultiplierPerQuest: langData.coinsMultiplierPerQuest.replace('{g}', this.#prettyNumber(this.coinsMultiplierPerQuest)),
+      coinsTotalPerQuest: langData.coinsTotalPerQuest.replace('{g}', this.#prettyNumber((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest)),
+      coinsHistory: langData.coinsHistory.replace('{g}', this.#prettyNumber(this.coinsHistory)),
+      clicksHistory: langData.clicksHistory.replace('{c}', this.#prettyNumber(this.clicksHistory)),
+    }
+
+    return coinsInfo;
+  }
+
+  /**
+   * Draws divider lines with one line break before, and one after.
+   * @returns {HTMLElement} Divider line.
+   */
+  drawDividerLines() {
+    let line = "-".repeat(70);
+    return `<span style='letter-spacing: 2px'><br />${line}<br /></span>`;
+  }
+
+  /**
+ * Rotates a DOM element forever.
+ */
+  rotateForEver($elem, rotator) {
+    const gameManager = this;
+    if (rotator === void (0)) {
+      rotator = $({ deg: 0 });
+    } else {
+      rotator.get(0).deg = 0;
+    }
+
+    return rotator.animate(
+      { deg: 360 },
+      {
+        duration: 8000,
+        easing: 'linear',
+        step: function (now) {
+          $elem.css({ transform: 'rotate(' + now + 'deg)' });
+        },
+        complete: function () {
+          gameManager.rotateForEver($elem, rotator);
+        },
+      }
+    );
+  }
+
+  /**
+   * Redraws the upgrades in the Store.
+   */
+  redrawUpgrades() {
+    this.availableUpgrades.sort((a, b) => a.isUnbuyable - b.isUnbuyable || a.cost - b.cost);
+    for (let i = 0; i < this.availableUpgrades.length; i++) {
+      const availableUpgrade = this.availableUpgrades[i];
+      $("#store-wrap").find('#upgrades > div.container').append(availableUpgrade.element[0]);
+    }
   }
 
   /**
@@ -1068,14 +1148,6 @@ class GameManager {
     }
   }
 
-  redrawUpgrades() {
-    this.availableUpgrades.sort((a, b) => a.isUnbuyable - b.isUnbuyable || a.cost - b.cost);
-    for (let i = 0; i < this.availableUpgrades.length; i++) {
-      const availableUpgrade = this.availableUpgrades[i];
-      $("#store-wrap").find('#upgrades > div.container').append(availableUpgrade.element[0]);
-    }
-  }
-
   /**
    * Muestra cuántas monedas de oro se obtuvieron cuando el juego no estaba activo y, además, verifica logros.
    */
@@ -1108,31 +1180,6 @@ class GameManager {
     this.gameLoop = new GameLoop();
     //this.gameLoop.showFPS();
   }
-
-  rotateForEver($elem, rotator) {
-    const gameManager = this;
-    if (rotator === void (0)) {
-      rotator = $({ deg: 0 });
-    } else {
-      rotator.get(0).deg = 0;
-    }
-
-    return rotator.animate(
-      { deg: 360 },
-      {
-        duration: 8000,
-        easing: 'linear',
-        step: function (now) {
-          $elem.css({ transform: 'rotate(' + now + 'deg)' });
-        },
-        complete: function () {
-          gameManager.rotateForEver($elem, rotator);
-        },
-      }
-    );
-  }
-
-
 
   /**
    * Establece los eventos básicos para el mouse en el juego.
@@ -1183,7 +1230,7 @@ class GameManager {
       gameManager.setCoinsGainDetailed(false);
       Tooltip.hide();
     }).mousemove(function (e) {
-      const coinsInfo = gameManager.updateGeneralStatistics();
+      const coinsInfo = gameManager.getGeneralStatistics();
 
       Tooltip.setTooltip({
         event: e,
@@ -1208,37 +1255,6 @@ class GameManager {
         }
       }
     });
-  }
-
-  updateGeneralStatistics(e) {
-    const langData = LanguageManager.getData().coinsInfo;
-
-    let initDate = new Date(this.initDate);
-    let initDateString = `&nbsp;${initDate.toLocaleDateString()} ${initDate.toLocaleTimeString()} hs`;
-    let notStartYet = `&nbsp;${langData.notStartYet}`;
-    let subtitle = langData.subtitle.replace('{dt}', this.initDate ? `${initDateString}` : notStartYet);
-
-    const coinsInfo = {
-      event: e,
-      title: langData.title,
-      subtitle: subtitle,
-      coins: langData.coins.replace('{g}', this.#prettyNumber(this.coins)),
-      coinsGain: langData.coinsGain.replace('{g}', this.#prettyNumber(this.coinsGain)),
-      coinsGainMultiplier: langData.coinsGainMultiplier.replace('{g}', this.#prettyNumber(this.coinsGainMultiplier)),
-      coinsTotalPerSecond: langData.coinsTotalPerSecond.replace('{g}', this.#prettyNumber(this.coinsGain * this.coinsGainMultiplier)),
-      coinsBonusPerQuest: langData.coinsBonusPerQuest.replace('{g}', this.#prettyNumber(this.coinsPerQuest + this.coinsBonusPerQuest)),
-      coinsMultiplierPerQuest: langData.coinsMultiplierPerQuest.replace('{g}', this.#prettyNumber(this.coinsMultiplierPerQuest)),
-      coinsTotalPerQuest: langData.coinsTotalPerQuest.replace('{g}', this.#prettyNumber((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest)),
-      coinsHistory: langData.coinsHistory.replace('{g}', this.#prettyNumber(this.coinsHistory)),
-      clicksHistory: langData.clicksHistory.replace('{c}', this.#prettyNumber(this.clicksHistory)),
-    }
-
-    return coinsInfo;
-  }
-
-  drawDividerLines() {
-    let line = "-".repeat(70);
-    return `<span style='letter-spacing: 2px'><br />${line}<br /></span>`;
   }
 
   /**
