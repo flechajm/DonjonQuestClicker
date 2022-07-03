@@ -15,8 +15,11 @@ var audioManager;
 
 (async () => {
   gameManager = GameStateManager.load() ?? new GameManager({});
+  const loader = $('#loader');
   const imageLoader = new ImageLoader();
-  await gameManager.loadConfig();
+  await gameManager.loadConfig().then(() => {
+    loader.html(LanguageManager.getData().loading);
+  });
   await imageLoader.loadAll().then(() => {
     setBackground();
     setFooterTooltips();
@@ -35,7 +38,7 @@ var audioManager;
     gameManager.start();
     audioManager = new AudioManager();
     audioManager.init();
-    $('#loader').fadeOut(1000);
+    loader.fadeOut(1000);
   });
 })();
 

@@ -768,6 +768,7 @@
       "nonagintillones"
     ]
   },
+  "loading": "Cargando...",
   "welcome": "¡Bienvenido a <span style='color: var(--gold);'><b>Donjon Quest Clicker</b></span>!",
   "welcomeBack": "<i>¡Has obtenido</i> 🪙 <i><span style='color: var(--gold);'>{0} de oro</span> mientras estabas afuera!</i>",
   "version": "Versión:",
