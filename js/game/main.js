@@ -4,21 +4,16 @@ import GameLog from "./core/game_log.js";
 import GameInfo from "./core/game_info.js";
 import GameBuildings from "./core/game_buildings.js";
 import GameUpgrades from "./core/game_upgrades.js";
-import GameAchievments from "./core/game_achievments.js";
 
 import LanguageManager from "./libs/language_manager.js"
 import AudioManager from "./libs/audio_manager.js";
 import Tooltip from "./libs/tooltip.js";
 
+let imageDirectories = [['img', '.png'], ['img/bg', '.jpg'], ['img/buildings', '.png'], ['img/social', '.png']];
+let directoriesLoaded = 0;
+
 var gameManager;
 var audioManager;
-
-document.onreadystatechange = function () {
-  var state = document.readyState;
-  if (state == 'complete') {
-    document.getElementById('loader').style.visibility = "hidden";
-  }
-}
 
 $(function () {
   setBackground();
@@ -40,8 +35,34 @@ $(function () {
     gameManager.start();
     audioManager = new AudioManager();
     audioManager.init();
+  }).then(() => {
+    imageDirectories.forEach((imageDirectory) => {
+      let directory = imageDirectory[0];
+      let fileExtension = imageDirectory[1];
+      preloadImages(directory, fileExtension);
+    });
   });
 });
+
+function preloadImages(dir, fileextension) {
+  $.ajax({
+    url: dir,
+    success: function (data) {
+      $(data).find("a:contains(" + fileextension + ")").each(function () {
+        let filename = String(this.href.replace(window.location.host, "").replace("http://", "")).substring(1);
+        let tempImg = new Image();
+        tempImg.src = filename;
+      });
+    },
+    complete: function () {
+      directoriesLoaded++;
+
+      if (directoriesLoaded >= imageDirectories.length) {
+        document.getElementById('loader').style.visibility = "hidden";
+      }
+    }
+  });
+}
 
 /**
  * Establece un fondo aleatorio entre todos los que hay disponibles.
