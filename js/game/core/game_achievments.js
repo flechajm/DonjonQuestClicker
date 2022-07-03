@@ -21,7 +21,7 @@ class GameAchievments {
             }
             GameLog.write(`<span class='achievment-unlocked'>${LanguageManager.getData().console.achievmentUnlocked}</span>🏆`);
             GameLog.write(`<div class='achievment'>
-                                <div class='icon'><img src='/img/${achievment.icon}.png' /></div>
+                                <div class='icon'><img src='../img/${achievment.icon}.png' /></div>
                                 <div>
                                     <div class='title'>${achievment.title}</div>
                                     <div class='subtitle'>${achievment.description}</div>

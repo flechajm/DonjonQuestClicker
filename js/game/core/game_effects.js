@@ -42,7 +42,7 @@ class GameEffects {
         //if (this.#checkQuantityIconsFloating() > 20) return;
         return;
 
-        const coin = $('<div class="coin-floating"><img width="32" height="32" src="/img/coins.png"></img></div>');
+        const coin = $('<div class="coin-floating"><img width="32" height="32" src="../img/coins.png"></img></div>');
         coin.css({
             left: e.pageX + 10,
             top: e.pageY,
