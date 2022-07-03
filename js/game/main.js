@@ -5,21 +5,19 @@ import GameInfo from "./core/game_info.js";
 import GameBuildings from "./core/game_buildings.js";
 import GameUpgrades from "./core/game_upgrades.js";
 
+import ImageLoader from "./libs/image_loader.js";
 import LanguageManager from "./libs/language_manager.js"
 import AudioManager from "./libs/audio_manager.js";
 import Tooltip from "./libs/tooltip.js";
-
-let imageDirectories = [['img', '.png'], ['img/bg', '.jpg'], ['img/buildings', '.png'], ['img/social', '.png']];
-let directoriesLoaded = 0;
 
 var gameManager;
 var audioManager;
 
 $(function () {
-  setBackground();
-  setFooterTooltips();
   gameManager = GameStateManager.load() ?? new GameManager({});
   gameManager.loadConfig().then(() => {
+    setBackground();
+    setFooterTooltips();
     GameLog.write(LanguageManager.getData().welcome);
     GameLog.write(
       `${LanguageManager.getData().version} ${GameInfo.version} | ${LanguageManager.getData().lastUpdate} ${GameInfo.lastUpdate
@@ -35,42 +33,23 @@ $(function () {
     gameManager.start();
     audioManager = new AudioManager();
     audioManager.init();
-  }).then(() => {
-    imageDirectories.forEach((imageDirectory) => {
-      let directory = imageDirectory[0];
-      let fileExtension = imageDirectory[1];
-      preloadImages(directory, fileExtension);
-    });
+  }).then(async () => {
+    const imageLoader = new ImageLoader();
+    await imageLoader.loadAll();
+    $('#loader').fadeOut(1000);
   });
 });
-
-function preloadImages(dir, fileextension) {
-  $.ajax({
-    url: dir,
-    success: function (data) {
-      $(data).find("a:contains(" + fileextension + ")").each(function () {
-        let filename = String(this.href.replace(window.location.host, "").replace("http://", "")).substring(1);
-        let tempImg = new Image();
-        tempImg.src = filename;
-        console.log(filename);
-      });
-    },
-    complete: function () {
-      directoriesLoaded++;
-
-      if (directoriesLoaded >= imageDirectories.length) {
-        document.getElementById('loader').style.visibility = "hidden";
-      }
-    }
-  });
-}
 
 /**
  * Establece un fondo aleatorio entre todos los que hay disponibles.
  */
 function setBackground() {
   let number = randomBetween(1, 19);
-  $(".background").css("background-image", "url('img/bg/bg" + number + ".jpg')");
+  let tempImg = new Image();
+  tempImg.src = `img/bg/bg${number}.jpg`;
+  tempImg.onload = function () {
+    $(".background").css("background-image", "url('img/bg/bg" + number + ".jpg')");
+  };
 }
 
 function setFooterTooltips() {
