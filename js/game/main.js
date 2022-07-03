@@ -41,7 +41,7 @@ $(function () {
  */
 function setBackground() {
   let number = randomBetween(1, 19);
-  $(".background").css("background-image", "url('/img/bg/bg" + number + ".jpg')");
+  $(".background").css("background-image", "url('../img/bg/bg" + number + ".jpg')");
 }
 
 function setFooterTooltips() {
@@ -52,7 +52,7 @@ function setFooterTooltips() {
         title: "Twitter",
         description: LanguageManager.getData().footer.twitter,
         paddingLock: 10,
-        icon: "img/social/twitter32.png",
+        icon: "../img/social/twitter32.png",
       });
     })
     .mouseout(function () {
@@ -66,7 +66,7 @@ function setFooterTooltips() {
         title: "YouTube",
         description: LanguageManager.getData().footer.youtube,
         paddingLock: 10,
-        icon: "img/social/youtube32.png",
+        icon: "../img/social/youtube32.png",
       });
     })
     .mouseout(function () {
@@ -80,7 +80,7 @@ function setFooterTooltips() {
         title: "GitHub",
         description: LanguageManager.getData().footer.github,
         paddingLock: 10,
-        icon: "img/social/github32.png",
+        icon: "../img/social/github32.png",
       });
     })
     .mouseout(function () {
