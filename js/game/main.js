@@ -52,6 +52,7 @@ function preloadImages(dir, fileextension) {
         let filename = String(this.href.replace(window.location.host, "").replace("http://", "")).substring(1);
         let tempImg = new Image();
         tempImg.src = filename;
+        console.log(filename);
       });
     },
     complete: function () {
