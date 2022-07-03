@@ -640,7 +640,7 @@ html {
   height: 238px;
   -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
-  background: url("~/img/treasure_chest.png");
+  background: url("../../img/treasure_chest.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -648,7 +648,7 @@ html {
 }
 
 #wrapper #game #donjon #chest-button:hover {
-  background: url("~/img/treasure_chest_bright.png");
+  background: url("../../img/treasure_chest_bright.png");
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
 }
