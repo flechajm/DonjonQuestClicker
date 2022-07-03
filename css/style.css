@@ -2,13 +2,13 @@
 @import url("https://fonts.googleapis.com/css?family=Merriweather:900&amp;subset=latin,latin-ext");
 @font-face {
   font-family: "MorrisRoman";
-  src: url("/font/MorrisRomanBlack.otf");
-  src: url("/font/MorrisRomanBlack.ttf");
+  src: url("../font/MorrisRomanBlack.otf");
+  src: url("../font/MorrisRomanBlack.ttf");
 }
 
 @font-face {
   font-family: "Century Gothic";
-  src: url("/font/CenturyGothic.ttf");
+  src: url("../font/CenturyGothic.ttf");
 }
 
 :root {
