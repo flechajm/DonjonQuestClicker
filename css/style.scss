@@ -3,13 +3,13 @@
 
 @font-face {
   font-family: "MorrisRoman";
-  src: url("/font/MorrisRomanBlack.otf");
-  src: url("/font/MorrisRomanBlack.ttf");
+  src: url("font/MorrisRomanBlack.otf");
+  src: url("font/MorrisRomanBlack.ttf");
 }
 
 @font-face {
   font-family: "Century Gothic";
-  src: url("/font/CenturyGothic.ttf");
+  src: url("font/CenturyGothic.ttf");
 }
 
 :root {
@@ -145,7 +145,7 @@ html {
   flex-direction: column;
   z-index: 99999;
   border: 3px solid transparent;
-  border-image: url("/img/tooltip_border.png") 3 round;
+  border-image: url("img/tooltip_border.png") 3 round;
   border-radius: 3px;
   -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
     0px 0px 10px 2px rgba(0, 0, 0, 60%);
@@ -154,7 +154,7 @@ html {
   box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
     0px 0px 10px 2px rgba(0, 0, 0, 60%);
   position: absolute;
-  background: url("/img/popup_bg.png");
+  background: url("img/popup_bg.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -226,7 +226,7 @@ html {
     }
 
     &:not(:empty)::before {
-      content: url("/img/coins.png");
+      content: url("img/coins.png");
       position: absolute;
       margin-left: -20px;
       -webkit-filter: drop-shadow(0px 0px 2px var(--dark));
@@ -315,7 +315,7 @@ html {
   justify-content: start;
   align-items: center;
   border: 3px solid transparent;
-  border-image: url("/img/tooltip_border.png") 3 round;
+  border-image: url("img/tooltip_border.png") 3 round;
   border-radius: 3px;
   -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
     0px 0px 10px 2px rgba(0, 0, 0, 60%);
@@ -323,7 +323,7 @@ html {
     0px 0px 10px 2px rgba(0, 0, 0, 60%);
   box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
     0px 0px 10px 2px rgba(0, 0, 0, 60%);
-  background: url("/img/popup_bg.png");
+  background: url("img/popup_bg.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -599,14 +599,14 @@ html {
         width: 268px;
         height: 238px;
         transition: all 0.15s ease-in-out;
-        background: url("/img/treasure_chest.png");
+        background: url("img/treasure_chest.png");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         z-index: 1;
 
         &:hover {
-          background: url("/img/treasure_chest_bright.png");
+          background: url("img/treasure_chest_bright.png");
           transform: scale(1.05);
 
           &.pressed {
@@ -624,7 +624,7 @@ html {
         right: 0;
         bottom: 0;
         margin: auto;
-        background-image: url("/img/flare.png");
+        background-image: url("img/flare.png");
         background-position: center;
         background-size: cover;
         -webkit-transition: opacity 0.6s ease-in-out;
@@ -684,7 +684,7 @@ html {
         align-items: center;
         width: 100%;
         height: 70px;
-        background: url("/img/top_bar.jpg");
+        background: url("img/top_bar.jpg");
         background-position: center;
         background-size: cover;
         font-family: "MorrisRoman";
@@ -718,7 +718,7 @@ html {
         overflow-y: scroll;
         padding-bottom: 48px;
         position: absolute;
-        background-image: url("/img/popup_bg.png");
+        background-image: url("img/popup_bg.png");
         background-color: #333;
         background-blend-mode: multiply;
 
@@ -731,7 +731,7 @@ html {
         .title-section {
           height: 30px;
           text-align: center;
-          background: url("/img/top_bar.jpg");
+          background: url("img/top_bar.jpg");
           background-position: center;
           background-color: var(--building-section);
           background-blend-mode: difference;
@@ -807,7 +807,7 @@ html {
           }
 
           &.tier {
-            background: url(/img/popup_bg.png);
+            background: url("img/popup_bg.png");
             background-size: cover;
             background-repeat: no-repeat;
             background-blend-mode: hard-light;
@@ -884,8 +884,7 @@ html {
             }
 
             &.outstanding {
-              background-image: var(--tier-outstanding),
-                url("/img/popup_bg.png");
+              background-image: var(--tier-outstanding), url("img/popup_bg.png");
               background-blend-mode: soft-light;
               border-image: var(--tier-outstanding);
               border-image-slice: 1;
@@ -919,7 +918,7 @@ html {
           cursor: pointer;
           width: 300px;
           height: 80px;
-          background: url("/img/building_button.png") 0 -160px;
+          background: url("img/building_button.png") 0 -160px;
           background-size: cover;
           background-repeat: no-repeat;
           display: flex;
@@ -940,7 +939,7 @@ html {
 
           &.locked {
             cursor: help;
-            background: url("/img/building_button.png") 0 0;
+            background: url("img/building_button.png") 0 0;
           }
 
           &.disabled {
@@ -954,10 +953,10 @@ html {
           }
 
           &:not(.dungeon):not(.disabled):not(.locked):hover {
-            background: url("/img/building_button.png") 0 -240px;
+            background: url("img/building_button.png") 0 -240px;
 
             &:active {
-              background: url("/img/building_button.png") 0 -80px;
+              background: url("img/building_button.png") 0 -80px;
               -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
                 0px 0px 10px 2px rgba(0, 0, 0, 60%);
               -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
@@ -971,13 +970,13 @@ html {
           }
 
           &.dungeon {
-            background: url("/img/building_button.png") 0 -400px;
+            background: url("img/building_button.png") 0 -400px;
 
             &:not(.disabled):not(.locked):hover {
-              background: url("/img/building_button.png") 0 -480px;
+              background: url("img/building_button.png") 0 -480px;
 
               &:active {
-                background: url("/img/building_button.png") 0 -320px;
+                background: url("img/building_button.png") 0 -320px;
                 -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
                   0px 0px 10px 2px rgba(0, 0, 0, 60%);
                 -moz-box-shadow: inset 0px 0px 10px 2px rgba(0, 0, 0, 90%),
@@ -1022,7 +1021,7 @@ html {
               font-family: "Merriweather";
 
               &::before {
-                content: url("/img/coins.png");
+                content: url("img/coins.png");
                 position: absolute;
                 margin-left: -20px;
                 -webkit-filter: drop-shadow(0px 0px 2px var(--dark));
@@ -1084,7 +1083,7 @@ footer {
   padding: 0;
   width: 100%;
   height: 25px;
-  background: url("/img/top_bar.jpg");
+  background: url("img/top_bar.jpg");
   background-size: contain;
   background-color: var(--dark);
   background-blend-mode: luminosity;
@@ -1121,15 +1120,15 @@ footer {
         padding-left: 30px;
 
         &.twitter {
-          background-image: url("/img/social/twitter.png");
+          background-image: url("img/social/twitter.png");
         }
 
         &.youtube {
-          background-image: url("/img/social/youtube.png");
+          background-image: url("img/social/youtube.png");
         }
 
         &.github {
-          background-image: url("/img/social/github.png");
+          background-image: url("img/social/github.png");
         }
       }
     }
