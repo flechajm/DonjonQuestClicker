@@ -88,7 +88,7 @@ class GameUpgrades {
    */
   static unlockUpgrade({ id, canBuy, tier, icon }) {
     this.#upgradesDOM.append(this.#getButtonUpgradeTemplate(id, canBuy, tier));
-    this.#upgradesDOM.find(`#upgrade-${id}-${tier} > div.upgrade-image`).css("background-image", `url('../img/buildings/${icon}.png')`);
+    this.#upgradesDOM.find(`#upgrade-${id}-${tier} > div.upgrade-image`).css("background-image", `url('img/buildings/${icon}.png')`);
   }
 
   /**
