@@ -42,7 +42,7 @@ class AudioManager {
     play(sound, volume) {
         const audioManager = this;
         this.#sfx = new Howl({
-            src: [`../audio/sfx/${sound}.mp3`],
+            src: [`audio/sfx/${sound}.mp3`],
             preload: true,
             volume: (volume ?? 1) / audioManager.getSFXVolume(),
         });
@@ -126,7 +126,7 @@ class AudioManager {
             ];
             let randomMusicFiles = this.#shuffleArray(musicFiles);
             for (var i = 0; i < randomMusicFiles.length; i++) {
-                this.#shuffledMusic.push(`../audio/bgm/${randomMusicFiles[i]}`);
+                this.#shuffledMusic.push(`audio/bgm/${randomMusicFiles[i]}`);
             }
         }
 
