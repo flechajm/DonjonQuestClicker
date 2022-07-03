@@ -41,7 +41,7 @@ $(function () {
  */
 function setBackground() {
   let number = randomBetween(1, 19);
-  $(".background").css("background-image", "url('../../img/bg/bg" + number + ".jpg')");
+  $(".background").css("background-image", "url('~/img/bg/bg" + number + ".jpg')");
 }
 
 function setFooterTooltips() {
