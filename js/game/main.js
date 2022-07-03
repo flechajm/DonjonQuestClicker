@@ -13,9 +13,11 @@ import Tooltip from "./libs/tooltip.js";
 var gameManager;
 var audioManager;
 
-$(function () {
+(async () => {
   gameManager = GameStateManager.load() ?? new GameManager({});
-  gameManager.loadConfig().then(() => {
+  const imageLoader = new ImageLoader();
+  await gameManager.loadConfig();
+  await imageLoader.loadAll().then(() => {
     setBackground();
     setFooterTooltips();
     GameLog.write(LanguageManager.getData().welcome);
@@ -33,23 +35,16 @@ $(function () {
     gameManager.start();
     audioManager = new AudioManager();
     audioManager.init();
-  }).then(async () => {
-    const imageLoader = new ImageLoader();
-    await imageLoader.loadAll();
     $('#loader').fadeOut(1000);
   });
-});
+})();
 
 /**
  * Establece un fondo aleatorio entre todos los que hay disponibles.
  */
 function setBackground() {
   let number = randomBetween(1, 19);
-  let tempImg = new Image();
-  tempImg.src = `img/bg/bg${number}.jpg`;
-  tempImg.onload = function () {
-    $(".background").css("background-image", "url('img/bg/bg" + number + ".jpg')");
-  };
+  $(".background").css("background-image", "url('img/bg/bg" + number + ".jpg')");
 }
 
 function setFooterTooltips() {

@@ -1,4 +1,12 @@
 class ImageLoader {
+    #backgroundImages = {
+        path: "img/bg/",
+        count: 19,
+        images: [
+            "bg{index}.jpg",
+        ],
+    };
+
     #socialMediaImages = {
         path: "img/social/",
         images: [
@@ -29,6 +37,7 @@ class ImageLoader {
 
     #buildingImages = {
         path: "img/buildings/",
+        count: 3,
         images: [
             "carpentry_{index}.png",
             "farm_{index}.png",
@@ -46,14 +55,15 @@ class ImageLoader {
         await this.#preloadImages(this.#rootImages);
         await this.#preloadImages(this.#socialMediaImages);
         await this.#preloadImages(this.#buildingImages);
+        await this.#preloadImages(this.#backgroundImages);
     }
 
     async #loadImage(src) {
         const img = new Image();
 
         return new Promise((resolve, reject) => {
-            img.onload = () => resolve();
-            img.onerror = () => reject();
+            img.onload = () => resolve(img);
+            img.onerror = e => reject(e);
             img.src = src;
         });
     }
@@ -62,8 +72,8 @@ class ImageLoader {
         for (const image of arrayImages.images) {
             let path = arrayImages.path;
             let fileName = '';
-            if (arrayImages.path == 'img/buildings/') {
-                for (let index = 1; index <= 3; index++) {
+            if (arrayImages.path == 'img/buildings/' || arrayImages.path == 'img/bg/') {
+                for (let index = 1; index <= arrayImages.count; index++) {
                     fileName = `${path}${image.replace('{index}', index)}`;
                     await this.#loadImage(fileName);
                     console.log(`Image loaded: ${fileName}`);
