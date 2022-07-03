@@ -113,13 +113,13 @@ class GameBuildings {
    */
   static unlockBuilding({ id, name, cost, countOwned, canBuy, icon }) {
     this.#buildingsDOM.append(this.#getButtonBuildingTemplate(id, name, cost, countOwned, canBuy));
-    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('../img/buildings/${icon}.png')`);
+    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('img/buildings/${icon}.png')`);
     this.resizeToFit(id);
   }
 
   static updateImage(id) {
     const building = this.getBuildingById(id);
-    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('../img/buildings/${building.icon}_${building.level}.png')`);
+    this.#buildingsDOM.find(`#building-${id} > div.building-image`).css("background-image", `url('img/buildings/${building.icon}_${building.level}.png')`);
   }
 
   /**
