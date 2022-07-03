@@ -13,6 +13,13 @@ import Tooltip from "./libs/tooltip.js";
 var gameManager;
 var audioManager;
 
+document.onreadystatechange = function () {
+  var state = document.readyState;
+  if (state == 'complete') {
+    document.getElementById('loader').style.visibility = "hidden";
+  }
+}
+
 $(function () {
   setBackground();
   setFooterTooltips();

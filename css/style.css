@@ -121,6 +121,24 @@ li {
   }
 }
 
+#loader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--dark);
+  position: absolute;
+  padding: 50px;
+  z-index: 9999;
+}
+
 body,
 html {
   margin: 0;
