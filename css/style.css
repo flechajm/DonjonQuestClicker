@@ -139,6 +139,11 @@ li {
   z-index: 9999;
 }
 
+#loader span {
+  font-family: "Century Gothic";
+  font-weight: 600;
+}
+
 body,
 html {
   margin: 0;

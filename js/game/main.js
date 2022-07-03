@@ -18,7 +18,10 @@ var audioManager;
   const loader = $('#loader');
   const imageLoader = new ImageLoader();
   await gameManager.loadConfig().then(() => {
-    loader.html(LanguageManager.getData().loading);
+    loader.find('span').html(LanguageManager.getData().loading);
+    setInterval(() => {
+      loader.find('span').fadeToggle(1500);
+    }, 1500);
   });
   await imageLoader.loadAll().then(() => {
     setBackground();
@@ -38,7 +41,7 @@ var audioManager;
     gameManager.start();
     audioManager = new AudioManager();
     audioManager.init();
-    loader.fadeOut(1000);
+    loader.fadeOut(300);
   });
 })();
 
