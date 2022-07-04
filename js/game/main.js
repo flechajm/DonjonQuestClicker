@@ -41,7 +41,9 @@ var audioManager;
     gameManager.start();
     audioManager = new AudioManager();
     audioManager.init();
-    loader.fadeOut(300);
+    loader.fadeOut(300, function () {
+      loader.remove();
+    });
   });
 })();
 
