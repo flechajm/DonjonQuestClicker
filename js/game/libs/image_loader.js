@@ -76,12 +76,10 @@ class ImageLoader {
                 for (let index = 1; index <= arrayImages.count; index++) {
                     fileName = `${path}${image.replace('{index}', index)}`;
                     await this.#loadImage(fileName);
-                    console.log(`Image loaded: ${fileName}`);
                 }
             } else {
                 fileName = `${path}${image}`;
                 await this.#loadImage(fileName);
-                console.log(`Image loaded: ${fileName}`);
             }
         };
     }
