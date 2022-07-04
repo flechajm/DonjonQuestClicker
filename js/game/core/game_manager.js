@@ -1215,7 +1215,7 @@ class GameManager {
             event: e,
             title: LanguageManager.getData().chest.title,
             description: LanguageManager.getData().chest.description,
-            icon: "img/treasure_chest.png",
+            icon: "img/treasure_chest_48.png",
             position: "bottom",
             gameUnits: gameManager.getUnits(),
           });
