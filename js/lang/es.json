@@ -1,6 +1,6 @@
 {
   "hero": {
-    "prompt": "Ingresa tu nombre, valiente.",
+    "prompt": "Ingresa el nombre de tu personaje:",
     "tooLong": "Tu nombre es demasiado largo, prueba con uno más corto.",
     "class": ""
   },
@@ -12,9 +12,6 @@
     "unavailable": "No disponibles",
     "level": "Nivel",
     "levelUp": "¡Sube el nivel de {b} a {l}!",
-    "tiers": {
-      "one": "Prueba."
-    },
     "buildings": [
       {
         "id": 1,
@@ -61,14 +58,14 @@
       {
         "id": 8,
         "name": "Herrería",
-        "description": "Dedicado a la mejora.",
-        "quote": "No tengo miedo de un ejército de leones dirigido por una oveja. Tengo miedo de un ejército de ovejas dirigido por un león."
+        "description": "Con la llegada de la forja, también llega la mejora para tu población. Exploradores y escuderos se beneficiarán con la mejora de sus armas y armaduras, mientras que tus trabajadores en las posadas incrementarán la producción considerablemente.",
+        "quote": "Que el brillo de mi espada forjada de acero ilumine hasta la última de tus estocadas."
       },
       {
         "id": 9,
         "name": "Mago",
-        "description": "Dedicado a la mejora.",
-        "quote": "No tengo miedo de un ejército de leones dirigido por una oveja. Tengo miedo de un ejército de ovejas dirigido por un león."
+        "description": "Con una gran cantidad de habilidades son capaces de potenciar a sus aliados y castigar a los enemigos. Proporcionan una ayuda indispensable para los demás aventureros que estén a su lado.",
+        "quote": "El hecho de que no creas en algo no significa que no sea real."
       }
     ],
     "upgrades": [
@@ -79,63 +76,63 @@
         "tiers": [
           {
             "id": 1,
-            "quote": "Un poco mejor"
+            "quote": "Todos merecemos algo mejor."
           },
           {
             "id": 2,
-            "quote": "Un poco mejor"
+            "quote": "Algo es algo."
           },
           {
             "id": 3,
-            "quote": "Un poco mejor"
+            "quote": "Trabajar duro da sus frutos."
           },
           {
             "id": 4,
-            "quote": "Un poco mejor"
+            "quote": "Nunca faltará el pan en nuestra posada."
           },
           {
             "id": 5,
-            "quote": "Un poco mejor"
+            "quote": "Esperemos que valga la pena."
           },
           {
             "id": 6,
-            "quote": "Un poco mejor"
+            "quote": "El comienzo de una civilización."
           },
           {
             "id": 7,
-            "quote": "Un poco mejor"
+            "quote": "Costo-beneficio."
           },
           {
             "id": 8,
-            "quote": "Un poco mejor"
+            "quote": "Siento que empezamos a vivir mejor..."
           },
           {
             "id": 9,
-            "quote": "Un poco mejor"
+            "quote": "Ya casi lo conseguimos..."
           },
           {
             "id": 10,
-            "quote": "Un poco mejor"
+            "quote": "¡Guau! Esto es demasiado."
           },
           {
             "id": 11,
-            "quote": "Un poco mejor"
+            "quote": "Armadura de cuero ¿Qué más podemos pedir?"
           },
           {
             "id": 12,
-            "quote": "Un poco mejor"
+            "quote": "Mítico suena mejor que Legendario, ¿verdad?"
           },
           {
             "id": 13,
-            "quote": "Un poco mejor"
+            "quote": "Nunca creí que llegaríamos aquí como civilización."
           },
           {
             "id": 14,
-            "quote": "Un poco mejor"
+            "quote": "Esto es increíble."
           },
           {
             "id": 15,
-            "quote": "Un poco mejor"
+            "quote": "¡Lo hicimos! Nuestras posadas son excepcionales."
           }
         ]
       },
@@ -146,63 +143,63 @@
         "tiers": [
           {
             "id": 1,
-            "quote": "Un poco mejor"
+            "quote": "Ñam ñam..."
           },
           {
             "id": 2,
-            "quote": "Un poco mejor"
+            "quote": "Una pata de cerdo no vendría nada mal..."
           },
           {
             "id": 3,
-            "quote": "Un poco mejor"
+            "quote": "Estos caballos nos vendrán de gran ayuda."
           },
           {
             "id": 4,
-            "quote": "Un poco mejor"
+            "quote": "¡Muuuuuuuu!"
           },
           {
             "id": 5,
-            "quote": "Un poco mejor"
+            "quote": "¡La cantidad de gallinas en nuestra granja crece sin parar!"
           },
           {
             "id": 6,
-            "quote": "Un poco mejor"
+            "quote": "Nos expandimos hacia la huerta. Sabia decisión."
           },
           {
             "id": 7,
-            "quote": "Un poco mejor"
+            "quote": "Zanahorias, papas, zapallos..."
           },
           {
             "id": 8,
-            "quote": "Un poco mejor"
+            "quote": "Tomate, lechuga, remolacha..."
           },
           {
             "id": 9,
-            "quote": "Un poco mejor"
+            "quote": "Hongos, ¿por qué no?"
           },
           {
             "id": 10,
-            "quote": "Un poco mejor"
+            "quote": "Nuestra economía está a flor de piel."
           },
           {
             "id": 11,
-            "quote": "Un poco mejor"
+            "quote": "Un poco de esto, y un poco de aquello..."
           },
           {
             "id": 12,
-            "quote": "Un poco mejor"
+            "quote": "Podemos mantener a toda la población."
           },
           {
             "id": 13,
-            "quote": "Un poco mejor"
+            "quote": "¿Se te antoja un buen banquete?"
           },
           {
             "id": 14,
-            "quote": "Un poco mejor"
+            "quote": "Miles de hectáreas de autonomía..."
           },
           {
             "id": 15,
-            "quote": "Un poco mejor"
+            "quote": "Las plumas de los pavos reales tienen colores maravillosos, como esta mejora excepcional."
           }
         ]
       },
@@ -213,63 +210,63 @@
         "tiers": [
           {
             "id": 1,
-            "quote": "Un poco mejor"
+            "quote": "¡Fueeeeeeera abajoooooo!"
           },
           {
             "id": 2,
-            "quote": "Un poco mejor"
+            "quote": "La producción de madera es un mal necesario."
           },
           {
             "id": 3,
-            "quote": "Un poco mejor"
+            "quote": "Con esto podríamos hacer unas lindas mesas... si tuviésemos una carpintería, claro."
           },
           {
             "id": 4,
-            "quote": "Un poco mejor"
+            "quote": "¡Ouch! Trabajar con madera trae consigo un gravísimo problema: las astillas."
           },
           {
             "id": 5,
-            "quote": "Un poco mejor"
+            "quote": "Tenemos una excelente calidad de madera."
           },
           {
             "id": 6,
-            "quote": "Un poco mejor"
+            "quote": "¡El negocio de nuestro aserradero ha crecido el doble!"
           },
           {
             "id": 7,
-            "quote": "Un poco mejor"
+            "quote": "¡Fueeeeeeera aba- ¡Fueeera abajoo!<br />¿Qué? ¿Acaso no miran? Y eso que tienen un bosque inmenso para talar..."
           },
           {
             "id": 8,
-            "quote": "Un poco mejor"
+            "quote": "Estamos orgullosos de aumentar la productividad de nuestras posadas."
           },
           {
             "id": 9,
-            "quote": "Un poco mejor"
+            "quote": "Antes respiraba vida... ahora sólo respiro."
           },
           {
             "id": 10,
-            "quote": "Un poco mejor"
+            "quote": "Roble... excelente calidad."
           },
           {
             "id": 11,
-            "quote": "Un poco mejor"
+            "quote": "Nuestro aserradero ahora es tres veces más productivo.<br />Pero me cuesta tres veces más respirar."
           },
           {
             "id": 12,
-            "quote": "Un poco mejor"
+            "quote": "La madera de un árbol es también sus memorias."
           },
           {
             "id": 13,
-            "quote": "Un poco mejor"
+            "quote": "Los árboles no lloran, es sólo savia."
           },
           {
             "id": 14,
-            "quote": "Un poco mejor"
+            "quote": "Un árbol pasa de vivir libremente en una mansión en el bosque, ha quedar preso para siempre en una casa de ciudad."
           },
           {
             "id": 15,
-            "quote": "Un poco mejor"
+            "quote": "Definitivamente tenemos los mejores troncos para trabajar.<br />¡Son realmente excepcionales!"
           }
         ]
       },
@@ -793,7 +790,7 @@
   },
   "chest": {
     "title": "Tesoro",
-    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompensa</span></center></i>"
+    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, mejóralos, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompensa</span></center></i>"
   },
   "console": {
     "achievmentUnlocked": "¡Logro desbloqueado!",
