@@ -457,10 +457,6 @@ class GameManager {
     const upgradeOwned = { id: upgrade.id, tier: tier.number, levelUp: tier.levelUp };
     this.upgradesOwned.push(upgradeOwned);
 
-    if (this.upgradesOwned.length == 1) {
-      this.achievments.unlock(3);
-    }
-
     this.#substractCoins(tier.cost);
     this.#addUpgradeBenefits(upgradeOwned);
 
@@ -474,6 +470,12 @@ class GameManager {
       .replace('{t}', GameUpgrades.getTierName(tier.number))
       .replace('{b}', upgrade.name)
       .replace('{g}', this.#prettyNumber(tier.cost))}`);
+
+    if (this.upgradesOwned.length == 1) {
+      this.achievments.unlock(20);
+    }
+
+    this.achievments.unlock(tier.unlockAchievment);
 
     let tierVarValue = window.getComputedStyle(document.documentElement).getPropertyValue(`--tier-${tierClass}`);
     document.getElementById(`building-${upgrade.id}`).style.setProperty("--blink-shadow", tierVarValue);

@@ -15,6 +15,7 @@ class DbUpgrades {
                     new Tier({
                         number: 1,
                         levelUp: 1,
+                        unlockAchievment: 21,
                         benefits: [
                             new Benefit({ coinsGain: 0.5, targetBuilding: 1 }),
                         ]

@@ -58,7 +58,7 @@
       {
         "id": 8,
         "name": "Herrería",
-        "description": "Con la llegada de la forja, también llega la mejora para tu población. Exploradores y escuderos se beneficiarán con la mejora de sus armas y armaduras, mientras que tus trabajadores en las posadas incrementarán la producción considerablemente.",
+        "description": "Con la llegada de la forja, también llega la mejora para tu población. Exploradores y escuderos se beneficiarán con la nueva calidad de sus armas y armaduras, mientras que tus trabajadores, en las posadas, incrementarán su producción considerablemente.",
         "quote": "Que el brillo de mi espada forjada de acero ilumine hasta la última de tus estocadas."
       },
       {
@@ -277,63 +277,63 @@
         "tiers": [
           {
             "id": 1,
-            "quote": "Un poco mejor"
+            "quote": "Por el momento sólo basta con vender cajas y banquetas para sentarse."
           },
           {
             "id": 2,
-            "quote": "Un poco mejor"
+            "quote": "A lo mejor fabricar mesas no vendría tan mal."
           },
           {
             "id": 3,
-            "quote": "Un poco mejor"
+            "quote": "Un clavo por aquí, otro clavo por allá..."
           },
           {
             "id": 4,
-            "quote": "Un poco mejor"
+            "quote": "Las cosas que se pueden construir con madera son inimaginables."
           },
           {
             "id": 5,
-            "quote": "Un poco mejor"
+            "quote": "Estoy pensando seriamente en mejorar mis herramientas de trabajo."
           },
           {
             "id": 6,
-            "quote": "Un poco mejor"
+            "quote": "¡Nos expandimos! Más madera, más negocio."
           },
           {
             "id": 7,
-            "quote": "Un poco mejor"
+            "quote": "Barriles... Humm, nos vendrían bastante bien para nuestro vino."
           },
           {
             "id": 8,
-            "quote": "Un poco mejor"
+            "quote": "La producción indirecta de nuestro aserradero va cada vez mejor."
           },
           {
             "id": 9,
-            "quote": "Un poco mejor"
+            "quote": "Cucharas, mesas, muebles..."
           },
           {
             "id": 10,
-            "quote": "Un poco mejor"
+            "quote": "Es momento de construir mejores cosas..."
           },
           {
             "id": 11,
-            "quote": "Un poco mejor"
+            "quote": "Escudos y armas para la batalla. Nunca dude que podíamos llegar a esta instancia."
           },
           {
             "id": 12,
-            "quote": "Un poco mejor"
+            "quote": "Nuestras posadas se ven mucho mejor en estos tiempos."
           },
           {
             "id": 13,
-            "quote": "Un poco mejor"
+            "quote": "Nos expandimos hacia el mar.<br />Démosle la bienvenida a nuestros nuevos botes y barcos de guerra."
           },
           {
             "id": 14,
-            "quote": "Un poco mejor"
+            "quote": "Escalamos tan alto con nuestra carpintería que necesitaríamos una escalera gigante de madera para poder bajar..."
           },
           {
             "id": 15,
-            "quote": "Un poco mejor"
+            "quote": "¡Nuestra carpintería está haciendo cucharitas de madera excepcionales!"
           }
         ]
       },
@@ -344,63 +344,63 @@
         "tiers": [
           {
             "id": 1,
-            "quote": "Un poco mejor"
+            "quote": "¡Sírvame otra, cantinero!"
           },
           {
             "id": 2,
-            "quote": "Un poco mejor"
+            "quote": "Sin duda necesito un trago..."
           },
           {
             "id": 3,
-            "quote": "Un poco mejor"
+            "quote": "¿Qué le hice yo para que ya no me hable más?"
           },
           {
             "id": 4,
-            "quote": "Un poco mejor"
+            "quote": "Rubia, negra, roja... ¿Cuál es tu preferida?"
           },
           {
             "id": 5,
-            "quote": "Un poco mejor"
+            "quote": "Las mejores historias se cuentan en una taberna."
           },
           {
             "id": 6,
-            "quote": "Un poco mejor"
+            "quote": "Denme una mujer que ame la cerveza y conquistaré el mundo."
           },
           {
             "id": 7,
-            "quote": "Un poco mejor"
+            "quote": "La cerveza es siempre la respuesta, hasta que olvides la preunta."
           },
           {
             "id": 8,
-            "quote": "Un poco mejor"
+            "quote": "Quien inventó la cerveza, fue un hombre sabio."
           },
           {
             "id": 9,
-            "quote": "Un poco mejor"
+            "quote": "Ah, mi buena cerveza. Mi amor por tí nunca morirá."
           },
           {
             "id": 10,
-            "quote": "Un poco mejor"
+            "quote": "La cerveza es la causa y la solución de todos los problemas de la vida."
           },
           {
             "id": 11,
-            "quote": "Un poco mejor"
+            "quote": "No existe algo como una mala cerveza. Sólo que algunas saben mejor que otras."
           },
           {
             "id": 12,
-            "quote": "Un poco mejor"
+            "quote": "Al pan, pan. Y al vino, vino."
           },
           {
             "id": 13,
-            "quote": "Un poco mejor"
+            "quote": "Quien bebe cerveza vive menos... menos estresado, menos preocupad, menos triste y menos amargado."
           },
           {
             "id": 14,
-            "quote": "Un poco mejor"
+            "quote": "Cerveza: Ayudando a la gente a tener relaciones sexuales desde 1862."
           },
           {
             "id": 15,
-            "quote": "Un poco mejor"
+            "quote": "Da igual el color, el sabor, la amargura, el alcohol... sólo hacemos cervezas excepcionales para gente excepcional."
           }
         ]
       },
@@ -720,12 +720,57 @@
     {
       "id": 2,
       "title": "Hogar, dulce hogar",
-      "description": "El comienzo de una aventura."
+      "description": "Construye tu primera posada."
     },
     {
       "id": 3,
+      "title": "Oink, oink",
+      "description": "Expande tu economía con una granja."
+    },
+    {
+      "id": 4,
+      "title": "¡Fuera abajo!",
+      "description": "Mejora las posadas con tu primer aserradero."
+    },
+    {
+      "id": 5,
+      "title": "Cucharita, cucharón",
+      "description": "Mejora los aserraderos con tu primera carpintería."
+    },
+    {
+      "id": 6,
+      "title": "¡Salud!",
+      "description": "Abre tu primera taberna."
+    },
+    {
+      "id": 7,
+      "title": "En búsqueda del botín",
+      "description": "Contrata a tu primer explorador."
+    },
+    {
+      "id": 8,
+      "title": "Monstruos... ¡allá vamos!",
+      "description": "Contrata a tu primer escudero."
+    },
+    {
+      "id": 9,
+      "title": "Mikken, ¿eres tú?",
+      "description": "Construye tu primer herrería y obten mejoras."
+    },
+    {
+      "id": 10,
+      "title": "Fan de Hogwarts",
+      "description": "Contrata a tu primera mago."
+    },
+    {
+      "id": 20,
       "title": "Enchúlame la máquina",
-      "description": "Compra tu primer mejora."
+      "description": "Mejora por primera vez un edificio."
+    },
+    {
+      "id": 21,
+      "title": "Al fin techo",
+      "description": "Mejora la Posada."
     }
   ],
   "formatUnit": {
@@ -790,7 +835,7 @@
   },
   "chest": {
     "title": "Tesoro",
-    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios, mejóralos, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompensa</span></center></i>"
+    "description": "¡Ve en busca de aventuras y abre tesoros para hacerte rico! Construye edificios y mejóralos, expande tu economía y contrata guerreros que luchen contigo en lo más profundo de las mazmorras.@separator@<i><center><span style='color: var(--gold)'>Haz clic para obtener tu recompensa</span></center></i>"
   },
   "console": {
     "achievmentUnlocked": "¡Logro desbloqueado!",

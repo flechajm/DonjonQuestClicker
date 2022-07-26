@@ -24,6 +24,7 @@ class DbBuildings {
                 id: 2,
                 icon: 'farm',
                 baseCost: 100,
+                unlockAchievment: 3,
                 benefits: [
                     new Benefit({
                         coinsGainMultiplier: 1,
@@ -37,6 +38,7 @@ class DbBuildings {
                 id: 3,
                 icon: 'sawmill',
                 baseCost: 1700,
+                unlockAchievment: 4,
                 benefits: [
                     new Benefit({
                         coinsGain: 7,
@@ -53,6 +55,7 @@ class DbBuildings {
                 id: 4,
                 icon: 'carpentry',
                 baseCost: 15000,
+                unlockAchievment: 5,
                 benefits: [
                     new Benefit({
                         coinsGain: 40,
@@ -70,6 +73,7 @@ class DbBuildings {
                 id: 5,
                 icon: 'tavern',
                 baseCost: 150000,
+                unlockAchievment: 6,
                 benefits: [
                     new Benefit({
                         coinsGain: 300,
@@ -78,9 +82,9 @@ class DbBuildings {
                         coinsBonusPerQuest: 10,
                     }),
                     new Benefit({
-                        coinsGain: 1,
+                        coinsGain: 100,
                         targetBuilding: 1,
-                        calculateAsPercent: false,
+                        calculateAsPercent: true,
                     }),
                 ],
             }),
@@ -90,6 +94,7 @@ class DbBuildings {
                 id: 6,
                 icon: 'scout',
                 baseCost: 980000,
+                unlockAchievment: 7,
                 benefits: [
                     new Benefit({
                         coinsBonusPerQuest: 300,
@@ -107,6 +112,7 @@ class DbBuildings {
                 id: 7,
                 icon: 'shield_bearer',
                 baseCost: 13.2e6,
+                unlockAchievment: 8,
                 benefits: [
                     new Benefit({
                         coinsGain: 2700,
@@ -131,6 +137,7 @@ class DbBuildings {
                 id: 8,
                 icon: 'forge',
                 baseCost: 2.9e8,
+                unlockAchievment: 9,
                 benefits: [
                     new Benefit({
                         coinsGain: 40000,
@@ -168,6 +175,7 @@ class DbBuildings {
                 id: 9,
                 icon: 'wizard',
                 baseCost: 8.6e11,
+                unlockAchievment: 10,
                 benefits: [
                     new Benefit({
                         coinsGain: 2e5,

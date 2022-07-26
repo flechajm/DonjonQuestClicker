@@ -19,7 +19,7 @@ class GameAchievments {
             if (audioManager) {
                 audioManager.play('achievment', 0.3);
             }
-            GameLog.write(`<span class='achievment-unlocked'>${LanguageManager.getData().console.achievmentUnlocked}</span>🏆`);
+            GameLog.write(`🏆<span class='achievment-unlocked'>${LanguageManager.getData().console.achievmentUnlocked}</span>`);
             GameLog.write(`<div class='achievment'>
                                 <div class='icon'><img src='img/${achievment.icon}.png' /></div>
                                 <div>
