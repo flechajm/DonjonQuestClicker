@@ -172,9 +172,9 @@ class GameManager {
    * @param {Boolean} isLoading Valor booleano que indica si el juego está cargando o no.
    */
   addCoins(quantity, isLoading) {
+    this.coinsHistory += quantity;
     if (!isLoading) {
       this.coins += quantity;
-      this.coinsHistory += quantity;
 
       if (this.initDate == null) {
         this.initDate = new Date().getTime();
@@ -827,7 +827,7 @@ class GameManager {
     };
 
     for (let i = 0; i < this.buildingsOwned.length; i++) {
-      let coinsBenefit = new Benefit({});
+      // let coinsBenefit = new Benefit({});
 
       const buildingOwned = this.buildingsOwned[i];
       GameBuildings.updateImage(buildingOwned.id);
@@ -852,82 +852,60 @@ class GameManager {
                 coinsMultiplierPerQuest: filteredBenefit.coinsMultiplierPerQuest * targetQuantity,
               });
 
-              arrayBenefits.push({ buildingName: filteredBuilding.name, benefit: actualFilteredBenefit, icon: filteredBuilding.getIcon() });
+              arrayBenefits.push({
+                buildingName: filteredBuilding.name,
+                benefit: actualFilteredBenefit,
+                icon: filteredBuilding.getIcon()
+              });
 
-              coinsBenefit.calculateAsPercent = actualFilteredBenefit.calculateAsPercent;
-              coinsBenefit.coinsGain = actualFilteredBenefit.coinsGain;
-              coinsBenefit.coinsGainMultiplier = actualFilteredBenefit.coinsGainMultiplier;
-              coinsBenefit.coinsBonusPerQuest = actualFilteredBenefit.coinsBonusPerQuest;
-              coinsBenefit.coinsMultiplierPerQuest = actualFilteredBenefit.coinsMultiplierPerQuest;
+              // coinsBenefit.calculateAsPercent = actualFilteredBenefit.calculateAsPercent;
+              // coinsBenefit.coinsGain = actualFilteredBenefit.coinsGain;
+              // coinsBenefit.coinsGainMultiplier = actualFilteredBenefit.coinsGainMultiplier;
+              // coinsBenefit.coinsBonusPerQuest = actualFilteredBenefit.coinsBonusPerQuest;
+              // coinsBenefit.coinsMultiplierPerQuest = actualFilteredBenefit.coinsMultiplierPerQuest;
             }
           });
         }
       });
 
       building.benefits.forEach((benefit) => {
-        let totalGain = 0;
-        let totalGainMultiplier = 0;
-        let totalBonusPerQuest = 0;
-        let totalMultiplierPerQuest = 0;
-
         if (benefit.targetBuilding == null) {
-          let isSameBenefit =
-            (coinsBenefit.coinsGain > 0 && benefit.coinsGain > 0) ||
-            (coinsBenefit.coinsGainMultiplier > 0 && benefit.coinsGainMultiplier > 0) ||
-            (coinsBenefit.coinsBonusPerQuest > 0 && benefit.coinsBonusPerQuest > 0) ||
-            (coinsBenefit.coinsMultiplierPerQuest > 0 && benefit.coinsMultiplierPerQuest > 0);
+          let coinsBenefit = new Benefit({});
+          let total = this.#calculateBenefit(coinsBenefit, benefit, buildingOwned.quantity);
 
-          if (isSameBenefit) {
-            if (coinsBenefit.calculateAsPercent) {
-              totalGain = sumPercent((benefit.coinsGain * buildingOwned.quantity), coinsBenefit.coinsGain);
-              totalGainMultiplier = sumPercent((benefit.coinsGainMultiplier * buildingOwned.quantity), coinsBenefit.coinsGainMultiplier);
-              totalBonusPerQuest = sumPercent((benefit.coinsBonusPerQuest * buildingOwned.quantity), coinsBenefit.coinsBonusPerQuest);
-              totalMultiplierPerQuest = sumPercent((benefit.coinsMultiplierPerQuest * buildingOwned.quantity), coinsBenefit.coinsMultiplierPerQuest);
-            } else {
-              totalGain = (benefit.coinsGain * buildingOwned.quantity) + coinsBenefit.coinsGain;
-              totalGainMultiplier = (benefit.coinsGainMultiplier * buildingOwned.quantity) + coinsBenefit.coinsGainMultiplier;
-              totalBonusPerQuest = (benefit.coinsBonusPerQuest * buildingOwned.quantity) + coinsBenefit.coinsBonusPerQuest;
-              totalMultiplierPerQuest = (benefit.coinsMultiplierPerQuest * buildingOwned.quantity) + coinsBenefit.coinsMultiplierPerQuest;
-            }
-          } else {
-            if (benefit.calculateAsPercent) {
-              totalGain = sumPercent(benefit.coinsGain, (benefit.coinsGain * buildingOwned.quantity));
-              totalGainMultiplier = sumPercent(1, (benefit.coinsGainMultiplier * buildingOwned.quantity));
-              totalBonusPerQuest = sumPercent(benefit.coinsBonusPerQuest, (benefit.coinsBonusPerQuest * buildingOwned.quantity));
-              totalMultiplierPerQuest = sumPercent(1, (benefit.coinsMultiplierPerQuest * buildingOwned.quantity));
-            } else {
-              totalGain = benefit.coinsGain * buildingOwned.quantity;
-              totalGainMultiplier = benefit.coinsGainMultiplier * buildingOwned.quantity;
-              totalBonusPerQuest = benefit.coinsBonusPerQuest * buildingOwned.quantity;
-              totalMultiplierPerQuest = benefit.coinsMultiplierPerQuest * buildingOwned.quantity;
-            }
-          }
-
-          coins.gain += totalGain;
-          coins.gainMultiplier += totalGainMultiplier;
-          coins.bonusPerQuest += totalBonusPerQuest;
-          coins.multiplierPerQuest += totalMultiplierPerQuest;
+          coins.gain += total.totalGain;
+          coins.gainMultiplier += total.totalGainMultiplier;
+          coins.bonusPerQuest += total.totalBonusPerQuest;
+          coins.multiplierPerQuest += total.totalMultiplierPerQuest;
 
           benefit.aditional = '';
           arrayBenefits.forEach((b) => {
-            let value = b.benefit.getValue();
-            let formattedValue = Benefit.getFormattedValue(this.#prettyNumber(value), b.benefit.calculateAsPercent, 'tier-frequent');
+            let coinsBenefit = b.benefit;
+            let total = this.#calculateBenefit(coinsBenefit, benefit, buildingOwned.quantity);
+
+            coins.gain += total.totalGain;
+            coins.gainMultiplier += total.totalGainMultiplier;
+            coins.bonusPerQuest += total.totalBonusPerQuest;
+            coins.multiplierPerQuest += total.totalMultiplierPerQuest;
+
+            let value = coinsBenefit.getValue();
+            let formattedValue = Benefit.getFormattedValue(this.#prettyNumber(value), coinsBenefit.calculateAsPercent, 'tier-frequent');
             let formattedBuilding = GameBuildings.getFormattedName(b.buildingName, 'gold', b.icon);
 
             let totalValue = 0;
-            if (b.benefit.calculateAsPercent && benefit.calculateAsPercent) {
+            if (coinsBenefit.calculateAsPercent && benefit.calculateAsPercent) {
               totalValue = benefit.getValue() + value;
-            } else if (b.benefit.calculateAsPercent) {
+            } else if (coinsBenefit.calculateAsPercent) {
               totalValue = sumPercent(benefit.getValue(), value);
             } else {
               totalValue = benefit.getValue() + value;
             }
             let formattedTotalValue = Benefit.getFormattedValue(this.#prettyNumber(totalValue), benefit.calculateAsPercent, 'available');
 
-            if ((benefit.coinsGain > 0 && b.benefit.coinsGain > 0) ||
-              (benefit.coinsGainMultiplier > 0 && b.benefit.coinsGainMultiplier > 0) ||
-              (benefit.coinsBonusPerQuest > 0 && b.benefit.coinsBonusPerQuest > 0) ||
-              (benefit.coinsMultiplierPerQuest > 0 && b.benefit.coinsMultiplierPerQuest > 0)) {
+            if ((benefit.coinsGain > 0 && coinsBenefit.coinsGain > 0) ||
+              (benefit.coinsGainMultiplier > 0 && coinsBenefit.coinsGainMultiplier > 0) ||
+              (benefit.coinsBonusPerQuest > 0 && coinsBenefit.coinsBonusPerQuest > 0) ||
+              (benefit.coinsMultiplierPerQuest > 0 && coinsBenefit.coinsMultiplierPerQuest > 0)) {
 
               let aditional = LanguageManager.getData().benefits.beneficiedBy.replace('{b}', formattedBuilding).replace('{g}', formattedValue).replace('{t}', formattedTotalValue);
               benefit.aditional += `<li><ul><li>${aditional}</li></ul></li>`;
@@ -941,6 +919,49 @@ class GameManager {
     this.coinsGainMultiplier = coins.gainMultiplier == 0 ? 1 : roundNumber(coins.gainMultiplier);
     this.coinsBonusPerQuest = coins.bonusPerQuest;
     this.coinsMultiplierPerQuest = coins.multiplierPerQuest == 0 ? 1 : roundNumber(coins.multiplierPerQuest);
+  }
+
+  #calculateBenefit(coinsBenefit, benefit, buildingQuantity) {
+    let coins = {
+      totalGain: 0,
+      totalGainMultiplier: 0,
+      totalBonusPerQuest: 0,
+      totalMultiplierPerQuest: 0,
+    };
+
+    let isSameBenefit =
+      (coinsBenefit.coinsGain > 0 && benefit.coinsGain > 0) ||
+      (coinsBenefit.coinsGainMultiplier > 0 && benefit.coinsGainMultiplier > 0) ||
+      (coinsBenefit.coinsBonusPerQuest > 0 && benefit.coinsBonusPerQuest > 0) ||
+      (coinsBenefit.coinsMultiplierPerQuest > 0 && benefit.coinsMultiplierPerQuest > 0);
+
+    if (isSameBenefit) {
+      if (coinsBenefit.calculateAsPercent) {
+        coins.totalGain = sumPercent((benefit.coinsGain * buildingQuantity), coinsBenefit.coinsGain);
+        coins.totalGainMultiplier = sumPercent((benefit.coinsGainMultiplier * buildingQuantity), coinsBenefit.coinsGainMultiplier);
+        coins.totalBonusPerQuest = sumPercent((benefit.coinsBonusPerQuest * buildingQuantity), coinsBenefit.coinsBonusPerQuest);
+        coins.totalMultiplierPerQuest = sumPercent((benefit.coinsMultiplierPerQuest * buildingQuantity), coinsBenefit.coinsMultiplierPerQuest);
+      } else {
+        coins.totalGain = (benefit.coinsGain * buildingQuantity) + coinsBenefit.coinsGain;
+        coins.totalGainMultiplier = (benefit.coinsGainMultiplier * buildingQuantity) + coinsBenefit.coinsGainMultiplier;
+        coins.totalBonusPerQuest = (benefit.coinsBonusPerQuest * buildingQuantity) + coinsBenefit.coinsBonusPerQuest;
+        coins.totalMultiplierPerQuest = (benefit.coinsMultiplierPerQuest * buildingQuantity) + coinsBenefit.coinsMultiplierPerQuest;
+      }
+    } else {
+      if (benefit.calculateAsPercent) {
+        coins.totalGain = sumPercent(benefit.coinsGain, (benefit.coinsGain * buildingQuantity));
+        coins.totalGainMultiplier = sumPercent(1, (benefit.coinsGainMultiplier * buildingQuantity));
+        coins.totalBonusPerQuest = sumPercent(benefit.coinsBonusPerQuest, (benefit.coinsBonusPerQuest * buildingQuantity));
+        coins.totalMultiplierPerQuest = sumPercent(1, (benefit.coinsMultiplierPerQuest * buildingQuantity));
+      } else {
+        coins.totalGain = benefit.coinsGain * buildingQuantity;
+        coins.totalGainMultiplier = benefit.coinsGainMultiplier * buildingQuantity;
+        coins.totalBonusPerQuest = benefit.coinsBonusPerQuest * buildingQuantity;
+        coins.totalMultiplierPerQuest = benefit.coinsMultiplierPerQuest * buildingQuantity;
+      }
+    }
+
+    return coins;
   }
 
   /**
@@ -1180,7 +1201,7 @@ class GameManager {
    */
   #initGameLoop() {
     this.gameLoop = new GameLoop();
-    //this.gameLoop.showFPS();
+    this.gameLoop.showFPS();
   }
 
   /**
