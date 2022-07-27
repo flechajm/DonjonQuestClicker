@@ -822,7 +822,7 @@
   "coinsInfo": {
     "title": "Estadísticas generales",
     "subtitle": "Fecha de inicio del juego: <span class='date'>{dt}</span>.",
-    "notStartYet": "Aún no has comenzado... ¡Has click en el cofre!",
+    "notStartYet": "Aún no has comenzado... ¡Haz click en el cofre!",
     "coins": "🪙 Oro actualmente: <span class='gold'>{g}</span>.",
     "coinsGain": "🏭 Producción <span class='partial-value'>base</span> de oro por segundo: <span class='partial-value'>{g}</span>.",
     "coinsGainMultiplier": "🧲 Multiplicador <span class='partial-value'>base</span> de oro por segundo: <span class='partial-value'>{g}%</span>.",
