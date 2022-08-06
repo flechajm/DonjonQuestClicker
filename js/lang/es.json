@@ -59,7 +59,7 @@
         "id": 8,
         "name": "Herrería",
         "description": "Con la llegada de la forja, también llega la mejora para tu población. Exploradores y escuderos se beneficiarán con la nueva calidad de sus armas y armaduras, mientras que tus trabajadores, en las posadas, incrementarán su producción considerablemente.",
-        "quote": "Que el brillo de mi espada forjada de acero ilumine hasta la última de tus estocadas."
+        "quote": "Que el brillo de mi espada forjada de acero ilumine hasta la última de mis estocadas."
       },
       {
         "id": 9,
@@ -411,63 +411,63 @@
         "tiers": [
           {
             "id": 1,
-            "quote": "Un poco mejor"
+            "quote": "El que busca, encuentra."
           },
           {
             "id": 2,
-            "quote": "Un poco mejor"
+            "quote": "¿Qué es esto? Parece valioso."
           },
           {
             "id": 3,
-            "quote": "Un poco mejor"
+            "quote": "Seguiré buscando, y encontraré cosas maravillosas..."
           },
           {
             "id": 4,
-            "quote": "Un poco mejor"
+            "quote": "¿Quien anda ahí?"
           },
           {
             "id": 5,
-            "quote": "Un poco mejor"
+            "quote": "No seré el mejor buscando, pero sí el mejor encontrando."
           },
           {
             "id": 6,
-            "quote": "Un poco mejor"
+            "quote": "Contrátame, sin duda te seré de ayuda."
           },
           {
             "id": 7,
-            "quote": "Un poco mejor"
+            "quote": "Calabozos... mazmorras... mientras más oscuro, mejor. El oro brilla."
           },
           {
             "id": 8,
-            "quote": "Un poco mejor"
+            "quote": "No tendré brújula ni mapa, pero tengo el sentido de la intuición."
           },
           {
             "id": 9,
-            "quote": "Un poco mejor"
+            "quote": "¡A descubrir el mundo, y más allá!"
           },
           {
             "id": 10,
-            "quote": "Un poco mejor"
+            "quote": "La cruz marca el lugar..."
           },
           {
             "id": 11,
-            "quote": "Un poco mejor"
+            "quote": "¡No puedo esperar a contar el botín de hoy!"
           },
           {
             "id": 12,
-            "quote": "Un poco mejor"
+            "quote": "¿Será hoy mi día de suerte?"
           },
           {
             "id": 13,
-            "quote": "Un poco mejor"
+            "quote": "Mejor me apuro antes que anochezca."
           },
           {
             "id": 14,
-            "quote": "Un poco mejor"
+            "quote": "Pararé aquí para recuperar energías junto a este fuego..."
           },
           {
             "id": 15,
-            "quote": "Un poco mejor"
+            "quote": "Nosotros como exploradores haremos un trabajo excepcional, nunca te defraudaremos."
           }
         ]
       },
@@ -478,63 +478,63 @@
         "tiers": [
           {
             "id": 1,
-            "quote": "Un poco mejor"
+            "quote": "Una porra y un escudo de madera no es la salvación a ninguno de mis problemas, pero lo dejaré todo dentro de estas catacumbas."
           },
           {
             "id": 2,
-            "quote": "Un poco mejor"
+            "quote": "Subordinación y valor."
           },
           {
             "id": 3,
-            "quote": "Un poco mejor"
+            "quote": "Coraje, por sobre todas las cosas."
           },
           {
             "id": 4,
-            "quote": "Un poco mejor"
+            "quote": "¡Serviré a mi señor hasta la muerte!"
           },
           {
             "id": 5,
-            "quote": "Un poco mejor"
+            "quote": "Actúa primero, habla luego."
           },
           {
             "id": 6,
-            "quote": "Un poco mejor"
+            "quote": "Ohhh... wow, veo que hemos mejorado nuestras armas."
           },
           {
             "id": 7,
-            "quote": "Un poco mejor"
+            "quote": "¡A la cargaaaaaaaaaaaaaaaaa!"
           },
           {
             "id": 8,
-            "quote": "Un poco mejor"
+            "quote": "Me enfrentaré a tus mejores guerreros, y no se los dejaré fácil."
           },
           {
             "id": 9,
-            "quote": "Un poco mejor"
+            "quote": "Arqueros y sus flechas... me hacen reír."
           },
           {
             "id": 10,
-            "quote": "Un poco mejor"
+            "quote": "Hemos conseguido mucho, en tan poco tiempo. Somos legión, lucharemos hasta el fin."
           },
           {
             "id": 11,
-            "quote": "Un poco mejor"
+            "quote": "Escúchame bien, llevamos las cabezas de nuestros enemigos derrotados en nuestros escudos. ¿Qué te hace pensar que no serás el próximo en ocupar un lugar como este? ¡Ahoraaaa! ¡Ahhhhhhhhhhhhhh!"
           },
           {
             "id": 12,
-            "quote": "Un poco mejor"
+            "quote": "¡Sentirás el filo de mi espada atravesar tu cuerpo!"
           },
           {
             "id": 13,
-            "quote": "Un poco mejor"
+            "quote": "No importa contra cuántos guerreros peleemos, siempre venceremos y el botín serán nuestro."
           },
           {
             "id": 14,
-            "quote": "Un poco mejor"
+            "quote": "Ni retirada, ni rendisión... esa es nuestra ley."
           },
           {
             "id": 15,
-            "quote": "Un poco mejor"
+            "quote": "¿Lo ves, amigo? He traído más soldados que tú..."
           }
         ]
       },
@@ -545,15 +545,15 @@
         "tiers": [
           {
             "id": 1,
-            "quote": "Un poco mejor"
+            "quote": "¡Clinc, Clinc!"
           },
           {
             "id": 2,
-            "quote": "Un poco mejor"
+            "quote": "A juzgar por mis habilidades de herrero, tu espada parece más una cuchara. Déjame que te ayude."
           },
           {
             "id": 3,
-            "quote": "Un poco mejor"
+            "quote": "Ahhhh, nada como oler el hierro fundido..."
           },
           {
             "id": 4,
@@ -612,63 +612,63 @@
         "tiers": [
           {
             "id": 1,
-            "quote": "Un poco mejor"
+            "quote": "Invocaré a las fuerzas arcanas del mas allá."
           },
           {
             "id": 2,
-            "quote": "Un poco mejor"
+            "quote": "¿Piensas que puedes derrotarme, guerrero? Patético."
           },
           {
             "id": 3,
-            "quote": "Un poco mejor"
+            "quote": "Puedo detener tu corazón con sólo chasquear los dedos."
           },
           {
             "id": 4,
-            "quote": "Un poco mejor"
+            "quote": "Que este plano terrenal no te detenga, forastero."
           },
           {
             "id": 5,
-            "quote": "Un poco mejor"
+            "quote": "Ahora lo ves, ahora no."
           },
           {
             "id": 6,
-            "quote": "Un poco mejor"
+            "quote": "Me siento más poderoso..."
           },
           {
             "id": 7,
-            "quote": "Un poco mejor"
+            "quote": "Aquellos que creen en la magia, están destinados a encontrarla."
           },
           {
             "id": 8,
-            "quote": "Un poco mejor"
+            "quote": "La magía consiste en desafiar aquello que parece imposible."
           },
           {
             "id": 9,
-            "quote": "Un poco mejor"
+            "quote": "Es leviosa, no leviosá."
           },
           {
             "id": 10,
-            "quote": "Un poco mejor"
+            "quote": "Quien tiene magía no necesita trucos."
           },
           {
             "id": 11,
-            "quote": "Un poco mejor"
+            "quote": "¡Abrakadabra!"
           },
           {
             "id": 12,
-            "quote": "Un poco mejor"
+            "quote": "¿Sabes cuál es la diferencia entre tu y yo, guerrero? Que me queda el sombrero."
           },
           {
             "id": 13,
-            "quote": "Un poco mejor"
+            "quote": "Buen báculo, hechicero. ¿Por qué no lo pones a prueba?"
           },
           {
             "id": 14,
-            "quote": "Un poco mejor"
+            "quote": "Cuando entras en contacto con la magia, nunca nada es igual."
           },
           {
             "id": 15,
-            "quote": "Un poco mejor"
+            "quote": "Fuego, agua, tierra y aire. Ahora tengo dominio absoluto."
           }
         ]
       }
@@ -769,7 +769,7 @@
     },
     {
       "id": 21,
-      "title": "Al fin techo",
+      "title": "Ahora tenemos un techo",
       "description": "Mejora la Posada."
     }
   ],
