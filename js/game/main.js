@@ -32,7 +32,7 @@ var audioManager;
       }`,
       "grey"
     );
-    GameLog.write(`+ ${GameInfo.briefChanges}`, "lightslategrey");
+    GameLog.write(`+ ${GameInfo.briefChanges.reverse()[0].join("<br />+ ")}`, "lightslategrey");
     GameLog.newLine(1);
 
     GameBuildings.create();
