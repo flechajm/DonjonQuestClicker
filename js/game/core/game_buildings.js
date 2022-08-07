@@ -177,7 +177,7 @@ class GameBuildings {
 
   static getFormattedName(name, color, icon) {
     return `<span>
-              <img  src='../img/buildings/${icon}.png' title=''
+              <img  src='./img/buildings/${icon}.png' title=''
                     style="width: 16px;
                           height: 16px;
                           margin-left: 2px;
