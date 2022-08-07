@@ -6,6 +6,7 @@ import GameUpgrades from "./game_upgrades.js";
 import GameAchievments from "./game_achievments.js";
 import GameInfo from "./game_info.js";
 import GameEffects from "./game_effects.js";
+import GameRandomizer from "./game_randomizer.js";
 
 import LanguageManager from "../libs/language_manager.js";
 import Tooltip from "../libs/tooltip.js";
@@ -18,6 +19,7 @@ import { audioManager } from "../main.js";
 class GameManager {
   #basePow;
   #basePowUpgrades;
+  #chanceRandomQuests;
   #units;
   #showTooltipChest;
   #showCoinsGainDetail;
@@ -73,8 +75,10 @@ class GameManager {
     this.config = new GameConfig(config);
     this.initDate = initDate;
     this.achievments = new GameAchievments(achievments);
+    this.randomizer;
     this.#basePow = 1.17;
     this.#basePowUpgrades = 1.5;
+    this.#chanceRandomQuests = 0.25;
     this.#units = [];
     this.#showTooltipChest = true;
   }
@@ -160,10 +164,30 @@ class GameManager {
     let coinsEarned = Math.round((this.coinsPerQuest + this.coinsBonusPerQuest) * this.coinsMultiplierPerQuest);
 
     GameEffects.spawnCoinsEarned(e, this.#prettyNumber(coinsEarned));
+
+    coinsEarned += this.getRandomQuest(coinsEarned);
     //GameEffects.spawnIconCoin(e);
 
     audioManager.play('click', 0.4);
     this.addCoins(coinsEarned);
+  }
+
+  getRandomQuest(coinsEarned) {
+    let aditionalReward = 0;
+    let questChances = roundNumber(Math.random() * 100);
+    console.log(questChances);
+    if (questChances < this.#chanceRandomQuests && this.buildingsOwned.length > 0) {
+      let buildingQuantity = 0;
+      this.buildingsOwned.forEach(building => {
+        buildingQuantity += building.quantity;
+      });
+
+      aditionalReward = Math.floor(coinsEarned * randomBetween(100, buildingQuantity) * ((questChances * 100) * this.coinsMultiplierPerQuest));
+      GameLog.write(this.randomizer.getRandomQuest(this.#prettyNumber(aditionalReward)));
+      audioManager.play('coins', 0.2);
+    }
+
+    return aditionalReward;
   }
 
   /**
@@ -695,6 +719,7 @@ class GameManager {
    * Configura y prepara el juego para comenzar la partida. Independientemente si es una partida guardada o no.
    */
   #configure() {
+    this.randomizer = new GameRandomizer();
     this.achievments.setLocalization();
     this.buildingsOwned.sort((a, b) => a.id - b.id);
     this.availableUpgrades.sort((a, b) => a.isUnbuyable - b.isUnbuyable || a.cost - b.cost);
