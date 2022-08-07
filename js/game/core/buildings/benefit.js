@@ -1,3 +1,6 @@
+import GameBuildings from "../game_buildings.js";
+import LanguageManager from "../../libs/language_manager.js";
+
 /**
  * Clase que representa un Beneficio para un edificio o mejora.
  */
@@ -80,10 +83,51 @@ class Benefit {
         return `<span style='color: var(--${color});'><b>+${value}${isPercent ? '%' : ''}</b></span>`;
     }
 
-    getFullDescription(buildingQuantity, numberUnits) {
+    setBaseDescription(targetBuilding) {
+        const langData = LanguageManager.getData();
+        if (this.coinsGain > 0) {
+            if (this.targetBuilding == null || this.targetBuilding == targetBuilding) {
+                this.description = langData.benefits.coinsGain.self;
+            } else if (this.targetBuilding != targetBuilding) {
+                this.description = langData.benefits.coinsGain.toBuilding;
+            }
+        }
+
+        if (this.coinsGainMultiplier > 0) {
+            if (this.targetBuilding == null || this.targetBuilding == targetBuilding) {
+                this.description = langData.benefits.coinsGainMultiplier.self;
+            } else if (this.targetBuilding != targetBuilding) {
+                this.description = langData.benefits.coinsGainMultiplier.toBuilding;
+            }
+        }
+
+        if (this.coinsBonusPerQuest > 0) {
+            if (this.targetBuilding == null || this.targetBuilding == targetBuilding) {
+                this.description = langData.benefits.coinsBonusPerQuest.self;
+            } else if (this.targetBuilding != targetBuilding) {
+                this.description = langData.benefits.coinsBonusPerQuest.toBuilding;
+            }
+        }
+
+        if (this.coinsMultiplierPerQuest > 0) {
+            if (this.targetBuilding == null || this.targetBuilding == targetBuilding) {
+                this.description = langData.benefits.coinsMultiplierPerQuest.self;
+            } else if (this.targetBuilding != targetBuilding) {
+                this.description = langData.benefits.coinsMultiplierPerQuest.toBuilding;
+            }
+        }
+    }
+
+    getFullDescription(buildingQuantity, buildingId, numberUnits) {
+        this.setBaseDescription(buildingId);
         let value = Benefit.getFormattedValue(Number.pretty(this.getValue(), numberUnits), this.calculateAsPercent, 'benefit');
         let totalValue = Benefit.getFormattedValue(Number.pretty(roundNumber(this.getValue() * buildingQuantity), numberUnits), this.calculateAsPercent, "available");
         let finalDescription = String(this.description).replace('{g}', value).replace('{t}', totalValue);
+
+        if (this.targetBuilding) {
+            const targetBuilding = GameBuildings.getBuildingById(this.targetBuilding);
+            finalDescription = finalDescription.replace("{b}", GameBuildings.getFormattedName(targetBuilding.name, 'gold', targetBuilding.getIcon()));
+        }
 
         return finalDescription;
     }

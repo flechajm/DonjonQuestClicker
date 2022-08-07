@@ -46,22 +46,24 @@ class GameUpgrades {
 
         tier.quote = upgradeInfo.tiers.find((t) => t.id == tier.number).quote;
 
-        for (let k = 0; k < benefits.length; k++) {
-          const benefit = benefits[k];
+        // for (let k = 0; k < benefits.length; k++) {
+        //   const benefit = benefits[k];
 
-          if (benefit.coinsGain > 0)
-            benefit.description = langData.benefits.coinsGain.self;
 
-          if (benefit.coinsGainMultiplier > 0)
-            benefit.description = langData.benefits.coinsGainMultiplier.self;
 
-          if (benefit.coinsBonusPerQuest > 0)
-            benefit.description = langData.benefits.coinsBonusPerQuest.self;
+        //   if (benefit.coinsGain > 0)
+        //     benefit.description = langData.benefits.coinsGain.self;
 
-          if (benefit.coinsMultiplierPerQuest > 0)
-            benefit.description = langData.benefits.coinsMultiplierPerQuest.self;
+        //   if (benefit.coinsGainMultiplier > 0)
+        //     benefit.description = langData.benefits.coinsGainMultiplier.self;
 
-        }
+        //   if (benefit.coinsBonusPerQuest > 0)
+        //     benefit.description = langData.benefits.coinsBonusPerQuest.self;
+
+        //   if (benefit.coinsMultiplierPerQuest > 0)
+        //     benefit.description = langData.benefits.coinsMultiplierPerQuest.self;
+
+        // }
       }
     }
   }

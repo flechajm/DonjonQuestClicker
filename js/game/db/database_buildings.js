@@ -27,8 +27,11 @@ class DbBuildings {
                 unlockAchievment: 3,
                 benefits: [
                     new Benefit({
-                        coinsGainMultiplier: 1,
+                        coinsGainMultiplier: 2,
                         calculateAsPercent: true,
+                    }),
+                    new Benefit({
+                        coinsMultiplierPerQuest: 2,
                     }),
                 ],
             }),
@@ -41,10 +44,10 @@ class DbBuildings {
                 unlockAchievment: 4,
                 benefits: [
                     new Benefit({
-                        coinsGain: 7,
+                        coinsGain: 12,
                     }),
                     new Benefit({
-                        coinsGain: 1,
+                        coinsGain: 7,
                         targetBuilding: 1,
                     }),
                 ],

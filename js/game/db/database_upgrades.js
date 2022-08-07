@@ -129,35 +129,35 @@ class DbUpgrades {
                         number: 1,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 0.5, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 2, calculateAsPercent: true, targetBuilding: 2 }),
                         ]
                     }),
                     new Tier({
                         number: 2,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 1, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 4, calculateAsPercent: true, targetBuilding: 2 }),
                         ]
                     }),
                     new Tier({
                         number: 3,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 2, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 6, calculateAsPercent: true, targetBuilding: 2 }),
                         ]
                     }),
                     new Tier({
                         number: 4,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 3, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 8, calculateAsPercent: true, targetBuilding: 2 }),
                         ]
                     }),
                     new Tier({
                         number: 5,
                         levelUp: 1,
                         benefits: [
-                            new Benefit({ coinsGainMultiplier: 4, calculateAsPercent: true, targetBuilding: 2 }),
+                            new Benefit({ coinsGainMultiplier: 10, calculateAsPercent: true, targetBuilding: 2 }),
                         ]
                     }),
                     new Tier({
@@ -252,6 +252,7 @@ class DbUpgrades {
                         levelUp: 1,
                         benefits: [
                             new Benefit({ coinsGain: 1e2, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 20, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
@@ -259,6 +260,7 @@ class DbUpgrades {
                         levelUp: 1,
                         benefits: [
                             new Benefit({ coinsGain: 5e2, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 50, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
@@ -266,6 +268,7 @@ class DbUpgrades {
                         levelUp: 1,
                         benefits: [
                             new Benefit({ coinsGain: 1e3, targetBuilding: 3 }),
+                            new Benefit({ coinsGain: 100, targetBuilding: 1 }),
                         ]
                     }),
                     new Tier({
@@ -1097,6 +1100,7 @@ class DbUpgrades {
                         benefits: [
                             new Benefit({ coinsGain: 1e23, targetBuilding: 9 }),
                             new Benefit({ coinsBonusPerQuest: 1e20, targetBuilding: 9 }),
+                            new Benefit({ coinsMultiplierPerQuest: 10000, targetBuilding: 9, calculateAsPercent: true, }),
                         ]
                     }),
                 ]

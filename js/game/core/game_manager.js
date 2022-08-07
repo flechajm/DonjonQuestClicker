@@ -545,13 +545,17 @@ class GameManager {
     let benefits = building.benefits.map((benefit) => {
       let auxBenefit = new Benefit(JSON.parse(JSON.stringify(benefit)));
       if (benefit.targetBuilding) {
+        upgradesOwned.forEach((upgradeOwned) => {
+          let upgrade = GameUpgrades.getUpgradeById(upgradeOwned.id);
+          let upgradeBenefits = GameUpgrades.getTierByUpgrade(upgrade, upgradeOwned.tier).benefits;
+        });
         let targetBuilding = GameBuildings.getBuildingById(benefit.targetBuilding);
         let targetBuildingName = GameBuildings.getFormattedName(targetBuilding.name, 'gold', `${targetBuilding.icon}_${targetBuilding.level}`);
         auxBenefit.description = benefit.description.replace('{b}', targetBuildingName);
       }
 
       let aditional = benefit.aditional ?? '';
-      return `<li>${auxBenefit.getFullDescription(quantity, this.getUnits())}</li>${aditional}`
+      return `<li>${auxBenefit.getFullDescription(quantity, building.id, this.getUnits())}</li>${aditional}`
 
     }).join("");
 
@@ -566,7 +570,7 @@ class GameManager {
       // } else {
       let border = upgradeOwned.tier == 15 ? 'border-image: var(--tier-outstanding) 1 15%; border-left: 3px ridge;' : `border-left: 3px ridge var(--tier-${tierVar})`;
       benefit = `<div style='padding: 5px 8px; margin-left: 10px; ${border};'>${upgradeBenefits.map((upgradeBenefit) => {
-        return `<li>${upgradeBenefit.getFullDescription(quantity, this.getUnits())}</li>`
+        return `<li>${upgradeBenefit.getFullDescription(quantity, building.id, this.getUnits())}</li>`
       }).join("")}</div>`;
       //}
 
@@ -598,18 +602,25 @@ class GameManager {
    * @param {Tier}    tier    Nivel de la mejora.
    */
   bindTooltipFunctionToUpgradeButton(e, upgrade, tier) {
-    const langData = LanguageManager.getData();
     const gameManager = this;
+    const langData = LanguageManager.getData();
+    const building = GameBuildings.getBuildingById(upgrade.id);
     const benefits = tier.benefits.map((benefit) => {
+      benefit.setBaseDescription(building.id);
+
       let value = Benefit.getFormattedValue(this.#prettyNumber(benefit.getValue()), benefit.calculateAsPercent, 'benefit');
       let finalDescription = String(benefit.description).replace('{g}', value).replace(' ({t})', '');
+
+      if (benefit.targetBuilding) {
+        const targetBuilding = GameBuildings.getBuildingById(benefit.targetBuilding);
+        finalDescription = finalDescription.replace("{b}", GameBuildings.getFormattedName(targetBuilding.name, 'gold', targetBuilding.getIcon()));
+      }
 
       return finalDescription != '' ? `<li>${finalDescription}</li>` : ''
     }).join("");
 
     let unlockLevel = '';
     const showDescription = upgrade.description.trim() != '';
-    const building = GameBuildings.getBuildingById(upgrade.id);
 
     if (building != null && tier.levelUp > building.level) {
       let buildingNameFormatted = langData.store.levelUp.replace("{b}", GameBuildings.getFormattedName(upgrade.name, 'gold', building.getIcon()));
