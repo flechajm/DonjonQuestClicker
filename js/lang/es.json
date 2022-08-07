@@ -760,7 +760,7 @@
     {
       "id": 10,
       "title": "Fan de Hogwarts",
-      "description": "Contrata a tu primera mago."
+      "description": "Contrata a tu primer mago."
     },
     {
       "id": 20,
@@ -773,6 +773,120 @@
       "description": "Mejora la Posada."
     }
   ],
+  "dictionaries": {
+    "reward": "🪙<span class='gold'>{g} de oro</span>.",
+    "posesives": ["su", "su"],
+    "kills": [
+      "asesinado",
+      "decapitado",
+      "torturado",
+      "cortado en dos",
+      "partido a la mitad",
+      "exterminado",
+      "incinerado",
+      "derrotado",
+      "tenido piedad contra",
+      "matado",
+      "hecho desaparecer"
+    ],
+    "folks": [
+      "un hombre lugareño",
+      "una mujer lugareña",
+      "un mago",
+      "un guerrero",
+      "un paladín",
+      "un sacerdote",
+      "un niño",
+      "una niña",
+      "un hombre desconocido",
+      "una mujer desconocida"
+    ],
+    "addressees": [
+      "un viejo amigo",
+      "una vieja amiga",
+      "una anciana misteriosa",
+      "un anciano misterioso",
+      "un hombre sospechoso",
+      "una mujer sospechosa",
+      "una vieja bruja",
+      "un viejo brujo",
+      "un hombre noble",
+      "una mujer noble"
+    ],
+    "deliverables": [
+      "un mensaje",
+      "una caja",
+      "una carta",
+      "una botella de whisky",
+      "una botella de ron",
+      "un regalo",
+      "una paloma mensajera",
+      "un paquete"
+    ],
+    "objects": [
+      "un cofre con oro",
+      "un montón de piedras preciosas",
+      "unos libros de hechicería realmente antiguos",
+      "un"
+    ],
+    "pets": [
+      "un gato",
+      "un perro",
+      "un conejo",
+      "un loro",
+      "una vaca",
+      "un caballo",
+      "un burro",
+      "un pato",
+      "un chancho",
+      "una obeja",
+      "una gallina"
+    ],
+    "locations": [
+      "un calabozo oscuro",
+      "una mazmorra tenebrosa",
+      "un bosque frondozo",
+      "un pasaje misterioso",
+      "una capilla siniestra",
+      "una iglesia abandonada",
+      "una choza antigua"
+    ],
+    "monsters": [
+      "una serpiente",
+      "una hormiga gigante",
+      "un murciélago",
+      "un oso",
+      "un zombie",
+      "un troll",
+      "un esqueleto caminante",
+      "un asesino",
+      "un hechicero arcano",
+      "una babosa",
+      "un lobo huargo",
+      "un orco brujo",
+      "un dragón enorme",
+      "una araña gigante",
+      "un jabalí fornido",
+      "un cuervo asesino",
+      "una momia lapidaria",
+      "un escarabajo acorazado",
+      "un escorpión gigante",
+      "un cíclope",
+      "un centinela",
+      "un enjambre de avispas asesinas",
+      "un enjambre de mosquitos chupa sangre",
+      "un goblin oscuro",
+      "una rana venenosa",
+      "un sapo venenoso",
+      "una mariposa gigante",
+      "un rebaño de gusanos"
+    ],
+    "quests": [
+      "⚔️ ¡Te has adentrado en {location} y has {kill} a {monster}!",
+      "👍 ¡Has ayudado a {folk} a enviar {deliverable} a {addressee}!",
+      "❤️ ¡Has rescatado {pet} y te has ganado el corazón de {folk}! Ahora está con su dueño."
+    ]
+  },
   "formatUnit": {
     "units": [
       " mil",
@@ -839,8 +953,8 @@
   },
   "console": {
     "achievmentUnlocked": "¡Logro desbloqueado!",
-    "buyBuilding": "<span class='console buy-building'>Has comprado <span>{b}</span> por <span>{g} de oro</span>.</span>",
-    "buyUpgradeToBuilding": "<span class='console buy-upgrade'>Has comprado una mejora de tipo <span style='color: var(--tier-{tc})'>{t}</span> para <span>{b}</span> por <span>{g} de oro</span>.</span>",
+    "buyBuilding": "<span class='console buy-building'>Has comprado <span>{b}</span> por 🪙<span>{g} de oro</span>.</span>",
+    "buyUpgradeToBuilding": "<span class='console buy-upgrade'>Has comprado una mejora de tipo <span style='color: var(--tier-{tc})'>{t}</span> para <span>{b}</span> por 🪙<span>{g} de oro</span>.</span>",
     "buildingLevelUp": "<span class='console levelUp'>🎉¡Felicitaciones, tu <span>{b}</span> ha subido de nivel! Ahora está en nivel {l}.</span>",
     "buildingUnlocked": "<span class='console building-unlocked'>✨Nuevo edificio desbloqueado: <span>{b}</span>.</span>"
   },
