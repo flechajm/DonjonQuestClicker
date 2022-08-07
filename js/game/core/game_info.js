@@ -32,7 +32,6 @@ class GameInfo {
    */
   static briefChanges = [
     [
-
       "Primera versión jugable.",
       "La consola ahora tiene un degradé de transparente a negro.",
       "Se agregaron misiones aleatorias con una probabilidad de 0.25% de que sucedan al hacer clic en el cofre.",
