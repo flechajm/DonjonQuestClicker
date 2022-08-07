@@ -20,17 +20,24 @@ class GameInfo {
   /**
    * Fecha de la última actualización del juego.
    */
-  static lastUpdate = "27 de Diciembre, 2021";
-
-  /**
-   * Descripción corta del último cambio.
-   */
-  static briefChanges = "First release";
+  static lastUpdate = "6 de Agosto, 2022";
 
   /**
    * Nombre del item del storage.
    */
   static storageName = "DonjonQuestClickerGame";
+
+  /**
+   * Descripción corta del último cambio.
+   */
+  static briefChanges = [
+    [
+
+      "Primera versión jugable.",
+      "La consola ahora tiene un degradé de transparente a negro.",
+      "Se agregaron misiones aleatorias con una probabilidad de 0.25% de que sucedan al hacer clic en el cofre.",
+    ],
+  ];
 }
 
 
