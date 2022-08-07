@@ -26,6 +26,12 @@
 
   --blink-shadow: 0;
 
+  --font-primary: "Century Gothic";
+  --font-secondary: "MorrisRoman";
+  --font-numbers: "Merriweather";
+  --font-tooltip: "Roboto Slab";
+  --font-primary-color: #ccc;
+
   --tier-handmade: grey;
   --tier-poor: aliceblue;
   --tier-very-common: #8eb6ff;
@@ -132,7 +138,7 @@ li {
   z-index: 9999;
 
   span {
-    font-family: "Century Gothic";
+    font-family: var(--font-primary);
     font-weight: 600;
   }
 }
@@ -149,8 +155,8 @@ html {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #ccc;
-  font-family: "Merriweather", Georgia, serif;
+  color: var(--font-primary-color);
+  font-family: var(--font-numbers);
   text-shadow: 2px 2px 4px #000;
   font-size: medium;
   height: 100vh;
@@ -175,7 +181,7 @@ html {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  font-family: "Roboto Slab";
+  font-family: var(--font-tooltip);
   font-size: medium;
   font-weight: bold;
   padding: 10px;
@@ -214,7 +220,7 @@ html {
       font-size: x-small;
       font-weight: bold;
       // font-family: Tahoma, Arial, sans-serif;
-      font-family: "Century Gothic";
+      font-family: var(--font-primary);
       margin-top: 2px;
 
       span.date {
@@ -236,7 +242,7 @@ html {
     color: var(--available);
     font-size: small;
     font-weight: normal;
-    font-family: "Merriweather";
+    font-family: var(--font-numbers);
 
     &.unavailable {
       color: var(--unavailable);
@@ -268,7 +274,7 @@ html {
   .content {
     margin-top: 10px;
     // font-family: Arial, Helvetica, sans-serif;
-    font-family: "Century Gothic";
+    font-family: var(--font-primary);
     font-weight: bold;
     font-size: 0.7rem;
     text-shadow: 1px 1px 2px #000, 3px 3px 4px var(--dark),
@@ -302,7 +308,7 @@ html {
   }
 
   .quote {
-    font-family: "MorrisRoman";
+    font-family: var(--font-secondary);
     font-size: 1rem;
     font-style: italic;
     color: grey;
@@ -362,7 +368,7 @@ html {
   }
 
   .title {
-    font-family: "Roboto Slab";
+    font-family: var(--font-tooltip);
     font-weight: bold;
     font-size: 1rem;
   }
@@ -427,6 +433,28 @@ html {
       color: var(--benefit);
     }
   }
+
+  &.random-quest {
+    color: #c4a56a;
+
+    span {
+      color: hsl(41, 97%, 57%);
+    }
+
+    // span {
+    //   &.helped {
+    //     color: #fcb928;
+    //   }
+
+    //   &.killed {
+    //     color: #c4a56a;
+    //   }
+
+    //   &.rescued {
+    //     color: #ff7d7d;
+    //   }
+    // }
+  }
 }
 
 .coins-info {
@@ -473,7 +501,7 @@ html {
       color: aliceblue;
       font-size: 12px;
       z-index: 1;
-      font-family: "Roboto Slab";
+      font-family: var(--font-tooltip);
     }
 
     .background {
@@ -573,7 +601,7 @@ html {
         white-space: nowrap;
 
         p {
-          font-family: "MorrisRoman";
+          font-family: var(--font-secondary);
           font-size: xxx-large;
           color: lightyellow;
         }
@@ -597,7 +625,7 @@ html {
           text-shadow: -1px 0px 3px rgba(0, 0, 0, 1);
           line-height: 0.8;
           white-space: nowrap;
-          font-family: "Century Gothic";
+          font-family: var(--font-primary);
           font-size: small;
           font-weight: bold;
           margin-top: 2px;
@@ -666,7 +694,7 @@ html {
         text-shadow: -1px 0px 3px rgba(0, 0, 0, 1);
         line-height: 0.8;
         white-space: nowrap;
-        font-family: "Century Gothic";
+        font-family: var(--font-primary);
 
         span {
           font-size: large;
@@ -704,7 +732,7 @@ html {
         background: url("../img/top_bar.jpg");
         background-position: center;
         background-size: cover;
-        font-family: "MorrisRoman";
+        font-family: var(--font-secondary);
         padding-bottom: 10px;
 
         &.big {
@@ -759,7 +787,7 @@ html {
           display: flex;
           flex-direction: column;
           font-size: 1.3rem;
-          font-family: "MorrisRoman";
+          font-family: var(--font-secondary);
 
           .container.upgrades {
             display: flex;
@@ -795,7 +823,7 @@ html {
           height: 60px;
           width: 100%;
           color: burlywood;
-          font-family: "Merriweather";
+          font-family: var(--font-numbers);
           font-size: 0.7rem;
           padding-top: 6px;
           opacity: 0.3;
@@ -1025,7 +1053,7 @@ html {
             margin-top: -5px;
 
             .building-name {
-              font-family: "MorrisRoman";
+              font-family: var(--font-secondary);
               font-size: 2.5rem;
               color: whitesmoke;
               z-index: 1;
@@ -1036,7 +1064,7 @@ html {
               margin-left: 25px;
               margin-top: -2px;
               font-size: small;
-              font-family: "Merriweather";
+              font-family: var(--font-numbers);
 
               &::before {
                 content: url("../img/coins.png");
@@ -1051,7 +1079,7 @@ html {
           .building-count-owned {
             position: absolute;
             right: 10px;
-            font-family: "MorrisRoman";
+            font-family: var(--font-secondary);
             font-size: xx-large;
             color: rgba(240, 255, 240, 0.4);
             margin-top: 30px;
@@ -1071,7 +1099,7 @@ html {
       right: 0;
       width: 100%;
       height: 170px;
-      background-color: rgba(0, 0, 0, 0.4);
+      background: linear-gradient(to bottom, transparent 0%, black 100%);
       border-radius: 6px 6px 0 0;
 
       .text {
@@ -1082,7 +1110,7 @@ html {
         overflow-y: scroll;
         overflow-x: hidden;
 
-        font-family: "Century Gothic";
+        font-family: var(--font-primary);
         font-size: 0.75rem;
         font-weight: bold;
         letter-spacing: 0.2px;
